@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const DEFAULT_AUTH_IMAGE =
-  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1600&q=85";
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=85";
 
 export function AuthShell({
   children,

@@ -58,17 +58,15 @@ export default function FaqsPage() {
                 General Questions
               </h2>
               <div className="mt-4 space-y-3">
-                <FaqItem question="What makes MAALEEN different from other fashion brands?">
-                  MAALEEN focuses on refined, timeless silhouettes with calm, modern
-                  tailoring. Every piece is designed to balance everyday comfort with
-                  understated elegance, using carefully selected fabrics and detail-driven
-                  construction instead of fast trends.
+                <FaqItem question="What kind of restaurant is MAALEEN?">
+                  MAALEEN is a Dhaka kitchen with a full menu: starters, mains,
+                  desserts, and drinks. The food is cooked to order for dine-in and
+                  delivery, with house spice levels you choose on each dish.
                 </FaqItem>
-                <FaqItem question="Where are MAALEEN garments made?">
-                  Our garments are designed and produced in Bangladesh with a strong
-                  emphasis on quality craftsmanship. We work closely with selected
-                  production partners to maintain consistent standards in fit, finishing,
-                  and fabric.
+                <FaqItem question="Where is the food prepared?">
+                  Every plate is cooked in our Uttara kitchen. We do not use a
+                  separate cloud kitchen. The same pass sends food to the dining
+                  room and into delivery boxes.
                 </FaqItem>
               </div>
             </section>
@@ -78,16 +76,15 @@ export default function FaqsPage() {
                 Product Information
               </h2>
               <div className="mt-4 space-y-3">
-                <FaqItem question="Does MAALEEN offer clothing for all genders?">
-                  Our primary focus is on carefully curated collections that reflect the
-                  MAALEEN aesthetic. Over time, we may expand into more categories, but
-                  each product line is introduced thoughtfully to maintain quality and
-                  consistency.
+                <FaqItem question="Can I choose spice level or portion?">
+                  Most dishes let you pick a style — mild, spicy, classic, or a
+                  listed variation — and a portion. The kitchen follows that choice
+                  when the order is fired.
                 </FaqItem>
-                <FaqItem question="Are your products ready-to-wear or custom-made?">
-                  Most MAALEEN pieces are ready-to-wear in standard sizes. For selected
-                  styles, we may offer custom or made-to-measure options, which will be
-                  clearly mentioned in the product details if available.
+                <FaqItem question="Do you cook for dietary requests?">
+                  Tell us at checkout if you need a dish without nuts, less sugar,
+                  or no onion. We will confirm if the kitchen can plate it that way
+                  before the order goes out.
                 </FaqItem>
               </div>
             </section>
@@ -99,7 +96,7 @@ export default function FaqsPage() {
               <div className="mt-4 space-y-3">
                 <FaqItem question="How can I place an order?">
                   You can place an order directly through our website by selecting your
-                  preferred size and adding items to the cart. Once you proceed to
+                  preferred portion and adding items to the cart. Once you proceed to
                   checkout, simply provide your shipping details, choose a payment method,
                   and confirm the order.
                 </FaqItem>

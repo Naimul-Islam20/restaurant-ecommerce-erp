@@ -24,7 +24,7 @@ export function CartView() {
           Your bag is empty
         </p>
         <p className="mt-2 text-sm text-stone-600">
-          Discover dresses and layers curated for the season.
+          Browse the menu and add a plate to your order.
         </p>
         <Link
           href="/shop"

@@ -17,38 +17,38 @@ export default function ReturnPolicyPage() {
             </h2>
 
             <h3 className="mt-3 text-sm font-semibold text-stone-900">
-              Ready-to-Wear Items
+              Standard menu items
             </h3>
             <p>
-              <span className="font-medium">Exchange Period:</span> Ready-to-wear items
-              are eligible for exchange within 7 days of delivery.
+              <span className="font-medium">Replacement window:</span> Report a wrong,
+              missing, or damaged dish within 2 hours of delivery.
             </p>
             <p>
-              <span className="font-medium">Return Condition:</span> Exchanges are
-              accepted only in cases of manufacturing defects. We do not accept returns
-              for refunds.
+              <span className="font-medium">What we replace:</span> We replace food that
+              arrives incorrect or unsafe to eat. We do not take opened meals back for a
+              refund after they have been accepted.
             </p>
-            <p className="mt-2">Product Condition Requirements: Items must be:</p>
+            <p className="mt-2">Please check that the order:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Unworn and unused</li>
-              <li>In original condition with tags intact</li>
-              <li>Free from stains, odors, alterations, or damage</li>
+              <li>Matches the dishes and portions on your receipt</li>
+              <li>Arrived sealed in the delivery pack</li>
+              <li>Was not left out of refrigeration for hours before you opened it</li>
             </ul>
             <p>
               Items that do not meet these conditions will not be eligible for exchange.
             </p>
 
             <h3 className="mt-5 text-sm font-semibold text-stone-900">
-              Custom-Made and Tailored Items
+              Custom spice and portion requests
             </h3>
             <p>
-              Due to their personalized nature, custom-made and tailored items are
-              non-returnable and non-exchangeable.
+              Dishes cooked to a spice level or portion you selected are prepared
+              for that order and are not remade for a change of mind.
             </p>
             <p className="mt-1">
-              However, if there is a clear fabrication defect or a fitting issue caused
-              by our production, please contact us immediately. We will assess the issue
-              and make reasonable efforts to resolve it.
+              If the kitchen sent a different dish from the one on your receipt,
+              contact us with a photo of the pack. We will replace it or confirm
+              the next step.
             </p>
           </section>
 

@@ -108,8 +108,8 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-2 text-sm leading-relaxed text-white/80">
-              A contemporary clothing brand defined by refined aesthetics,
-              purposeful design, and everyday wearability.
+              A Dhaka restaurant kitchen serving starters, mains, desserts,
+              and drinks for dine-in and delivery.
             </p>
             <p className="mt-4 text-sm font-bold leading-relaxed">
               House #1/A, Road #6, Sector #3

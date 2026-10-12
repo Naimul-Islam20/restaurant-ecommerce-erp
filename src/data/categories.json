@@ -1,6 +1,6 @@
 [
-  { "id": "dress", "label": "Dresses" },
-  { "id": "tops", "label": "Tops" },
-  { "id": "bottoms", "label": "Bottoms" },
-  { "id": "outerwear", "label": "Outerwear" }
+  { "id": "starters", "label": "Starters" },
+  { "id": "mains", "label": "Mains" },
+  { "id": "desserts", "label": "Desserts" },
+  { "id": "beverages", "label": "Beverages" }
 ]

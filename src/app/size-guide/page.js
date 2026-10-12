@@ -9,12 +9,12 @@ export default function SizeGuidePage() {
             Size Guide
           </h1>
           <p className="mt-3 text-sm sm:text-base text-stone-600">
-            Find your perfect fit with our detailed size chart.
+            Portions on the menu: S is a single plate, M is a regular serving, L and XL are for sharing.
           </p>
         </div>
         <img
-          src="size.jpg"
-          alt="Size guide chart"
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80"
+          alt="Maaleen dining table"
           className="block h-auto w-full rounded-md"
         />
       </Container>

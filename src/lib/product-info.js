@@ -1,76 +1,77 @@
 const CATEGORY_COPY = {
-  dress: {
-    detailSuffix: "Designed for graceful movement from day to evening.",
+  starters: {
+    detailSuffix: "Made to share at the start of the meal.",
     materials:
-      "Premium fabric blend with a soft hand-feel. Fully lined where noted. Maaleen signature finish on selected styles.",
+      "Prepared in the Maaleen kitchen with fresh produce, house spices, and chutneys on the side where noted.",
     care: [
-      "Dry clean or gentle hand wash recommended",
-      "Iron on low heat inside out",
-      "Store on a padded hanger to preserve shape",
-      "Avoid direct heat on embellished areas",
+      "Best eaten soon after delivery",
+      "Reheat in a pan or oven, not a microwave if the crust should stay crisp",
+      "Keep chutneys sealed until serving",
+      "Refrigerate leftovers within two hours",
     ],
   },
-  tops: {
-    detailSuffix: "A refined essential built for layering and everyday wear.",
+  mains: {
+    detailSuffix: "A full plate built for lunch or dinner.",
     materials:
-      "Natural fibre blend with breathable structure. Reinforced seams and matte finish buttons.",
+      "Slow-cooked or grilled to order. Rice, bread, or sides are included only when the dish description says so.",
     care: [
-      "Machine wash cold on gentle cycle",
-      "Do not bleach",
-      "Lay flat or hang to dry",
-      "Cool iron if needed",
+      "Serve hot",
+      "Reheat gently with a splash of water for gravies",
+      "Store rice and curry in separate containers",
+      "Consume within one day if refrigerated",
     ],
   },
-  bottoms: {
-    detailSuffix: "Tailored for comfort with a polished, modern line.",
+  desserts: {
+    detailSuffix: "A small sweet course after the main plates.",
     materials:
-      "Structured weave with comfortable stretch recovery. Pocket bags in cotton blend.",
+      "Baked or churned in house. Dairy and nuts are used unless the description says otherwise.",
     care: [
-      "Machine wash cold with similar colours",
-      "Turn inside out before washing",
-      "Hang dry to maintain crease",
-      "Steam or iron on medium heat",
+      "Keep chilled until serving, except warm cakes",
+      "Warm molten cakes for a few minutes before eating",
+      "Do not refreeze melted kulfi",
+      "Allergens are listed in the dish notes",
     ],
   },
-  outerwear: {
-    detailSuffix: "Trans-seasonal layering with quiet, confident structure.",
+  beverages: {
+    detailSuffix: "Poured cold or hot to go with the meal.",
     materials:
-      "Weather-ready shell with soft inner finish. Belt and hardware in brushed metal tone.",
+      "Brewed, blended, or pressed to order. Sugar level follows the style you choose.",
     care: [
-      "Professional dry clean recommended",
-      "Spot clean when possible",
-      "Store ventilated on a broad hanger",
-      "Do not tumble dry",
+      "Drink chilled drinks over ice",
+      "Hot drinks are best within 30 minutes",
+      "Shake lassi before opening",
+      "Do not leave dairy drinks in direct sun",
     ],
   },
 };
 
 function buildDetails(product, categoryCopy) {
   const colors =
-    product.colors?.map((color) => color.name).join(", ") || "signature tones";
-  const sizes = product.sizes?.join(", ") || "standard sizing";
+    product.colors?.map((color) => color.name).join(", ") || "house style";
+  const sizes = product.sizes?.join(", ") || "regular portion";
 
   return [
-    `${product.name} in ${colors} offers a clean, modern profile`,
+    `${product.name} is served in ${colors}`,
     categoryCopy.detailSuffix,
-    `Available in sizes ${sizes} for a considered fit`,
-    "Thoughtfully finished with Maaleen attention to detail",
-    "Versatile styling for formal settings and everyday wear",
-    "Designed for comfort, movement, and lasting wear",
+    `Portions available: ${sizes}`,
+    "Cooked in the Maaleen kitchen for delivery and dine-in orders",
+    "Spice and sweetness follow the style selected at checkout",
+    "Packed so the plate still tastes right when it arrives",
   ];
 }
 
 export function getProductInfo(product) {
-  const categoryCopy = CATEGORY_COPY[product.category] ?? CATEGORY_COPY.dress;
+  const categoryCopy =
+    CATEGORY_COPY[product.category] ?? CATEGORY_COPY.mains;
   const colorText =
-    product.colors?.map((color) => color.name).join(" and ") || "neutral palette";
+    product.colors?.map((color) => color.name).join(" and ") || "the house style";
 
   return {
-    preview: `The lightness of this ${product.category.replace("_", " ")} fabric grants ${product.name.toLowerCase()} a refined ease with natural drape and everyday polish.`,
+    preview: `${product.name} is a ${product.category.replace("_", " ")} from the Maaleen kitchen, finished in ${colorText.toLowerCase()} and packed for the table.`,
     moreParagraphs: [
       product.description,
-      `Finished in ${colorText}, this piece balances structure and softness for a calm, elevated look that moves effortlessly from morning plans to evening occasions.`,
-      "The Maaleen Collection comprises minimalistic, impeccable designs crafted from the world's finest materials.",
+      `Choose ${colorText.toLowerCase()} when you add it. The kitchen plates it the same way for delivery and for guests in the dining room.`,
+      "Maaleen serves a full restaurant menu — starters, mains, desserts, and drinks — from one Dhaka kitchen.",
     ],
     details: buildDetails(product, categoryCopy),
     materials: categoryCopy.materials,

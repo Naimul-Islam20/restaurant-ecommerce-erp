@@ -28,7 +28,7 @@ export function WishlistView() {
         <p className="mt-10 text-sm text-stone-500">Loading…</p>
       ) : items.length === 0 ? (
         <p className="mt-10 text-center text-sm text-stone-600">
-          Nothing saved yet. Tap the heart on a product to add it here.
+          Nothing saved yet. Tap the heart on a dish to add it here.
         </p>
       ) : (
         <ul className="mt-10 divide-y divide-stone-200 rounded-xl border border-stone-200 px-4 sm:px-5">

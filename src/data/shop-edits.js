@@ -2,10 +2,10 @@
  * Collection edit slugs — URLs use /collections/[slug]; label + filter live here.
  */
 export const SHOP_EDITS = {
-  "evening-silhouettes": { label: "Evening silhouettes", category: "dress" },
-  "outer-layers": { label: "Outer layers", category: "outerwear" },
-  "everyday-tops": { label: "Everyday tops", category: "tops" },
-  "tailored-bottoms": { label: "Tailored bottoms", category: "bottoms" },
+  "evening-silhouettes": { label: "Signature starters", category: "starters" },
+  "outer-layers": { label: "House mains", category: "mains" },
+  "everyday-tops": { label: "Sweet finishes", category: "desserts" },
+  "tailored-bottoms": { label: "Cool drinks", category: "beverages" },
   "new-arrivals": { label: "New arrivals", tag: "new" },
   "full-edit": { label: "The full edit" },
   sale: { label: "Sale", tag: "sale" },

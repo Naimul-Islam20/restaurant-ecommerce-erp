@@ -91,15 +91,15 @@ const FAVORITES_LIST = [
   },
 ];
 
-// Offers & Vouchers dataset related to Maaleen fashion store
+// Offers and vouchers for the Maaleen restaurant menu
 const OFFERS_DATA = [
   {
     id: "o1",
     tag: "20% OFF",
     badge: "WELCOME20",
     title: "On First Order",
-    description: "Use code WELCOME20 for an instant 20% discount on luxury fashion edits.",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80",
+    description: "Use code WELCOME20 for an instant 20% discount on your first restaurant order.",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
   },
   {
     id: "o2",
@@ -107,23 +107,23 @@ const OFFERS_DATA = [
     badge: "MEMBER",
     title: "Orders Over ৳3000",
     description: "Enjoy complimentary nationwide express delivery on orders exceeding ৳3000.",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80",
   },
   {
     id: "o3",
     tag: "10% OFF",
     badge: "LIMITED",
-    title: "Evening Collection",
-    description: "Selected evening silhouettes — exclusive limited weekly curated drop.",
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80",
+    title: "Dinner Plates",
+    description: "Selected house mains — a short list of featured plates this week.",
+    image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80",
   },
   {
     id: "o4",
     tag: "BUNDLE",
     badge: "EDITORIAL",
-    title: "Silk & Linen Edit",
-    description: "Pair everyday tops with tailored bottoms and enjoy exclusive bundle savings.",
-    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80",
+    title: "Meal for Two",
+    description: "Pair a main with a starter and a drink and save on the bundle.",
+    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80",
   },
 ];
 
@@ -1032,7 +1032,7 @@ function MobileDashboardHome({ onNavigate }) {
             Spend &amp; Earn! Get Rewards on Every Order.
           </p>
           <p className="mt-1 text-xs leading-relaxed text-stone-600">
-            Shop Maaleen edits and earn reward points on every checkout.
+              Order from the Maaleen menu and earn reward points on every checkout.
           </p>
         </div>
       </div>
@@ -1364,7 +1364,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
               Spend &amp; Earn! Get Rewards on Every Order.
             </h4>
             <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
-              Shop Maaleen fashion edits and earn reward points on every checkout.
+              Order from the Maaleen menu and earn reward points on every checkout.
             </p>
           </div>
         </div>
@@ -1376,7 +1376,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
               Start Tracking to Save!
             </h4>
             <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
-              Track active orders and set a wishlist budget to manage your style efficiently.
+              Track active orders and set a wishlist budget for your next meal.
             </p>
           </div>
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-xl shadow-xs">

@@ -7,7 +7,7 @@ import { HOME_COLLECTION_ITEMS } from "@/data/home-collection-slides";
 export const metadata = {
   title: "Collections",
   description:
-    "Explore Maaleen edits — evening silhouettes, outer layers, everyday tops, tailored bottoms, and more.",
+    "Explore the Maaleen menu — starters, mains, desserts, drinks, and more.",
 };
 
 export default function CollectionsPage() {

@@ -7,11 +7,11 @@ import { Container } from "@/components/layout/container";
 const iconClass = "h-8 w-8 text-[#b5b5b5]";
 
 const ITEMS = [
-  { label: "Returns & Exchange", icon: LuRefreshCcw },
+  { label: "Easy Reorder", icon: LuRefreshCcw },
   { label: "Cash on Delivery", icon: LuBanknote },
-  { label: "1,000+ Happy Customers", icon: LuSmile },
-  { label: "Worldwide Shipping", icon: LuGlobe },
-  { label: "Order Tracking System", icon: LuPackageSearch },
+  { label: "1,000+ Happy Guests", icon: LuSmile },
+  { label: "Dhaka Delivery", icon: LuGlobe },
+  { label: "Order Tracking", icon: LuPackageSearch },
 ];
 
 function PromiseCard({ item }) {

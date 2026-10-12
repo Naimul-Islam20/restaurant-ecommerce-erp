@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function SignupPage() {
   return (
-    <AuthShell imageAlt="Maaleen fashion editorial">
+    <AuthShell imageAlt="Maaleen dining room">
       <div className="w-full rounded-lg bg-[#efe4da] p-2.5 sm:p-5">
         <div className="rounded-lg bg-[var(--surface)] px-5 py-6 sm:px-6">
           <h1 className="font-[family-name:var(--font-display)] text-4xl text-stone-900 sm:text-5xl">

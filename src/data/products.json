@@ -1,190 +1,342 @@
 [
   {
     "id": "p1",
-    "slug": "aurora-linen-midi",
-    "name": "Aurora Linen Midi Dress",
-    "description": "Breathable linen blend with a relaxed silhouette and side slits. Ideal for city days and sunset plans.",
-    "price": 5200,
-    "compareAtPrice": 6200,
+    "slug": "crispy-chicken-samosa",
+    "name": "Crispy Chicken Samosa",
+    "description": "Golden pastry filled with spiced minced chicken, onion, and fresh coriander. Served with mint chutney.",
+    "price": 220,
+    "compareAtPrice": 280,
     "currency": "BDT",
-    "category": "dress",
+    "category": "starters",
     "tags": ["new", "featured", "sale"],
-    "sizes": ["S", "M", "L", "XL"],
+    "sizes": ["S", "M", "L"],
     "colors": [
-      { "name": "Sand", "hex": "#c4a574" },
-      { "name": "Sage", "hex": "#8b9a7d" }
+      { "name": "Mild", "hex": "#e8c39e" },
+      { "name": "Spicy", "hex": "#c45c26" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=900&q=80",
-      "https://images.unsplash.com/photo-1572804013309-59a698b7de04?w=900&q=80"
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=900&q=80",
+      "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=900&q=80"
     ]
   },
   {
     "id": "p2",
-    "slug": "noir-slip-maxi",
-    "name": "Noir Silk-Satin Slip Maxi",
-    "description": "Bias-cut maxi with adjustable straps. A quiet evening staple with a soft drape.",
-    "price": 6800,
+    "slug": "beef-seekh-kebab",
+    "name": "Beef Seekh Kebab",
+    "description": "Charcoal-grilled beef skewers with cumin, green chilli, and a squeeze of lemon.",
+    "price": 480,
     "currency": "BDT",
-    "category": "dress",
+    "category": "starters",
     "tags": ["featured"],
-    "sizes": ["XS", "S", "M", "L"],
+    "sizes": ["S", "M", "L"],
     "colors": [
-      { "name": "Black", "hex": "#1a1a1a" },
-      { "name": "Champagne", "hex": "#d4c4a8" }
+      { "name": "Classic", "hex": "#8b4513" },
+      { "name": "Hot", "hex": "#8b1e1e" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=900&q=80",
-      "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=900&q=80"
+      "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=900&q=80",
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&q=80"
     ]
   },
   {
     "id": "p3",
-    "slug": "ember-wrap-dress",
-    "name": "Ember Wrap Dress",
-    "description": "V-neck wrap with tie waist and flutter sleeve. Flattering on every frame.",
-    "price": 4950,
+    "slug": "roasted-tomato-soup",
+    "name": "Roasted Tomato Soup",
+    "description": "Slow-roasted tomatoes blended with basil and cream. Finished with a garlic crouton.",
+    "price": 260,
     "currency": "BDT",
-    "category": "dress",
+    "category": "starters",
     "tags": ["new"],
-    "sizes": ["S", "M", "L", "XL"],
+    "sizes": ["S", "M"],
     "colors": [
-      { "name": "Rust", "hex": "#a85c38" },
-      { "name": "Ivory", "hex": "#f5f0e8" }
+      { "name": "Creamy", "hex": "#e07a5f" },
+      { "name": "Herb", "hex": "#6b8f71" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1612336307429-947a7e3e8cfe?w=900&q=80",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80"
+      "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&q=80",
+      "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=900&q=80"
     ]
   },
   {
     "id": "p4",
-    "slug": "canvas-overshirt",
-    "name": "Canvas Overshirt",
-    "description": "Structured cotton overshirt with horn buttons. Layer over tees or dresses.",
-    "price": 3600,
+    "slug": "garden-caesar-salad",
+    "name": "Garden Caesar Salad",
+    "description": "Crisp romaine, parmesan, and house Caesar dressing. Add grilled chicken on request.",
+    "price": 340,
     "currency": "BDT",
-    "category": "tops",
+    "category": "starters",
     "tags": ["featured"],
-    "sizes": ["S", "M", "L", "XL"],
+    "sizes": ["S", "M", "L"],
     "colors": [
-      { "name": "Oat", "hex": "#d4c9b8" },
-      { "name": "Olive", "hex": "#5c6b54" }
+      { "name": "Garden", "hex": "#6b8f71" },
+      { "name": "Classic", "hex": "#c4a574" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=900&q=80",
-      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=900&q=80"
+      "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=900&q=80",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&q=80"
     ]
   },
   {
     "id": "p5",
-    "slug": "sable-knit-top",
-    "name": "Sable Rib Knit Top",
-    "description": "Fine rib crewneck with a slim fit. Your everyday base layer, elevated.",
-    "price": 2200,
+    "slug": "dhaka-kacchi-biryani",
+    "name": "Dhaka Kacchi Biryani",
+    "description": "Aged basmati layered with slow-cooked mutton, potato, and saffron. A full house plate.",
+    "price": 520,
+    "compareAtPrice": 620,
     "currency": "BDT",
-    "category": "tops",
-    "tags": ["new"],
-    "sizes": ["XS", "S", "M", "L", "XL"],
+    "category": "mains",
+    "tags": ["featured", "sale"],
+    "sizes": ["S", "M", "L", "XL"],
     "colors": [
-      { "name": "Charcoal", "hex": "#3d3d3d" },
-      { "name": "Cream", "hex": "#f0ebe3" }
+      { "name": "Mutton", "hex": "#a67c52" },
+      { "name": "Chicken", "hex": "#d4a017" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=900&q=80",
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=900&q=80"
+      "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=900&q=80",
+      "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=900&q=80"
     ]
   },
   {
     "id": "p6",
-    "slug": "tidal-wide-trousers",
-    "name": "Tidal Wide-Leg Trousers",
-    "description": "High-rise pleated trousers with a fluid leg. Pressed finish, side pockets.",
-    "price": 4100,
-    "compareAtPrice": 4800,
+    "slug": "butter-chicken",
+    "name": "Butter Chicken",
+    "description": "Tandoor chicken in a tomato-butter gravy. Served with naan or steamed rice.",
+    "price": 460,
     "currency": "BDT",
-    "category": "bottoms",
-    "tags": ["featured", "sale"],
+    "category": "mains",
+    "tags": ["new", "featured"],
     "sizes": ["S", "M", "L"],
     "colors": [
-      { "name": "Navy", "hex": "#1e2a3a" },
-      { "name": "Stone", "hex": "#b8b2a7" }
+      { "name": "Mild", "hex": "#e07a5f" },
+      { "name": "Medium", "hex": "#c45c26" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=900&q=80",
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=900&q=80"
+      "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=900&q=80",
+      "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=900&q=80"
     ]
   },
   {
     "id": "p7",
-    "slug": "pivot-denim-skirt",
-    "name": "Pivot Denim Midi Skirt",
-    "description": "A-line midi in mid-weight denim with back vent. Casual with polish.",
-    "price": 3150,
+    "slug": "grilled-river-fish",
+    "name": "Grilled River Fish",
+    "description": "Whole fish marinated in mustard and turmeric, grilled and served with salad and lime.",
+    "price": 690,
     "currency": "BDT",
-    "category": "bottoms",
+    "category": "mains",
     "tags": [],
-    "sizes": ["S", "M", "L", "XL"],
-    "colors": [{ "name": "Indigo", "hex": "#2f3d5c" }],
+    "sizes": ["M", "L"],
+    "colors": [{ "name": "Mustard", "hex": "#c4a035" }],
     "images": [
-      "https://images.unsplash.com/photo-1583496661160-fb5886a0aa0b?w=900&q=80"
+      "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=900&q=80",
+      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=900&q=80"
     ]
   },
   {
     "id": "p8",
-    "slug": "mist-trench",
-    "name": "Mist Lightweight Trench",
-    "description": "Water-resistant shell with belted waist and storm flap. Trans-seasonal.",
-    "price": 8900,
+    "slug": "house-beef-burger",
+    "name": "House Beef Burger",
+    "description": "Smashed beef patty, cheddar, pickles, and house sauce on a toasted bun. Fries on the side.",
+    "price": 420,
     "currency": "BDT",
-    "category": "outerwear",
-    "tags": ["new", "featured"],
-    "sizes": ["S", "M", "L", "XL"],
+    "category": "mains",
+    "tags": ["new"],
+    "sizes": ["S", "M", "L"],
     "colors": [
-      { "name": "Fog", "hex": "#c5c9ce" },
-      { "name": "Camel", "hex": "#a67c52" }
+      { "name": "Classic", "hex": "#5c3a21" },
+      { "name": "Cheese", "hex": "#f0c14b" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=900&q=80",
-      "https://images.unsplash.com/photo-1591047139829-f91fa182e570?w=900&q=80"
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&q=80",
+      "https://images.unsplash.com/photo-1550547660-d9450f859349?w=900&q=80"
     ]
   },
   {
     "id": "p9",
-    "slug": "vela-wool-coat",
-    "name": "Vela Wool Blend Coat",
-    "description": "Double-breasted coat with notch lapels. Warm without bulk.",
-    "price": 11200,
+    "slug": "wood-fired-margherita",
+    "name": "Wood-Fired Margherita",
+    "description": "San Marzano tomato, fresh mozzarella, and basil on a blistered crust.",
+    "price": 780,
     "currency": "BDT",
-    "category": "outerwear",
-    "tags": [],
-    "sizes": ["S", "M", "L"],
+    "category": "mains",
+    "tags": ["featured"],
+    "sizes": ["M", "L", "XL"],
     "colors": [
-      { "name": "Graphite", "hex": "#4a4a4a" },
-      { "name": "Camel", "hex": "#a67c52" }
+      { "name": "Classic", "hex": "#c44536" },
+      { "name": "Extra cheese", "hex": "#f5e6c8" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=900&q=80",
-      "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=900&q=80"
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80",
+      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=900&q=80"
     ]
   },
   {
     "id": "p10",
-    "slug": "solstice-shirt-dress",
-    "name": "Solstice Shirt Dress",
-    "description": "Crisp poplin shirt dress with belt. Desk to dinner in one piece.",
-    "price": 4450,
+    "slug": "chili-garlic-noodles",
+    "name": "Chili Garlic Noodles",
+    "description": "Wok-tossed egg noodles with vegetables, garlic, and a light soy glaze.",
+    "price": 360,
     "currency": "BDT",
-    "category": "dress",
+    "category": "mains",
     "tags": ["new"],
-    "sizes": ["S", "M", "L", "XL"],
+    "sizes": ["S", "M", "L"],
     "colors": [
-      { "name": "White", "hex": "#f8f6f2" },
-      { "name": "Sky", "hex": "#9eb6c8" }
+      { "name": "Veg", "hex": "#6b8f71" },
+      { "name": "Chicken", "hex": "#d4a574" }
     ],
     "images": [
-      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=900&q=80",
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80"
+      "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=900&q=80",
+      "https://images.unsplash.com/photo-1552611052-33e04de081de?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p11",
+    "slug": "molten-chocolate-cake",
+    "name": "Molten Chocolate Cake",
+    "description": "Warm chocolate cake with a liquid centre. Served with vanilla ice cream.",
+    "price": 320,
+    "compareAtPrice": 380,
+    "currency": "BDT",
+    "category": "desserts",
+    "tags": ["featured", "sale"],
+    "sizes": ["S", "M"],
+    "colors": [
+      { "name": "Dark", "hex": "#3d2314" },
+      { "name": "Milk", "hex": "#8b5a2b" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=900&q=80",
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p12",
+    "slug": "mango-kulfi",
+    "name": "Mango Kulfi",
+    "description": "Dense frozen mango dessert with pistachio and a cardamom finish.",
+    "price": 180,
+    "currency": "BDT",
+    "category": "desserts",
+    "tags": ["new"],
+    "sizes": ["S", "M"],
+    "colors": [{ "name": "Mango", "hex": "#f4a261" }],
+    "images": [
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=900&q=80",
+      "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p13",
+    "slug": "baked-cheesecake",
+    "name": "Baked Cheesecake",
+    "description": "New York-style cheesecake with a biscuit base and a light berry compote.",
+    "price": 340,
+    "currency": "BDT",
+    "category": "desserts",
+    "tags": ["featured"],
+    "sizes": ["S", "M", "L"],
+    "colors": [
+      { "name": "Plain", "hex": "#f3e6c8" },
+      { "name": "Berry", "hex": "#9b2335" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1533134486753-c833f0ed4866?w=900&q=80",
+      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p14",
+    "slug": "masala-chai",
+    "name": "Masala Chai",
+    "description": "Strong milk tea simmered with cardamom, ginger, and clove.",
+    "price": 80,
+    "currency": "BDT",
+    "category": "beverages",
+    "tags": ["featured"],
+    "sizes": ["S", "M"],
+    "colors": [
+      { "name": "Regular", "hex": "#c4a574" },
+      { "name": "Less sugar", "hex": "#d8c3a5" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=900&q=80",
+      "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p15",
+    "slug": "mango-lassi",
+    "name": "Mango Lassi",
+    "description": "Chilled yogurt blended with ripe mango. Sweet, thick, and refreshing.",
+    "price": 160,
+    "currency": "BDT",
+    "category": "beverages",
+    "tags": ["new", "featured"],
+    "sizes": ["S", "M", "L"],
+    "colors": [
+      { "name": "Sweet", "hex": "#f4a261" },
+      { "name": "Salted", "hex": "#e9c46a" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=900&q=80",
+      "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p16",
+    "slug": "iced-americano",
+    "name": "Iced Americano",
+    "description": "Double espresso poured over ice. Clean, bitter, and cold.",
+    "price": 180,
+    "currency": "BDT",
+    "category": "beverages",
+    "tags": [],
+    "sizes": ["S", "M", "L"],
+    "colors": [
+      { "name": "Black", "hex": "#3d2b1f" },
+      { "name": "With milk", "hex": "#d7ccc8" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&q=80",
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p17",
+    "slug": "fresh-lemonade",
+    "name": "Fresh Lemonade",
+    "description": "Pressed lemon, mint, and a touch of sugar over crushed ice.",
+    "price": 140,
+    "compareAtPrice": 180,
+    "currency": "BDT",
+    "category": "beverages",
+    "tags": ["sale", "new"],
+    "sizes": ["S", "M", "L"],
+    "colors": [
+      { "name": "Classic", "hex": "#f4e04d" },
+      { "name": "Mint", "hex": "#6b8f71" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?w=900&q=80",
+      "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=900&q=80"
+    ]
+  },
+  {
+    "id": "p18",
+    "slug": "tandoori-chicken",
+    "name": "Tandoori Chicken",
+    "description": "Yogurt-marinated chicken roasted until the edges char. Served with onion salad.",
+    "price": 540,
+    "currency": "BDT",
+    "category": "mains",
+    "tags": ["featured"],
+    "sizes": ["M", "L"],
+    "colors": [
+      { "name": "Half", "hex": "#c45c26" },
+      { "name": "Full", "hex": "#8b1e1e" }
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=900&q=80",
+      "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=900&q=80"
     ]
   }
 ]

@@ -6,17 +6,15 @@ export default function AboutUsPage() {
       </h1>
       <div className="mt-4 space-y-4 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
         <p>
-          Welcome to MAALEEN, a contemporary clothing brand defined by refined
-          aesthetics, purposeful design, and uncompromising craftsmanship. Every
-          MAALEEN piece is thoughtfully created to balance elegance with
-          everyday wearability, reflecting a modern sensibility rooted in
-          authenticity. For us, fashion is more than attire—it is a quiet
-          statement of confidence, identity, and intention.
+          Welcome to MAALEEN, a Dhaka restaurant kitchen defined by careful
+          cooking, familiar spices, and plates made to be shared. Every dish is
+          prepared for the table — starters, mains, desserts, and drinks — with
+          the same attention whether you dine in or order delivery.
         </p>
         <p>
-          At MAALEEN, we design for individuals who value subtle luxury and
-          timeless style. Our collections are meant to be lived in, remembered,
-          and revisited—season after season.
+          At MAALEEN, we cook for people who want a full meal without fuss.
+          The menu is meant to be ordered again: biryani on a weeknight, cake
+          after dinner, chai with the first course.
         </p>
       </div>
 
@@ -26,16 +24,14 @@ export default function AboutUsPage() {
             Our Vision
           </h2>
           <p className="mt-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            MAALEEN envisions a future where fashion is meaningful, mindful, and
-            enduring. We strive to create garments that transcend fleeting
-            trends and instead offer lasting relevance. Our vision is to empower
-            individuals through clothing that feels personal, expressive, and
-            effortlessly refined.
+            MAALEEN wants a restaurant people return to because the food is
+            consistent. We cook dishes that stay on the menu, not one-week
+            specials that disappear. The aim is a table that feels generous:
+            enough spice, enough portion, and a drink that matches the plate.
           </p>
           <p className="mt-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            We believe true style is not loud—it is intentional. Through clean
-            lines, balanced silhouettes, and thoughtful details, MAALEEN
-            provides a canvas for self-expression without excess.
+            Good cooking does not need a long speech. Clear flavours, hot food,
+            and a short menu done well — that is the MAALEEN table.
           </p>
         </section>
 
@@ -44,16 +40,14 @@ export default function AboutUsPage() {
             Our Craft
           </h2>
           <p className="mt-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            Craftsmanship is at the heart of MAALEEN. Each garment is the result
-            of careful design, premium material selection, and precise
-            construction. We blend traditional tailoring techniques with modern
-            design innovation to ensure every piece meets the highest standards
-            of quality and comfort.
+            The kitchen is the centre of MAALEEN. Each plate starts with the
+            same prep: fresh produce, measured spice, and a finish checked
+            before it leaves the pass. We use familiar techniques — dum, tandoor,
+            grill, and wok — so the food tastes like a restaurant, not a shortcut.
           </p>
           <p className="mt-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            From fabric sourcing to final finishing, every step is guided by
-            attention to detail. The result is clothing that feels as good as it
-            looks—durable, refined, and meticulously made.
+            From the first marinade to the box that goes out for delivery, the
+            goal is the same: food that still tastes right when it reaches you.
           </p>
         </section>
 
@@ -62,15 +56,13 @@ export default function AboutUsPage() {
             Sustainability Commitment
           </h2>
           <p className="mt-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            MAALEEN is committed to responsible and sustainable fashion. We are
-            conscious of our impact and continuously work to reduce our
-            environmental footprint through mindful sourcing, efficient
-            production methods, and long-lasting designs.
+            MAALEEN cooks in batches that match the day’s orders so less food
+            is wasted. We source produce and meat for the service in front of
+            us, and we pack delivery so gravies and crisp items stay separate.
           </p>
           <p className="mt-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            By prioritizing quality over quantity and longevity over trends, we
-            aim to contribute to a more thoughtful fashion ecosystem—one that
-            respects both people and the planet.
+            A shorter menu, cooked properly, is how we keep quality steady for
+            guests in the dining room and for orders across Dhaka.
           </p>
         </section>
       </div>

@@ -11,25 +11,25 @@ const AUTO_MS = 6000;
 const SLIDES = [
   {
     id: "1",
-    title: "Quiet luxury for every day",
+    title: "Dinner from the Maaleen kitchen",
     image:
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1920&q=85",
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=85",
     imageAlt: "",
     shopHref: "/shop",
   },
   {
     id: "2",
-    title: "Trans-seasonal trenches & coats",
+    title: "House mains, plated to order",
     image:
-      "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1920&q=85",
+      "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=1920&q=85",
     imageAlt: "",
     shopHref: buildShopEditHref("outer-layers"),
   },
   {
     id: "3",
-    title: "Fresh silhouettes for the city",
+    title: "New plates from the kitchen",
     image:
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1920&q=85",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=85",
     imageAlt: "",
     shopHref: buildShopEditHref("new-arrivals"),
   },

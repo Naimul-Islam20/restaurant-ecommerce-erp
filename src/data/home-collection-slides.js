@@ -7,39 +7,39 @@ export const HOME_COLLECTION_SLIDES = [
   {
     id: "s1",
     left: {
-      title: "Evening silhouettes",
+      title: "Signature starters",
       description:
-        "Fluid dresses and refined cuts for dinners, galleries, and nights that run late.",
+        "Samosas, kebabs, and soups to open the table before the main course.",
       href: buildShopEditHref("evening-silhouettes"),
       image:
-        "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=900&q=80",
+        "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=900&q=80",
     },
     right: {
-      title: "Outer layers",
+      title: "House mains",
       description:
-        "Trenches and coats that sharpen every outfit — rain or shine.",
+        "Biryani, grills, and wood-fired plates cooked for sharing or a full meal.",
       href: buildShopEditHref("outer-layers"),
       image:
-        "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=900&q=80",
+        "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=900&q=80",
     },
   },
   {
     id: "s2",
     left: {
-      title: "Everyday tops",
+      title: "Sweet finishes",
       description:
-        "Rib knits, crisp shirts, and soft bases you will reach for daily.",
+        "Warm cakes, kulfi, and cheesecake to close the meal.",
       href: buildShopEditHref("everyday-tops"),
       image:
-        "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=900&q=80",
+        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80",
     },
     right: {
-      title: "Tailored bottoms",
+      title: "Cool drinks",
       description:
-        "Wide-leg trousers and skirts with clean lines and easy movement.",
+        "Chai, lassi, iced coffee, and lemonade poured to order.",
       href: buildShopEditHref("tailored-bottoms"),
       image:
-        "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=900&q=80",
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=900&q=80",
     },
   },
   {
@@ -47,35 +47,35 @@ export const HOME_COLLECTION_SLIDES = [
     left: {
       title: "New arrivals",
       description:
-        "Fresh drops in limited quantities — curated for the season ahead.",
+        "Fresh plates added this week — limited portions from the kitchen.",
       href: buildShopEditHref("new-arrivals"),
       image:
-        "https://images.unsplash.com/photo-1612336307429-947a7e3e8cfe?w=900&q=80",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80",
     },
     right: {
-      title: "The full edit",
+      title: "The full menu",
       description:
-        "Browse dresses, tops, bottoms, and outerwear in one calm grid.",
+        "Browse starters, mains, desserts, and drinks in one list.",
       href: buildShopEditHref("full-edit"),
       image:
-        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80",
+        "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80",
     },
   },
   {
     id: "s4",
     left: {
       title: "Sale",
-      description: "Selected pieces, marked down for a short time.",
+      description: "Selected dishes marked down for a short time.",
       href: buildShopEditHref("sale"),
       image:
-        "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=80",
+        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&q=80",
     },
     right: {
       title: "Featured",
-      description: "The edits we keep coming back to this season.",
+      description: "The plates the kitchen keeps sending out first.",
       href: buildShopEditHref("featured"),
       image:
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80",
+        "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=900&q=80",
     },
   },
 ];

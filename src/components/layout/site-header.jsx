@@ -360,7 +360,7 @@ function navHrefIsActive(href, pathname, searchParams) {
     if (
       wantSlug === "evening-silhouettes" &&
       (pathname === "/shop" || pathname === "/products") &&
-      searchParams.get("category") === "dress"
+      searchParams.get("category") === "starters"
     ) {
       return true;
     }
@@ -576,7 +576,7 @@ export function SiteHeader() {
   }, []);
 
   const noticeItems = [
-    "New arrivals every Friday",
+    "Fresh plates from the kitchen every Friday",
     "Free shipping over BDT 3000",
     "Cash on Delivery available nationwide",
     "Flat 10% off on first order with code WELCOME10",

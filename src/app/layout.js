@@ -19,11 +19,11 @@ const dmSans = DM_Sans({
 export const metadata = {
   metadataBase: new URL("https://maaleen.example.com"),
   title: {
-    default: "Maaleen — Curated fashion",
+    default: "Maaleen — Restaurant menu",
     template: "%s | Maaleen",
   },
   description:
-    "Dresses and wardrobe pieces with calm, modern tailoring. Shop the collection.",
+    "Starters, mains, desserts, and drinks from the Maaleen kitchen. Order the menu.",
 };
 
 export default function RootLayout({ children }) {
