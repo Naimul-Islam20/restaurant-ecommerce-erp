@@ -7,9 +7,9 @@ export const SHOP_EDITS = {
   "everyday-tops": { label: "Sweet finishes", category: "desserts" },
   "tailored-bottoms": { label: "Cool drinks", category: "beverages" },
   "new-arrivals": { label: "New arrivals", tag: "new" },
-  "full-edit": { label: "The full edit" },
-  sale: { label: "Sale", tag: "sale" },
-  featured: { label: "Featured", tag: "featured" },
+  "full-edit": { label: "The full menu" },
+  sale: { label: "Today's offers", tag: "sale" },
+  featured: { label: "Chef's specials", tag: "featured" },
 };
 
 export function getShopEdit(slug) {

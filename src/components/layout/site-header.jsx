@@ -16,6 +16,18 @@ import { formatPrice } from "@/lib/format";
 import { getProductBySlug } from "@/lib/products";
 import { sizeOptionLabel } from "@/lib/size-chart";
 import { QuickAddModal } from "@/components/product/quick-add-modal";
+import {
+  LuBike,
+  LuBookOpen,
+  LuCalendarCheck,
+  LuClock,
+  LuHouse,
+  LuInfo,
+  LuMail,
+  LuMapPin,
+  LuPhone,
+  LuSparkles,
+} from "react-icons/lu";
 
 function HeartIcon({ className }) {
   return (
@@ -55,28 +67,6 @@ function BagIcon({ className }) {
   );
 }
 
-function TruckIcon({ className }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
-      <path d="M15 18H9" />
-      <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
-      <circle cx="17" cy="18" r="2" />
-      <circle cx="7" cy="18" r="2" />
-    </svg>
-  );
-}
-
 function UserIcon({ className }) {
   return (
     <svg
@@ -110,27 +100,6 @@ function HomeIcon({ className }) {
     >
       <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       <polyline points="9 22 9 12 15 12 15 22" />
-    </svg>
-  );
-}
-
-function CollectionsIcon({ className }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.25"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <rect x="3" y="3" width="7" height="7" rx="1" />
-      <rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" />
-      <rect x="14" y="14" width="7" height="7" rx="1" />
     </svg>
   );
 }
@@ -396,9 +365,19 @@ function navHrefIsActive(href, pathname, searchParams) {
   return false;
 }
 
+const MAIN_NAV = [
+  { href: "/", label: "Home" },
+  { href: "/shop", label: "Menu" },
+  { href: "/collections", label: "Specials" },
+  { href: "/about-us", label: "Our Story" },
+  { href: "/contact", label: "Contact" },
+];
+
 const navLinkClass = (active) =>
-  `text-sm font-medium transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-    active ? "text-white" : "text-white/85"
+  `relative py-1 text-[13px] font-semibold uppercase tracking-[0.18em] transition-colors hover:text-[var(--secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--secondary)] after:absolute after:left-1/2 after:-bottom-1 after:h-px after:-translate-x-1/2 after:bg-[var(--secondary)] after:transition-[width] after:duration-300 ${
+    active
+      ? "text-[var(--secondary)] after:w-full"
+      : "text-white/85 after:w-0 hover:after:w-full"
   }`;
 
 function MainNavLinks() {
@@ -407,22 +386,22 @@ function MainNavLinks() {
 
   return (
     <>
-      <Link
-        href="/collections"
-        className={navLinkClass(
-          navHrefIsActive("/collections", pathname, searchParams),
-        )}
-      >
-        Collections
-      </Link>
-      <Link
-        href="/shop"
-        className={navLinkClass(
-          navHrefIsActive("/shop", pathname, searchParams),
-        )}
-      >
-        Shop
-      </Link>
+      {MAIN_NAV.map((item) => {
+        const active =
+          item.href === "/shop" || item.href === "/collections"
+            ? navHrefIsActive(item.href, pathname, searchParams)
+            : pathname === item.href;
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={navLinkClass(active)}
+            aria-current={active ? "page" : undefined}
+          >
+            {item.label}
+          </Link>
+        );
+      })}
     </>
   );
 }
@@ -430,18 +409,20 @@ function MainNavLinks() {
 function MainNavFallback() {
   return (
     <>
-      <Link href="/shop" className="text-sm font-medium text-white/85">
-        Shop
-      </Link>
-      <Link href="/collections" className="text-sm font-medium text-white/85">
-        Collections
-      </Link>
-      <Link href="/cart" className="text-sm font-medium text-white/85">
-        Cart
-      </Link>
+      {MAIN_NAV.map((item) => (
+        <Link key={item.href} href={item.href} className={navLinkClass(false)}>
+          {item.label}
+        </Link>
+      ))}
     </>
   );
 }
+
+const headerIconBtn =
+  "relative h-10 w-10 items-center justify-center rounded-full text-[var(--secondary)] transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--secondary)]";
+
+const headerBadge =
+  "absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--secondary)] px-1 text-[9px] font-bold text-[var(--primary)]";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -468,8 +449,7 @@ export function SiteHeader() {
   const [wishlistOpen, setWishlistOpen] = useState(false);
   const [wishlistFromBottom, setWishlistFromBottom] = useState(true);
   const cartMounted = cartOpen;
-  const [anotherSizeProduct, setAnotherSizeProduct] = useState(null);
-  const [logoError, setLogoError] = useState(false);
+  const [quickAddProduct, setQuickAddProduct] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerCompact, setHeaderCompact] = useState(false);
@@ -575,15 +555,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const noticeItems = [
-    "Fresh plates from the kitchen every Friday",
-    "Free shipping over BDT 3000",
-    "Cash on Delivery available nationwide",
-    "Flat 10% off on first order with code WELCOME10",
-    "Exchange within 7 days (T&C apply)",
-    "International shipping now open for Australia",
-  ];
-  const noticeText = `Notice: ${noticeItems.join("  |  ")}`;
 
   const toggleSearch = () => {
     setSearchOpen((open) => {
@@ -684,56 +655,49 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[var(--primary)]">
-        <ChromeContainer>
-          <div
-            className={`relative flex items-center justify-end transition-[min-height] duration-300 ease-out ${
-              headerCompact
-                ? "min-h-16 sm:min-h-[4.5rem]"
-                : "min-h-[5.5rem] sm:min-h-[6.5rem]"
-            }`}
-          >
-            <div
-              className="absolute left-0 top-1/2 z-40 -translate-y-1/2"
-              ref={searchAreaRef}
-            >
-              <div className="flex items-center gap-2">
+      <header className="sticky top-0 z-40 border-b border-[var(--secondary)]/25 bg-[var(--primary)] shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
+        <div className="border-b border-white/10 bg-black/25 text-[var(--secondary)]">
+          <ChromeContainer>
+            <div className="flex h-9 items-center justify-between gap-3 text-[11px] font-medium tracking-wide sm:text-xs">
+              <div className="flex min-w-0 items-center gap-4 lg:gap-6">
+                <span className="inline-flex min-w-0 items-center gap-1.5">
+                  <LuClock className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  <span className="truncate">Open daily · 12 PM – 11 PM</span>
+                </span>
+                <a
+                  href="tel:+8801786493740"
+                  className="hidden items-center gap-1.5 transition-colors hover:text-white sm:inline-flex"
+                >
+                  <LuPhone className="h-3.5 w-3.5" aria-hidden />
+                  +88017 86 493 740
+                </a>
+                <span className="hidden items-center gap-1.5 lg:inline-flex">
+                  <LuMapPin className="h-3.5 w-3.5" aria-hidden />
+                  Uttara Sector 3, Dhaka
+                </span>
+              </div>
+              <div className="flex shrink-0 items-center gap-3 sm:gap-4">
                 <Link
                   href="/track-order"
-                  className="hidden sm:inline-flex items-center gap-2 rounded-md border border-[var(--secondary)]/70 px-3 py-1.5 text-xs font-semibold text-[var(--secondary)] transition-colors hover:border-[var(--secondary)] hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:px-3.5 lg:text-sm"
+                  className="hidden items-center gap-1.5 transition-colors hover:text-white sm:inline-flex"
                 >
-                  <TruckIcon className="h-4 w-4" />
-                  Track Order
+                  <LuBike className="h-3.5 w-3.5" aria-hidden />
+                  Track order
                 </Link>
-                <button
-                  type="button"
-                  onClick={toggleSearch}
-                  className="hidden sm:inline-flex min-h-10 min-w-10 items-center justify-center text-[var(--secondary)] transition-colors hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  aria-label={searchOpen ? "Close search" : "Search"}
-                  aria-expanded={searchOpen}
-                >
-                  {searchOpen ? (
-                    <CloseIcon className="h-6 w-6" />
-                  ) : (
-                    <SearchIcon className="h-6 w-6" />
-                  )}
-                </button>
-                <div
-                  className={searchOpen ? "relative hidden" : "relative"}
-                  ref={countryPopoverRef}
-                >
+                <span className="hidden h-3 w-px bg-white/20 sm:block" aria-hidden />
+                <div className="relative" ref={countryPopoverRef}>
                   <button
                     type="button"
                     onClick={() => setCountryOpen((open) => !open)}
                     aria-label="Select country"
                     aria-expanded={countryOpen}
-                    className="inline-flex h-7 items-center gap-1 rounded-full border border-[var(--background)] bg-[var(--background)] px-2 py-0.5 text-xs font-bold text-[var(--primary)] transition-colors hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-8 sm:px-2.5 sm:text-sm"
+                    className="inline-flex items-center gap-1 rounded-full py-0.5 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--secondary)]"
                   >
                     <span>{countryCode === "BD" ? "🇧🇩 BD" : "🇦🇺 AU"}</span>
-                    <ChevronDownIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    <ChevronDownIcon className="h-3.5 w-3.5" />
                   </button>
                   {countryOpen ? (
-                    <div className="absolute left-0 top-full z-40 mt-2 w-44 rounded-xl border border-[var(--background)] bg-[var(--background)] p-1.5 shadow-xl ring-1 ring-black/10">
+                    <div className="absolute right-0 top-full z-50 mt-2 w-44 rounded-xl border border-[var(--background)] bg-[var(--background)] p-1.5 shadow-xl ring-1 ring-black/10">
                       <button
                         type="button"
                         onClick={() => {
@@ -761,67 +725,99 @@ export function SiteHeader() {
                     </div>
                   ) : null}
                 </div>
-                {searchOpen ? (
-                  <motion.form
-                    action="/shop"
-                    method="get"
-                    role="search"
-                    aria-label="Search products"
-                    className="absolute left-12 top-1/2 z-50 hidden -translate-y-1/2 sm:block"
-                    initial={{
-                      opacity: 0,
-                      x: -18,
-                      clipPath: "inset(0 100% 0 0 round 9999px)",
-                    }}
-                    animate={{
-                      opacity: 1,
-                      x: 0,
-                      clipPath: "inset(0 0% 0 0 round 9999px)",
-                    }}
-                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <div className="relative">
-                      <input
-                        type="search"
-                        name="q"
-                        placeholder="Search products"
-                        className="h-11 w-[300px] rounded-full border border-white/35 bg-white/10 px-4 pr-24 text-base text-white placeholder:text-white/70 backdrop-blur-sm outline-none transition-colors focus:border-white lg:w-[420px]"
-                        autoFocus
-                      />
-                      <button
-                        type="submit"
-                        className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                      >
-                        Search
-                      </button>
-                    </div>
-                  </motion.form>
-                ) : null}
               </div>
             </div>
+          </ChromeContainer>
+        </div>
+
+        <ChromeContainer>
+          <div
+            className={`relative flex items-center justify-between gap-4 transition-[min-height] duration-300 ease-out ${
+              headerCompact ? "min-h-16" : "min-h-[4.5rem] sm:min-h-[5.25rem]"
+            }`}
+          >
             <Link
               href="/"
-              className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+              className="flex shrink-0 items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--secondary)] sm:gap-3"
+              aria-label="Maaleen home"
             >
               <Image
-                src={
-                  headerCompact
-                    ? "/Maaleen_New_Logo-2.png"
-                    : "/Maaleen_New_Logo-1.png"
-                }
-                alt="Maaleen"
-                width={headerCompact ? 160 : 340}
-                height={headerCompact ? 120 : 180}
+                src="/Maaleen_New_Logo-2.png"
+                alt=""
+                width={160}
+                height={120}
                 priority
                 className={`w-auto object-contain transition-[height] duration-300 ease-out ${
-                  headerCompact
-                    ? "h-12 sm:h-16"
-                    : "h-16 sm:h-[5.5rem]"
+                  headerCompact ? "h-8 sm:h-9" : "h-9 sm:h-11"
                 }`}
-                onError={() => setLogoError(true)}
               />
+              <span className="leading-none">
+                <span className="block font-[family-name:var(--font-display)] text-[1.45rem] font-semibold tracking-[0.24em] text-[var(--secondary)] sm:text-[1.75rem]">
+                  MAALEEN
+                </span>
+                <span className="mt-1 block text-[8.5px] font-semibold uppercase tracking-[0.34em] text-white/60 sm:text-[10px]">
+                  Kitchen &amp; Dining
+                </span>
+              </span>
             </Link>
-            <div className="relative z-20 flex items-center gap-1 sm:gap-2">
+
+            <nav
+              className="hidden items-center gap-8 lg:flex xl:gap-10"
+              aria-label="Main"
+            >
+              <Suspense fallback={<MainNavFallback />}>
+                <MainNavLinks />
+              </Suspense>
+            </nav>
+
+            <div className="relative z-20 flex items-center gap-0.5 sm:gap-1">
+              <div className="relative hidden sm:block" ref={searchAreaRef}>
+                <button
+                  type="button"
+                  onClick={toggleSearch}
+                  className={`${headerIconBtn} inline-flex`}
+                  aria-label={searchOpen ? "Close search" : "Search the menu"}
+                  aria-expanded={searchOpen}
+                >
+                  {searchOpen ? (
+                    <CloseIcon className="h-5 w-5" />
+                  ) : (
+                    <SearchIcon className="h-5 w-5" />
+                  )}
+                </button>
+                <AnimatePresence>
+                  {searchOpen ? (
+                    <motion.form
+                      action="/shop"
+                      method="get"
+                      role="search"
+                      aria-label="Search the menu"
+                      className="absolute right-0 top-full z-50 mt-3 w-[340px] rounded-2xl border border-stone-200 bg-[var(--surface-elevated)] p-2 shadow-xl ring-1 ring-black/5 lg:w-[400px]"
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <div className="relative">
+                        <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+                        <input
+                          type="search"
+                          name="q"
+                          placeholder="Search dishes, drinks…"
+                          className="h-11 w-full rounded-xl bg-stone-100 pl-10 pr-24 text-sm text-stone-900 placeholder:text-stone-500 outline-none focus:ring-2 focus:ring-[var(--secondary)]"
+                          autoFocus
+                        />
+                        <button
+                          type="submit"
+                          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg bg-[var(--primary)] px-3.5 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                        >
+                          Search
+                        </button>
+                      </div>
+                    </motion.form>
+                  ) : null}
+                </AnimatePresence>
+              </div>
               <div
                 className="relative hidden sm:block"
                 ref={wishlistPopoverRef}
@@ -835,13 +831,13 @@ export function SiteHeader() {
                     }
                     openWishlist();
                   }}
-                  className="inline-flex min-h-10 min-w-10 items-center justify-center text-[var(--secondary)] transition-colors hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  aria-label={`Wishlist, ${wishReady ? wishCount : 0} saved`}
+                  className={`${headerIconBtn} inline-flex`}
+                  aria-label={`Favourites, ${wishReady ? wishCount : 0} saved`}
                   aria-expanded={wishlistOpen}
                 >
-                  <HeartIcon className="h-6 w-6" />
+                  <HeartIcon className="h-5 w-5" />
                   {wishReady && wishCount > 0 ? (
-                    <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[9px] font-semibold text-[var(--primary)]">
+                    <span className={headerBadge}>
                       {wishCount > 99 ? "99+" : wishCount}
                     </span>
                   ) : null}
@@ -875,10 +871,14 @@ export function SiteHeader() {
                               key={item.productId}
                               className="flex items-center gap-3"
                             >
-                              <Link
-                                href={`/shop/${item.slug}`}
-                                className="flex min-w-0 flex-1 items-center gap-3"
-                                onClick={closeWishlist}
+                              <button
+                                type="button"
+                                className="flex min-w-0 flex-1 cursor-pointer items-center gap-3 text-left"
+                                onClick={() => {
+                                  const product = getProductBySlug(item.slug);
+                                  closeWishlist();
+                                  if (product) setQuickAddProduct(product);
+                                }}
                               >
                                 <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-stone-200">
                                   <ImageWithFallback
@@ -900,7 +900,7 @@ export function SiteHeader() {
                                     </div>
                                   </div>
                                 </div>
-                              </Link>
+                              </button>
                               <button
                                 type="button"
                                 aria-label="Remove from wishlist"
@@ -934,27 +934,34 @@ export function SiteHeader() {
               <button
                 type="button"
                 onClick={openCart}
-                className="relative hidden sm:inline-flex min-h-10 min-w-10 items-center justify-center text-[var(--secondary)] transition-colors hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                aria-label={`Shopping bag, ${ready ? totalItems : 0} items`}
+                className={`${headerIconBtn} hidden sm:inline-flex`}
+                aria-label={`Your order, ${ready ? totalItems : 0} items`}
               >
-                <BagIcon className="h-6 w-6" />
+                <BagIcon className="h-5 w-5" />
                 {ready && totalItems > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[9px] font-semibold text-[var(--primary)]">
+                  <span className={headerBadge}>
                     {totalItems > 99 ? "99+" : totalItems}
                   </span>
                 ) : null}
               </button>
               <Link
                 href={accountHref}
-                className="hidden sm:inline-flex min-h-10 min-w-10 items-center justify-center text-[var(--secondary)] transition-colors hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className={`${headerIconBtn} hidden sm:inline-flex`}
                 aria-label={isAuthenticated ? "My account" : "Login / Account"}
               >
-                <UserIcon className="h-6 w-6" />
+                <UserIcon className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/contact"
+                className="ml-2 hidden items-center gap-2 rounded-full bg-[var(--secondary)] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--primary)] shadow-sm transition-colors hover:bg-[#d4b08a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:inline-flex"
+              >
+                <LuCalendarCheck className="h-4 w-4" aria-hidden />
+                Book a table
               </Link>
               <button
                 type="button"
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="inline-flex sm:hidden min-h-10 min-w-10 items-center justify-center text-[var(--secondary)] transition-colors hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className={`${headerIconBtn} inline-flex sm:hidden`}
                 aria-label="Toggle menu"
                 aria-expanded={menuOpen}
               >
@@ -972,7 +979,7 @@ export function SiteHeader() {
                   action="/shop"
                   method="get"
                   role="search"
-                  aria-label="Search products"
+                  aria-label="Search the menu"
                   initial={{ opacity: 0, y: -12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
@@ -991,7 +998,7 @@ export function SiteHeader() {
                     <input
                       type="search"
                       name="q"
-                      placeholder="Search products"
+                      placeholder="Search dishes, drinks…"
                       autoFocus
                       className="h-11 w-full rounded-full border border-white/35 bg-white/10 px-4 pr-24 text-sm text-white placeholder:text-white/70 backdrop-blur-sm outline-none transition-colors focus:border-white"
                     />
@@ -1008,7 +1015,7 @@ export function SiteHeader() {
           </div>
 
           <nav
-            className="hidden sm:flex flex-wrap items-center justify-center gap-x-8 gap-y-2 border-t border-white/20 py-3 sm:gap-x-12"
+            className="hidden items-center justify-center gap-x-7 border-t border-white/10 py-2.5 sm:flex lg:hidden"
             aria-label="Main"
           >
             <Suspense fallback={<MainNavFallback />}>
@@ -1016,21 +1023,6 @@ export function SiteHeader() {
             </Suspense>
           </nav>
         </ChromeContainer>
-        <div className="relative w-full border-t border-stone-200 bg-white py-2">
-          <div className="maaleen-header-ticker overflow-hidden">
-            <div className="maaleen-header-ticker-track flex min-w-max items-center">
-              <p className="shrink-0 whitespace-nowrap pr-10 text-xs font-normal tracking-wide text-[var(--primary)] sm:text-sm">
-                {noticeText}
-              </p>
-              <p
-                aria-hidden
-                className="shrink-0 whitespace-nowrap pr-10 text-xs font-normal tracking-wide text-[var(--primary)] sm:text-sm"
-              >
-                {noticeText}
-              </p>
-            </div>
-          </div>
-        </div>
       </header>
       <AnimatePresence>
         {wishlistOpen && wishlistFromBottom && (
@@ -1083,10 +1075,14 @@ export function SiteHeader() {
                         key={item.productId}
                         className="flex items-center gap-3"
                       >
-                        <Link
-                          href={`/shop/${item.slug}`}
-                          className="flex min-w-0 flex-1 items-center gap-3"
-                          onClick={closeWishlist}
+                        <button
+                          type="button"
+                          className="flex min-w-0 flex-1 cursor-pointer items-center gap-3 text-left"
+                          onClick={() => {
+                            const product = getProductBySlug(item.slug);
+                            closeWishlist();
+                            if (product) setQuickAddProduct(product);
+                          }}
                         >
                           <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-stone-200">
                             <ImageWithFallback
@@ -1108,7 +1104,7 @@ export function SiteHeader() {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </button>
                         <button
                           type="button"
                           aria-label="Remove from wishlist"
@@ -1198,10 +1194,7 @@ export function SiteHeader() {
                             <p className="min-w-0 flex-1 text-sm leading-snug font-medium text-stone-900">
                               {line.name}
                             </p>
-                            <Link
-                              href={`/shop/${line.slug}`}
-                              onClick={closeCart}
-                              className="relative h-16 w-14 shrink-0 overflow-hidden bg-stone-100"
+                            <div className="relative h-16 w-14 shrink-0 overflow-hidden bg-stone-100"
                             >
                               <ImageWithFallback
                                 src={line.image}
@@ -1211,7 +1204,7 @@ export function SiteHeader() {
                                 fallbackClassName="flex h-full w-full items-center justify-center bg-stone-200 text-stone-500"
                                 fallbackLabelClassName="text-[8px] font-semibold uppercase tracking-[0.12em]"
                               />
-                            </Link>
+                            </div>
                           </div>
                           <div className="mt-2 grid grid-cols-[5.5rem_1fr] items-center gap-y-2 text-xs text-stone-700">
                             <span>Price</span>
@@ -1223,9 +1216,9 @@ export function SiteHeader() {
                               ) : null}
                               {formatPrice(line.price, line.currency)}
                             </span>
-                            <span>Size</span>
+                            <span>Portion</span>
                             <select
-                              aria-label={`Size for ${line.name}`}
+                              aria-label={`Portion for ${line.name}`}
                               value={line.size}
                               onChange={(event) =>
                                 changeSize(line.lineId, event.target.value)
@@ -1234,7 +1227,7 @@ export function SiteHeader() {
                             >
                               {sizes.map((size) => (
                                 <option key={size} value={size}>
-                                  {sizeOptionLabel(size, product?.category)}
+                                  {sizeOptionLabel(size)}
                                 </option>
                               ))}
                             </select>
@@ -1268,7 +1261,7 @@ export function SiteHeader() {
                             <button
                               type="button"
                               onClick={() => {
-                                if (product) setAnotherSizeProduct(product);
+                                if (product) setQuickAddProduct(product);
                               }}
                               disabled={!product}
                               className="flex-1 rounded-sm bg-[var(--primary)] py-2 text-sm font-medium text-white disabled:opacity-40"
@@ -1311,10 +1304,10 @@ export function SiteHeader() {
           </div>
         )}
       </AnimatePresence>
-      {anotherSizeProduct ? (
+      {quickAddProduct ? (
         <QuickAddModal
-          product={anotherSizeProduct}
-          onClose={() => setAnotherSizeProduct(null)}
+          product={quickAddProduct}
+          onClose={() => setQuickAddProduct(null)}
         />
       ) : null}
 
@@ -1340,16 +1333,19 @@ export function SiteHeader() {
                   <Link
                     href="/"
                     onClick={() => setMenuOpen(false)}
-                    className="inline-flex h-12 w-44 max-w-[70%] items-center justify-center"
+                    className="inline-flex h-12 max-w-[75%] items-center justify-center"
                     aria-label="Maaleen"
                   >
                     <Image
-                      src="/Maaleen_New_Logo-1.png"
+                      src="/Maaleen_New_Logo-2.png"
                       alt=""
-                      width={176}
-                      height={48}
-                      className="h-12 w-auto object-contain"
+                      width={160}
+                      height={120}
+                      className="h-9 w-auto object-contain"
                     />
+                    <span className="ml-2.5 font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[0.24em] text-[var(--secondary)]">
+                      MAALEEN
+                    </span>
                   </Link>
                   <button
                     onClick={() => setMenuOpen(false)}
@@ -1399,46 +1395,25 @@ export function SiteHeader() {
                 </div>
                 <nav className="flex-1 overflow-y-auto px-6 py-8">
                   <ul className="space-y-6">
-                    <li>
-                      <Link
-                        href="/"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-3 text-[17px] font-medium text-stone-900 transition-colors hover:text-[var(--accent)]"
-                      >
-                        <HomeIcon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" />
-                        Home
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/collections"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-3 text-[17px] font-medium text-stone-900 transition-colors hover:text-[var(--accent)]"
-                      >
-                        <CollectionsIcon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" />
-                        Collections
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/shop"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-3 text-[17px] font-medium text-stone-900 transition-colors hover:text-[var(--accent)]"
-                      >
-                        <BagIcon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" />
-                        Shop
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/track-order"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-3 text-[17px] font-medium text-stone-900 transition-colors hover:text-[var(--accent)]"
-                      >
-                        <TruckIcon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" />
-                        Track Order
-                      </Link>
-                    </li>
+                    {[
+                      { href: "/", label: "Home", Icon: LuHouse },
+                      { href: "/shop", label: "Menu", Icon: LuBookOpen },
+                      { href: "/collections", label: "Specials", Icon: LuSparkles },
+                      { href: "/about-us", label: "Our Story", Icon: LuInfo },
+                      { href: "/contact", label: "Contact", Icon: LuMail },
+                      { href: "/track-order", label: "Track Order", Icon: LuBike },
+                    ].map(({ href, label, Icon }) => (
+                      <li key={href}>
+                        <Link
+                          href={href}
+                          onClick={() => setMenuOpen(false)}
+                          className="flex items-center gap-3 text-[17px] font-medium text-stone-900 transition-colors hover:text-[var(--accent)]"
+                        >
+                          <Icon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" aria-hidden />
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
 
                   <div className="my-6 border-b border-stone-200" />
@@ -1454,15 +1429,33 @@ export function SiteHeader() {
                         className="flex items-center gap-3 text-[17px] font-medium text-stone-900 transition-colors hover:text-[var(--accent)]"
                       >
                         <HeartIcon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" />
-                        My Wishlist
+                        My Favourites
                       </Link>
                     </li>
                   </ul>
                 </nav>
-                <div className="border-t border-stone-100 bg-[var(--background)] p-6">
-                  <p className="text-xs text-stone-400 font-medium tracking-wide">
-                    © {new Date().getFullYear()} Maaleen.
-                  </p>
+                <div className="space-y-4 border-t border-stone-200 bg-[var(--background)] p-6">
+                  <div className="space-y-1.5 text-sm text-stone-600">
+                    <p className="flex items-center gap-2">
+                      <LuClock className="h-4 w-4 text-[var(--primary)]" aria-hidden />
+                      Open daily · 12 PM – 11 PM
+                    </p>
+                    <a
+                      href="tel:+8801786493740"
+                      className="flex items-center gap-2 hover:text-[var(--accent)]"
+                    >
+                      <LuPhone className="h-4 w-4 text-[var(--primary)]" aria-hidden />
+                      +88017 86 493 740
+                    </a>
+                  </div>
+                  <Link
+                    href="/contact"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--primary)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--secondary)]"
+                  >
+                    <LuCalendarCheck className="h-4 w-4" aria-hidden />
+                    Book a table
+                  </Link>
                 </div>
               </div>
             </motion.aside>

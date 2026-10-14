@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { sizeOptionLabel } from "@/lib/size-chart";
 import { useCart } from "@/contexts/cart-context";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 import { formatPrice } from "@/lib/format";
@@ -44,8 +45,7 @@ export function CartView() {
             key={line.lineId}
             className="flex gap-4 rounded-xl border border-stone-200 bg-[var(--surface-elevated)] p-4 shadow-sm"
           >
-            <Link
-              href={`/shop/${line.slug}`}
+            <div
               className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-stone-200 sm:h-32 sm:w-28"
             >
               <ImageWithFallback
@@ -58,16 +58,11 @@ export function CartView() {
                   fallbackSubLabel="no image"
                   fallbackSubLabelClassName="text-[8px] font-medium uppercase tracking-[0.18em] text-stone-400"
                 />
-            </Link>
+            </div>
             <div className="min-w-0 flex-1">
-              <Link
-                href={`/shop/${line.slug}`}
-                className="font-medium text-stone-900 hover:text-[var(--accent)]"
-              >
-                {line.name}
-              </Link>
+              <p className="font-medium text-stone-900">{line.name}</p>
               <p className="mt-1 text-xs text-stone-500">
-                {line.size} · {line.color}
+                {sizeOptionLabel(line.size)} · {line.color}
               </p>
               <p className="mt-2 text-sm text-stone-800">
                 {formatPrice(line.price, line.currency)} each

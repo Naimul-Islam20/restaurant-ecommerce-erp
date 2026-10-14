@@ -1,46 +1,92 @@
-import { CollectionsMosaic } from "@/components/collections/collections-mosaic";
-import { CollectionsMobileSlider } from "@/components/collections/collections-mobile-slider";
+import {
+  MenuCategoryGrid,
+  MenuDivider,
+  MenuHighlightGrid,
+} from "@/components/collections/menu-collections";
 import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { HOME_COLLECTION_ITEMS } from "@/data/home-collection-slides";
+import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 
 export const metadata = {
-  title: "Collections",
+  title: "Specials & Collections",
   description:
-    "Explore the Maaleen menu — starters, mains, desserts, drinks, and more.",
+    "Explore the Maaleen menu — starters, mains, desserts, drinks, chef's specials and today's offers.",
 };
 
-export default function CollectionsPage() {
-  const items = HOME_COLLECTION_ITEMS;
-
+function SectionHeading({ eyebrow, title, children }) {
   return (
-    <div className="border-b border-stone-200 bg-[var(--surface)]">
-      <Container className="py-10 sm:py-14 lg:py-16">
-        <div className="text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
-            See What&apos;s New
-          </p>
-          <h1 className="mt-3 font-[family-name:var(--font-display)] text-3xl tracking-tight text-stone-900 sm:text-4xl">
-            Collection
-          </h1>
-          <div className="mt-5 flex justify-center">
-            <Breadcrumbs
-              items={[
-                { href: "/", label: "Home" },
-                { href: "/collections", label: "Collections", current: true },
-              ]}
-            />
-          </div>
-        </div>
-        <div
-          aria-hidden
-          className="mt-6 w-screen max-w-none border-b border-stone-200 sm:mt-10 ml-[calc(50%-50vw)]"
+    <div className="mx-auto max-w-xl text-center">
+      <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
+        {eyebrow}
+      </p>
+      <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-semibold text-stone-900 sm:text-4xl">
+        {title}
+      </h2>
+      <MenuDivider className="mt-4" />
+      {children ? (
+        <p className="mt-4 text-sm leading-relaxed text-stone-600 sm:text-base">
+          {children}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+export default function CollectionsPage() {
+  return (
+    <div className="bg-[var(--surface)]">
+      <section className="relative isolate overflow-hidden bg-[var(--primary)]">
+        <ImageWithFallback
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80"
+          alt=""
+          priority
+          sizes="100vw"
+          imageClassName="object-cover opacity-35"
         />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--primary)]/40 via-[var(--primary)]/60 to-[var(--primary)]"
+          aria-hidden
+        />
+        <Container className="relative py-16 text-center sm:py-24">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
+            Our specials
+          </p>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-semibold text-white sm:text-5xl lg:text-6xl">
+            Menu Collections
+          </h1>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/75 sm:text-base">
+            Pick a course, try what the chef recommends today, or catch an
+            offer before it&apos;s gone.
+          </p>
+        </Container>
+      </section>
 
-        <CollectionsMobileSlider items={items} />
-
-        <CollectionsMosaic items={items} className="mt-12" />
+      <Container className="pt-5">
+        <Breadcrumbs
+          items={[
+            { href: "/", label: "Home" },
+            { href: "/collections", label: "Specials", current: true },
+          ]}
+        />
       </Container>
+
+      <Container className="py-12 sm:py-16">
+        <SectionHeading eyebrow="Browse the menu" title="All Categories">
+          Every course, the chef&apos;s specials, new dishes and today&apos;s
+          offers — pick where to start.
+        </SectionHeading>
+        <MenuCategoryGrid withCollections className="mt-10 sm:mt-14" />
+      </Container>
+
+      <div className="border-y border-stone-200 bg-[var(--background)]/60">
+        <Container className="py-12 sm:py-16">
+          <SectionHeading eyebrow="Chef recommends" title="Specials & Offers">
+            Dishes the kitchen is proud of, new plates this week, and
+            favourites at a lighter price.
+          </SectionHeading>
+          <MenuHighlightGrid className="mt-10 sm:mt-14" />
+        </Container>
+      </div>
     </div>
   );
 }

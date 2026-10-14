@@ -136,7 +136,7 @@ button:not([class*="rounded-"]) {
 
 @media (min-width: 1024px) {
   .maaleen-products-embla-slide {
-    flex-basis: calc((100cqi - 6rem) / 5);
+    flex-basis: calc((100cqi - 4.5rem) / 4);
   }
 }
 
@@ -172,30 +172,6 @@ button:not([class*="rounded-"]) {
     height: calc(4rem + env(safe-area-inset-bottom, 0px));
     background-color: var(--primary);
     pointer-events: none;
-  }
-}
-
-@keyframes maaleen-header-ticker {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.maaleen-header-ticker-track {
-  animation: maaleen-header-ticker 28s linear infinite;
-  will-change: transform;
-}
-
-.maaleen-header-ticker:hover .maaleen-header-ticker-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .maaleen-header-ticker-track {
-    animation: none;
   }
 }
 

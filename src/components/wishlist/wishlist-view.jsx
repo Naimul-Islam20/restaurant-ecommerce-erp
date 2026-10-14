@@ -1,13 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 import { useWishlist } from "@/contexts/wishlist-context";
 import { formatPrice } from "@/lib/format";
+import { getProductBySlug } from "@/lib/products";
+import { QuickAddModal } from "@/components/product/quick-add-modal";
 
 export function WishlistView() {
   const { items, ready, removeItem } = useWishlist();
+  const [quickAddProduct, setQuickAddProduct] = useState(null);
+
+  function openQuickAdd(slug) {
+    const product = getProductBySlug(slug);
+    if (product) setQuickAddProduct(product);
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14">
@@ -37,9 +46,11 @@ export function WishlistView() {
               key={item.productId}
               className="flex gap-4 py-5 sm:gap-5"
             >
-              <Link
-                href={`/shop/${item.slug}`}
-                className="relative h-28 w-20 shrink-0 overflow-hidden rounded-lg bg-stone-200 sm:h-32 sm:w-24"
+              <button
+                type="button"
+                onClick={() => openQuickAdd(item.slug)}
+                aria-label={`View ${item.name}`}
+                className="relative h-28 cursor-pointer w-20 shrink-0 overflow-hidden rounded-lg bg-stone-200 sm:h-32 sm:w-24"
               >
                 <ImageWithFallback
                     src={item.image}
@@ -51,14 +62,15 @@ export function WishlistView() {
                     fallbackSubLabel="no image"
                     fallbackSubLabelClassName="text-[8px] font-medium uppercase tracking-[0.18em] text-stone-400"
                   />
-              </Link>
+              </button>
               <div className="min-w-0 flex-1">
-                <Link
-                  href={`/shop/${item.slug}`}
-                  className="font-medium text-stone-900 hover:text-[var(--accent)]"
+                <button
+                  type="button"
+                  onClick={() => openQuickAdd(item.slug)}
+                  className="cursor-pointer text-left font-medium text-stone-900 hover:text-[var(--accent)]"
                 >
                   {item.name}
-                </Link>
+                </button>
                 <p className="mt-1 text-sm text-stone-700">
                   {formatPrice(item.price, item.currency)}
                 </p>
@@ -81,6 +93,12 @@ export function WishlistView() {
       >
         Browse shop
       </Link>
+      {quickAddProduct ? (
+        <QuickAddModal
+          product={quickAddProduct}
+          onClose={() => setQuickAddProduct(null)}
+        />
+      ) : null}
     </div>
   );
 }

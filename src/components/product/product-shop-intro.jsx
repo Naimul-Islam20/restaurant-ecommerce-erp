@@ -20,7 +20,7 @@ export function ProductShopIntro() {
     return (
       <div className="text-center">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
-          See What&apos;s New
+          From our kitchen
         </p>
         <h1 className="mt-3 font-[family-name:var(--font-display)] text-3xl tracking-tight text-stone-900 sm:text-4xl">
           {edit.label}
@@ -29,7 +29,7 @@ export function ProductShopIntro() {
           <Breadcrumbs
             items={[
               { href: "/", label: "Home" },
-              { href: "/collections", label: "Collections" },
+              { href: "/collections", label: "Specials" },
               {
                 href: buildShopEditHref(editSlug),
                 label: edit.label,
@@ -45,17 +45,16 @@ export function ProductShopIntro() {
   return (
     <div className="text-center">
       <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
-        See What&apos;s New
+        From our kitchen
       </p>
       <h1 className="mt-3 font-[family-name:var(--font-display)] text-3xl tracking-tight text-stone-900 sm:text-4xl">
-        Shop
+        Our Menu
       </h1>
       <div className="mt-5 flex justify-center">
         <Breadcrumbs
           items={[
             { href: "/", label: "Home" },
-            { href: "/collections", label: "Collections" },
-            { href: "/shop", label: "Shop", current: true },
+            { href: "/shop", label: "Menu", current: true },
           ]}
         />
       </div>

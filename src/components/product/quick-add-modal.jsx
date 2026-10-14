@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { LuMinus, LuPlus } from "react-icons/lu";
 import { useCart } from "@/contexts/cart-context";
 import { useToast } from "@/contexts/toast-context";
-import { SIZE_MEASUREMENTS, sizeOptionLabel } from "@/lib/size-chart";
+import { formatPrice } from "@/lib/format";
+import { getCategoryLabel } from "@/lib/products";
+import { sizeOptionLabel } from "@/lib/size-chart";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 
 function CloseIcon() {
@@ -27,28 +30,53 @@ function CloseIcon() {
   );
 }
 
+function OptionGroup({ label, options, value, onChange, renderLabel }) {
+  return (
+    <fieldset className="mt-5">
+      <legend className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+        {label}
+      </legend>
+      <div className="mt-2.5 flex flex-wrap gap-2">
+        {options.map((option) => {
+          const selected = value === option;
+          return (
+            <button
+              key={option}
+              type="button"
+              onClick={() => onChange(option)}
+              aria-pressed={selected}
+              className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                selected
+                  ? "border-[var(--primary)] bg-[var(--primary)] text-white"
+                  : "border-stone-300 bg-white text-stone-700 hover:border-[var(--primary)]"
+              }`}
+            >
+              {renderLabel ? renderLabel(option) : option}
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 export function QuickAddModal({ product, onClose }) {
   const { addItem } = useCart();
   const { showToast } = useToast();
   const [mounted, setMounted] = useState(false);
-  const [size, setSize] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [guideOpen, setGuideOpen] = useState(false);
+  // Flipped to false to play the exit animation; onClose runs once it ends.
+  const [visible, setVisible] = useState(true);
+  const requestClose = useCallback(() => setVisible(false), []);
   const sizes = product.sizes ?? [];
+  const preferences = product.colors?.map((c) => c.name) ?? [];
+  const [size, setSize] = useState(
+    sizes.includes("M") ? "M" : (sizes[0] ?? ""),
+  );
+  const [color, setColor] = useState(preferences[0] ?? "");
+  const [quantity, setQuantity] = useState(1);
   const image = product.images?.[0];
-  const color = product.colors?.[0]?.name ?? "";
-  const columns =
-    product.category === "bottoms"
-      ? [
-          { key: "waist", label: "Waist" },
-          { key: "hip", label: "Hip" },
-          { key: "length", label: "Length" },
-        ]
-      : [
-          { key: "bust", label: "Bust" },
-          { key: "waist", label: "Waist" },
-          { key: "length", label: "Length" },
-        ];
+  const onSale =
+    product.compareAtPrice != null && product.compareAtPrice > product.price;
 
   useEffect(() => {
     setMounted(true);
@@ -58,14 +86,14 @@ export function QuickAddModal({ product, onClose }) {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     function onKey(event) {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") requestClose();
     }
     document.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previous;
       document.removeEventListener("keydown", onKey);
     };
-  }, [onClose]);
+  }, [requestClose]);
 
   function handleAdd() {
     if (!size || !image) return;
@@ -81,166 +109,160 @@ export function QuickAddModal({ product, onClose }) {
       color,
       quantity,
     });
-    showToast(`${product.name} added to your bag`);
-    onClose();
+    showToast(`${product.name} added to your order`);
+    requestClose();
   }
 
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[130] flex items-center justify-center p-4">
-      <motion.button
-        type="button"
-        aria-label="Close choose size"
-        className="absolute inset-0 bg-black/55"
-        onClick={onClose}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-      />
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="quick-add-title"
-        className="relative z-10 flex max-h-[min(88dvh,44rem)] w-full max-w-[24rem] flex-col overflow-hidden rounded-md bg-white shadow-2xl"
-        initial={{ y: "-42vh", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="relative bg-[var(--primary)] px-12 py-3 text-center text-white">
-          <h2 id="quick-add-title" className="text-base font-semibold">
-            Choose Size
-          </h2>
-          <button
+    <AnimatePresence onExitComplete={onClose}>
+      {visible ? (
+        <motion.div
+          key="quick-add"
+          className="fixed inset-0 z-[130] flex items-end justify-center sm:items-center sm:p-4"
+        >
+          <motion.button
             type="button"
-            onClick={onClose}
             aria-label="Close"
-            className="absolute right-2 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-white/90 hover:bg-white/10"
+            className="absolute inset-0 bg-black/60"
+            onClick={requestClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeIn" } }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          />
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="quick-add-title"
+            className="relative z-10 flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl bg-[var(--surface-elevated)] shadow-2xl sm:max-h-[min(90dvh,48rem)] sm:max-w-md sm:rounded-3xl"
+            initial={{ y: 60, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{
+              y: 60,
+              opacity: 0,
+              transition: { duration: 0.3, ease: "easeIn" },
+            }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            <CloseIcon />
-          </button>
-        </div>
+            <div className="overflow-y-auto">
+              <div className="relative aspect-[16/10] w-full bg-stone-200">
+                <ImageWithFallback
+                  src={image}
+                  alt={product.name}
+                  sizes="(max-width: 640px) 100vw, 448px"
+                  imageClassName="object-cover"
+                  fallbackClassName="flex h-full w-full items-center justify-center bg-stone-200 text-stone-500"
+                  fallbackLabelClassName="font-[family-name:var(--font-display)] text-2xl tracking-[0.18em]"
+                />
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/40 to-transparent"
+                  aria-hidden
+                />
+                <span className="absolute bottom-3 left-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--primary)] backdrop-blur-sm">
+                  {getCategoryLabel(product.category)}
+                </span>
+                <button
+                  type="button"
+                  onClick={requestClose}
+                  aria-label="Close"
+                  className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-stone-800 shadow backdrop-blur-sm hover:bg-white"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
 
-        <div className="overflow-y-auto px-5 pb-5 pt-5">
-          <div className="relative mx-auto h-40 w-32 overflow-hidden rounded-md bg-stone-100">
-            <ImageWithFallback
-              src={image}
-              alt={product.name}
-              sizes="128px"
-              imageClassName="object-cover"
-              fallbackClassName="flex h-full w-full items-center justify-center bg-stone-100 text-stone-400"
-              fallbackLabelClassName="text-[10px] font-semibold uppercase tracking-[0.16em]"
-            />
-          </div>
-          <p className="mt-3 text-center text-sm text-stone-800">{product.name}</p>
-          <button
-            type="button"
-            onClick={() => setGuideOpen((open) => !open)}
-            aria-expanded={guideOpen}
-            className="mx-auto mt-2 block text-sm text-stone-500 underline underline-offset-2"
-          >
-            Size Guide
-          </button>
-
-          {guideOpen ? (
-            <div className="mt-3 overflow-x-auto">
-              <table className="w-full border-collapse text-left text-xs">
-                <thead>
-                  <tr className="bg-stone-100 text-stone-700">
-                    <th className="border border-stone-200 px-2 py-1.5 font-semibold">
-                      Size
-                    </th>
-                    {columns.map((column) => (
-                      <th
-                        key={column.key}
-                        className="border border-stone-200 px-2 py-1.5 font-semibold"
-                      >
-                        {column.label}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {sizes.map((option) => {
-                    const row = SIZE_MEASUREMENTS[option];
-                    if (!row) return null;
-                    return (
-                      <tr key={option}>
-                        <td className="border border-stone-200 px-2 py-1.5">
-                          {option}
-                        </td>
-                        {columns.map((column) => (
-                          <td
-                            key={column.key}
-                            className="border border-stone-200 px-2 py-1.5"
-                          >
-                            {row[column.key]}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          ) : null}
-
-          <div className="mt-4 border-t border-stone-200 pt-4">
-            <p className="text-center text-sm text-stone-800">Choose Size</p>
-            <div className="mt-3 flex flex-wrap justify-center gap-2">
-              {sizes.map((option) => {
-                const selected = size === option;
-                return (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setSize(option)}
-                    aria-pressed={selected}
-                    className={`min-w-[4.5rem] border px-3 py-2 text-sm text-stone-800 ${
-                      selected
-                        ? "border-[var(--primary)] bg-[var(--background)]"
-                        : "border-stone-300 bg-white hover:border-stone-500"
-                    }`}
+              <div className="px-5 pb-5 pt-5 sm:px-6">
+                <div className="flex items-start justify-between gap-4">
+                  <h2
+                    id="quick-add-title"
+                    className="font-[family-name:var(--font-display)] text-2xl font-semibold leading-tight text-stone-900 sm:text-[1.75rem]"
                   >
-                    {sizeOptionLabel(option, product.category)}
-                  </button>
-                );
-              })}
+                    {product.name}
+                  </h2>
+                  <div className="flex shrink-0 items-baseline gap-1.5">
+                    <p className="text-lg font-bold text-[var(--primary)]">
+                      {formatPrice(product.price, product.currency)}
+                    </p>
+                    {onSale ? (
+                      <p className="text-xs text-stone-400 line-through">
+                        {formatPrice(product.compareAtPrice, product.currency)}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+                {product.description ? (
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">
+                    {product.description}
+                  </p>
+                ) : null}
+
+                <div className="mt-5 border-t border-dashed border-stone-200" />
+
+                {sizes.length > 1 ? (
+                  <OptionGroup
+                    label="Portion"
+                    options={sizes}
+                    value={size}
+                    onChange={setSize}
+                    renderLabel={sizeOptionLabel}
+                  />
+                ) : null}
+
+                {preferences.length > 1 ? (
+                  <OptionGroup
+                    label="Preference"
+                    options={preferences}
+                    value={color}
+                    onChange={setColor}
+                  />
+                ) : null}
+              </div>
             </div>
-          </div>
 
-          <p className="mt-5 text-center text-sm text-stone-800">Choose Quantity</p>
-          <div className="mt-3 flex items-center justify-center gap-3">
-            <button
-              type="button"
-              aria-label="Decrease quantity"
-              onClick={() => setQuantity((current) => Math.max(1, current - 1))}
-              className="inline-flex h-9 w-9 items-center justify-center border border-stone-300 text-lg leading-none text-stone-700"
-            >
-              −
-            </button>
-            <span className="min-w-6 text-center text-sm text-stone-900">{quantity}</span>
-            <button
-              type="button"
-              aria-label="Increase quantity"
-              onClick={() => setQuantity((current) => Math.min(10, current + 1))}
-              className="inline-flex h-9 w-9 items-center justify-center border border-stone-300 text-lg leading-none text-stone-700"
-            >
-              +
-            </button>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleAdd}
-            disabled={!size}
-            className="mt-5 w-full bg-[var(--primary)] py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </motion.div>
-    </div>,
+            <div className="flex items-center gap-3 border-t border-stone-200 bg-[var(--surface-elevated)] px-5 py-4 sm:px-6">
+              <div className="flex items-center rounded-full border border-stone-300">
+                <button
+                  type="button"
+                  aria-label="Decrease quantity"
+                  onClick={() =>
+                    setQuantity((current) => Math.max(1, current - 1))
+                  }
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full text-stone-700 hover:bg-stone-100"
+                >
+                  <LuMinus className="h-4 w-4" aria-hidden />
+                </button>
+                <span className="min-w-6 text-center text-sm font-semibold text-stone-900">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  aria-label="Increase quantity"
+                  onClick={() =>
+                    setQuantity((current) => Math.min(10, current + 1))
+                  }
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full text-stone-700 hover:bg-stone-100"
+                >
+                  <LuPlus className="h-4 w-4" aria-hidden />
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={handleAdd}
+                disabled={!size}
+                className="flex h-12 flex-1 items-center justify-between rounded-full bg-[var(--primary)] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#4d0a12] disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <span>Add to order</span>
+                <span>
+                  {formatPrice(product.price * quantity, product.currency)}
+                </span>
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>,
     document.body,
   );
 }

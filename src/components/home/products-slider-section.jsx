@@ -39,7 +39,7 @@ export function ProductsSliderSection({
   }, []);
 
   // Only allow sliding/dragging if products don't fit on screen (more than 4 on desktop, more than 1 on mobile)
-  const shouldSlide = isDesktop ? total > 5 : total > 1;
+  const shouldSlide = isDesktop ? total > 4 : total > 1;
 
   const hasLoop = mobileTwoUpNoLoop ? false : shouldSlide;
   const hasNav = mobileTwoUpNoLoop ? total > 2 : shouldSlide;

@@ -21,14 +21,6 @@ export function getNewArrivals(limit = 4) {
   return productsData.filter((p) => p.tags?.includes("new")).slice(0, limit);
 }
 
-export function getRelatedProducts(slug, limit = 4) {
-  const product = getProductBySlug(slug);
-  if (!product) return [];
-  return productsData
-    .filter((p) => p.slug !== slug && p.category === product.category)
-    .slice(0, limit);
-}
-
 export function getCategoryLabel(categoryId) {
   const c = categoriesData.find((x) => x.id === categoryId);
   return c?.label ?? categoryId;
