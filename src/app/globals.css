@@ -200,3 +200,12 @@ button:not([class*="rounded-"]) {
   background: #a8a29e;
   border-radius: 9999px;
 }
+
+/* Hide scrollbars on horizontal swipe rows. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

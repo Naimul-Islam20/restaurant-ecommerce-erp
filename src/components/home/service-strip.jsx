@@ -1,27 +1,49 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { LuBanknote, LuGlobe, LuPackageSearch, LuRefreshCcw, LuSmile } from "react-icons/lu";
+import { LuBanknote, LuChefHat, LuSmile, LuTruck } from "react-icons/lu";
 import { Container } from "@/components/layout/container";
 
-const iconClass = "h-8 w-8 text-[#b5b5b5]";
-
 const ITEMS = [
-  { label: "Easy Reorder", icon: LuRefreshCcw },
-  { label: "Cash on Delivery", icon: LuBanknote },
-  { label: "1,000+ Happy Guests", icon: LuSmile },
-  { label: "Dhaka Delivery", icon: LuGlobe },
-  { label: "Order Tracking", icon: LuPackageSearch },
+  {
+    title: "Delivery charge",
+    text: "Uttara ৳40 · Dhaka ৳80",
+    icon: LuTruck,
+  },
+  {
+    title: "Cooked to order",
+    text: "Fresh, never reheated",
+    icon: LuChefHat,
+  },
+  {
+    title: "Cash on delivery",
+    text: "Pay when your food arrives",
+    icon: LuBanknote,
+  },
+  {
+    title: "1,000+ happy guests",
+    text: "Dine-in & delivery",
+    icon: LuSmile,
+  },
 ];
 
 function PromiseCard({ item }) {
   const Icon = item.icon;
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-3 border border-[#e4e4e4] bg-white px-3 py-6 text-center sm:py-8">
-      <Icon className={iconClass} strokeWidth={1.5} aria-hidden />
-      <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#b0b0b0] sm:text-[11px]">
-        {item.label}
-      </p>
+    <div className="flex h-full items-center gap-4 rounded-xl border border-stone-200 bg-white px-5 py-4">
+      <Icon
+        className="h-7 w-7 shrink-0 text-[var(--primary)]"
+        strokeWidth={1.75}
+        aria-hidden
+      />
+      <div className="min-w-0">
+        <p className="text-[15px] font-semibold leading-snug text-stone-900">
+          {item.title}
+        </p>
+        <p className="mt-0.5 text-[13px] leading-snug text-stone-500">
+          {item.text}
+        </p>
+      </div>
     </div>
   );
 }
@@ -38,12 +60,13 @@ export function ServiceStrip() {
     let timer;
 
     const advance = () => {
-      if (!paused && !reduceMotion.matches && el.clientWidth > 0) {
-        const step = el.clientWidth / 2;
+      const first = el.querySelector("li");
+      if (!paused && !reduceMotion.matches && first && el.clientWidth > 0) {
+        const step = first.getBoundingClientRect().width;
         const max = el.scrollWidth - el.clientWidth;
         const next = el.scrollLeft + step;
         el.scrollTo({
-          left: next >= max - 4 ? 0 : next,
+          left: next >= max + step / 2 ? 0 : Math.min(next, max),
           behavior: "smooth",
         });
       }
@@ -75,18 +98,18 @@ export function ServiceStrip() {
   }, []);
 
   return (
-    <section aria-label="Store promises" className="bg-[var(--surface)]">
+    <section aria-label="Our promises" className="bg-[var(--surface)]">
       <Container className="py-6 sm:py-8">
+        {/* Mobile: one card with a peek of the next, auto-advancing */}
         <div
           ref={scrollerRef}
           className="snap-x snap-mandatory overflow-x-auto overscroll-x-contain scrollbar-none sm:hidden"
         >
-          <ul className="flex" style={{ width: `${(ITEMS.length / 2) * 100}%` }}>
+          <ul className="flex">
             {ITEMS.map((item) => (
               <li
-                key={item.label}
-                className="shrink-0 snap-start pr-3"
-                style={{ width: `${100 / ITEMS.length}%` }}
+                key={item.title}
+                className="w-[85%] shrink-0 snap-start pr-3"
               >
                 <PromiseCard item={item} />
               </li>
@@ -94,9 +117,9 @@ export function ServiceStrip() {
           </ul>
         </div>
 
-        <ul className="hidden grid-cols-2 gap-3 sm:grid sm:grid-cols-3 lg:grid-cols-5 lg:gap-4">
+        <ul className="hidden gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
           {ITEMS.map((item) => (
-            <li key={item.label}>
+            <li key={item.title}>
               <PromiseCard item={item} />
             </li>
           ))}

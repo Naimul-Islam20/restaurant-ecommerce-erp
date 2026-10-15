@@ -2,46 +2,46 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { Container } from "@/components/layout/container";
-import { buildShopEditHref } from "@/data/shop-edits";
 
 const AUTO_MS = 6000;
 
 const SLIDES = [
   {
-    id: "1",
-    title: "Dinner from the Maaleen kitchen",
+    id: "welcome",
+    welcome: "Welcome to ERP17",
+    title: "Delicious Food, Unforgettable Taste",
+    text: "Authentic Bangladeshi and international dishes, cooked fresh every day in the heart of Uttara.",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=85",
-    imageAlt: "",
-    shopHref: "/shop",
   },
   {
-    id: "2",
-    title: "House mains, plated to order",
-    image:
-      "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=1920&q=85",
-    imageAlt: "",
-    shopHref: buildShopEditHref("outer-layers"),
-  },
-  {
-    id: "3",
-    title: "New plates from the kitchen",
+    id: "kitchen",
+    welcome: "Fresh from our kitchen",
+    title: "Cooked with Love, Served with Care",
+    text: "From slow-cooked kacchi to sizzling grills — every plate is made to order.",
     image:
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=85",
-    imageAlt: "",
-    shopHref: buildShopEditHref("new-arrivals"),
+  },
+  {
+    id: "family",
+    welcome: "Dine in or take away",
+    title: "A Perfect Place for Family & Friends",
+    text: "Cozy seating, warm service and food everyone at the table will enjoy.",
+    image:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=85",
   },
 ];
+
+const arrowClass =
+  "h-11 w-11 items-center justify-center rounded-full border border-white/50 text-white transition-colors hover:bg-white hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-12 sm:w-12";
 
 export function HeroSlider() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-
-  const goTo = useCallback((i) => {
-    setIndex(i);
-  }, []);
 
   useEffect(() => {
     if (paused) return undefined;
@@ -49,78 +49,122 @@ export function HeroSlider() {
       setIndex((i) => (i + 1) % SLIDES.length);
     }, AUTO_MS);
     return () => clearInterval(id);
-  }, [paused]);
+  }, [paused, index]);
 
   const slide = SLIDES[index];
+  const prev = () => setIndex((i) => (i - 1 + SLIDES.length) % SLIDES.length);
+  const next = () => setIndex((i) => (i + 1) % SLIDES.length);
 
   return (
     <div
+      className="relative h-[32rem] w-full overflow-hidden bg-stone-900 sm:h-[36rem] lg:h-[42rem]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative h-[28rem] w-full overflow-hidden rounded-md sm:h-[34rem] lg:h-[40rem]">
-        <div className="sr-only" aria-live="polite" aria-atomic="true">
-          {`Slide ${index + 1} of ${SLIDES.length}: ${slide.title}`}
-        </div>
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {`Slide ${index + 1} of ${SLIDES.length}: ${slide.title}`}
+      </div>
 
-        {SLIDES.map((s, i) => (
-          <div
-            key={s.id}
-            className={`absolute inset-0 transition-opacity duration-700 ease-out motion-reduce:duration-0 ${
-              i === index ? "z-0 opacity-100" : "z-0 opacity-0"
-            }`}
-            aria-hidden={i !== index}
-          >
-            <Image
-              src={s.image}
-              alt={s.imageAlt}
-              fill
-              className="object-cover object-center"
-              sizes="100vw"
-              priority={i === 0}
-              fetchPriority={i === 0 ? "high" : "low"}
-            />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-stone-950/45 via-stone-950/15 to-transparent"
-              aria-hidden
-            />
-          </div>
-        ))}
-
-        <Container className="relative z-10 flex h-full flex-col items-center justify-end pb-16 sm:pb-20 lg:pb-24">
-          <Link
-            href={slide.shopHref}
-            className="inline-flex rounded-full bg-[var(--accent)] px-8 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            Shop now
-          </Link>
-        </Container>
-
+      {SLIDES.map((s, i) => (
         <div
-          className="absolute inset-x-0 bottom-0 z-10 pb-6 sm:pb-8"
-          role="tablist"
-          aria-label="Hero slides"
+          key={s.id}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-out motion-reduce:duration-0 ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden={i !== index}
         >
-          <Container>
-            <div className="flex justify-center gap-2">
-              {SLIDES.map((s, i) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === index}
-                  aria-label={`Go to slide ${i + 1}: ${s.title}`}
-                  onClick={() => goTo(i)}
-                  className={`h-2.5 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                    i === index
-                      ? "w-8 bg-white"
-                      : "w-2.5 bg-white/40 hover:bg-white/60"
-                  }`}
-                />
-              ))}
-            </div>
-          </Container>
+          <Image
+            src={s.image}
+            alt=""
+            fill
+            className={`object-cover transition-transform duration-[6000ms] ease-linear motion-reduce:transition-none ${
+              i === index ? "scale-110" : "scale-100"
+            }`}
+            sizes="100vw"
+            priority={i === 0}
+            fetchPriority={i === 0 ? "high" : "low"}
+          />
         </div>
+      ))}
+
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20"
+        aria-hidden
+      />
+
+      <Container className="relative z-10 flex h-full items-center">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slide.id}
+            className="max-w-2xl sm:pl-14 lg:pl-0"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <p className="font-[family-name:var(--font-display)] text-2xl italic text-[var(--secondary)] sm:text-3xl">
+              {slide.welcome}
+            </p>
+            <h1 className="mt-3 text-4xl font-extrabold uppercase leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+              {slide.title}
+            </h1>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
+              {slide.text}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/shop"
+                className="inline-flex items-center rounded-md bg-[var(--primary)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Explore Menu
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center rounded-md bg-[var(--secondary)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Book a Table
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </Container>
+
+      {/* Side arrows on tablet/desktop */}
+      <button
+        type="button"
+        onClick={prev}
+        aria-label="Previous slide"
+        className={`absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 sm:inline-flex lg:left-8 ${arrowClass}`}
+      >
+        <LuChevronLeft className="h-6 w-6" aria-hidden />
+      </button>
+      <button
+        type="button"
+        onClick={next}
+        aria-label="Next slide"
+        className={`absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 sm:inline-flex lg:right-8 ${arrowClass}`}
+      >
+        <LuChevronRight className="h-6 w-6" aria-hidden />
+      </button>
+
+      {/* Arrows at the bottom on mobile */}
+      <div className="absolute bottom-5 right-4 z-10 flex gap-2 sm:hidden">
+        <button
+          type="button"
+          onClick={prev}
+          aria-label="Previous slide"
+          className={`inline-flex ${arrowClass}`}
+        >
+          <LuChevronLeft className="h-5 w-5" aria-hidden />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Next slide"
+          className={`inline-flex ${arrowClass}`}
+        >
+          <LuChevronRight className="h-5 w-5" aria-hidden />
+        </button>
       </div>
     </div>
   );
