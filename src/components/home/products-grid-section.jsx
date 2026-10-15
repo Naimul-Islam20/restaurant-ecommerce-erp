@@ -1,13 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Container } from "@/components/layout/container";
 import { ProductCard } from "@/components/product/product-card";
 
-const INITIAL_COUNT = 12;
+const INITIAL_COUNT = 15; // 3 full rows of 5 on desktop
+const INITIAL_COUNT_MOBILE = 16; // 8 full rows of 2 on phones
 const LOAD_MORE_COUNT = 8;
+
+const MOBILE_QUERY = "(max-width: 639px)";
+
+function subscribeToMobile(onChange) {
+  const mq = window.matchMedia(MOBILE_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+
+function useIsMobile() {
+  return useSyncExternalStore(
+    subscribeToMobile,
+    () => window.matchMedia(MOBILE_QUERY).matches,
+    () => false,
+  );
+}
 
 /** Home products: a plain grid that reveals more dishes on demand. */
 export function ProductsGridSection({
@@ -16,9 +33,13 @@ export function ProductsGridSection({
   ctaLabel = "See all",
   ctaHref = "/shop",
 }) {
-  const [visible, setVisible] = useState(INITIAL_COUNT);
+  const isMobile = useIsMobile();
+  const initialCount = isMobile ? INITIAL_COUNT_MOBILE : INITIAL_COUNT;
+  const [loads, setLoads] = useState(0);
+  const visible = initialCount + loads * LOAD_MORE_COUNT;
   // Items from this index on were just revealed and play the entrance animation.
-  const [revealFrom, setRevealFrom] = useState(INITIAL_COUNT);
+  const revealFrom =
+    loads === 0 ? Infinity : initialCount + (loads - 1) * LOAD_MORE_COUNT;
   // Grid height is animated so the list unrolls and the button slides down.
   const gridRef = useRef(null);
   const [gridHeight, setGridHeight] = useState("auto");
@@ -59,7 +80,7 @@ export function ProductsGridSection({
         >
           <ul
             ref={gridRef}
-            className="grid grid-cols-2 pb-1 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 xl:grid-cols-4"
+            className="grid grid-cols-2 pb-1 gap-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5"
           >
             {shown.map((product, i) => {
               const isNew = i >= revealFrom;
@@ -92,8 +113,7 @@ export function ProductsGridSection({
               <button
                 type="button"
                 onClick={() => {
-                  setRevealFrom(visible);
-                  setVisible(visible + LOAD_MORE_COUNT);
+                  setLoads((n) => n + 1);
                 }}
                 className="inline-flex items-center rounded-full border-2 border-[var(--primary)] px-8 py-3 text-sm font-semibold text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
               >

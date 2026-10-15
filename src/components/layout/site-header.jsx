@@ -1318,7 +1318,7 @@ export function SiteHeader() {
               className="absolute left-0 top-0 bottom-0 w-[80%] max-w-sm bg-[var(--background)] shadow-2xl"
             >
               <div className="flex flex-col h-full bg-[var(--background)]">
-                <div className="maaleen-brand-bg relative flex items-center justify-center border-b border-stone-100 px-4 py-3">
+                <div className="relative flex items-center justify-center bg-[var(--primary)] px-4 py-3">
                   <Link
                     href="/"
                     onClick={() => setMenuOpen(false)}

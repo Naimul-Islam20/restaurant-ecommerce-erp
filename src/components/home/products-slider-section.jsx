@@ -30,16 +30,21 @@ export function ProductsSliderSection({
   const total = products.length;
   const hasProducts = total > 0;
   
-  const [isDesktop, setIsDesktop] = useState(false);
+  // Cards visible at once on desktop (matches the slide widths in globals.css).
+  const [desktopPerView, setDesktopPerView] = useState(0);
   useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    const handleResize = () => {
+      const w = window.innerWidth;
+      setDesktopPerView(w >= 1280 ? 5 : w >= 1024 ? 4 : 0);
+    };
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  const isDesktop = desktopPerView > 0;
 
-  // Only allow sliding/dragging if products don't fit on screen (more than 4 on desktop, more than 1 on mobile)
-  const shouldSlide = isDesktop ? total > 4 : total > 1;
+  // Only allow sliding/dragging if products don't fit on screen (more than 4–5 on desktop, more than 1 on mobile)
+  const shouldSlide = isDesktop ? total > desktopPerView : total > 1;
 
   const hasLoop = mobileTwoUpNoLoop ? false : shouldSlide;
   const hasNav = mobileTwoUpNoLoop ? total > 2 : shouldSlide;

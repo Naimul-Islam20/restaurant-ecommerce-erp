@@ -142,26 +142,18 @@ button:not([class*="rounded-"]) {
 
 @media (min-width: 1024px) {
   .maaleen-products-embla-slide {
-    flex-basis: calc((100cqi - 4.5rem) / 4);
+    flex-basis: calc((100cqi - 3rem) / 4);
+    margin-inline-end: 1rem; /* gap-4, same as the product grids */
+  }
+}
+
+@media (min-width: 1280px) {
+  .maaleen-products-embla-slide {
+    flex-basis: calc((100cqi - 4rem) / 5);
   }
 }
 
 /* (cart drawer animation now handled via Tailwind translate-x utilities) */
-
-/* Header & footer brand texture */
-.maaleen-brand-bg {
-  background-color: var(--accent);
-  background-image: url("/Maaleen-bg.png");
-  background-repeat: repeat;
-  background-size: 780px auto;
-  background-position: top center;
-}
-
-@media (min-width: 640px) {
-  .maaleen-brand-bg {
-    background-size: 1150px auto;
-  }
-}
 
 /* Mobile: extend footer brand texture behind the fixed bottom bar */
 @media (max-width: 639px) {

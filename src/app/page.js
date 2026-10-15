@@ -6,7 +6,7 @@ import { ServiceStrip } from "@/components/home/service-strip";
 import { getNewArrivals, getProducts } from "@/lib/products";
 
 export default function HomePage() {
-  const newArrivals = getNewArrivals(4);
+  const newArrivals = getNewArrivals(10);
   const products = getProducts();
 
   return (

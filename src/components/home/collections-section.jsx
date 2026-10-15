@@ -22,10 +22,6 @@ export function CollectionsSection() {
             Explore Our Menu
           </h2>
           <MenuDivider className="mt-4" />
-          <p className="mt-4 text-sm leading-relaxed text-stone-600 sm:text-base">
-            Starters to share, hearty mains, something sweet and a drink to
-            finish — cooked fresh every service.
-          </p>
         </div>
 
         <MenuCategoryGrid className="mt-10 sm:mt-14" />
