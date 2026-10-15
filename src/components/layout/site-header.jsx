@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { useCountry } from "@/contexts/country-context";
@@ -16,6 +15,7 @@ import { formatPrice } from "@/lib/format";
 import { getProductBySlug } from "@/lib/products";
 import { sizeOptionLabel } from "@/lib/size-chart";
 import { QuickAddModal } from "@/components/product/quick-add-modal";
+import { BrandLogo } from "@/components/layout/brand-logo";
 import {
   LuBike,
   LuBookOpen,
@@ -739,26 +739,15 @@ export function SiteHeader() {
             <Link
               href="/"
               className="flex shrink-0 items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--secondary)] sm:gap-3"
-              aria-label="Maaleen home"
+              aria-label="ERP17 Restaurant home"
             >
-              <Image
-                src="/Maaleen_New_Logo-2.png"
-                alt=""
-                width={160}
-                height={120}
-                priority
-                className={`w-auto object-contain transition-[height] duration-300 ease-out ${
+              <BrandLogo
+                markClassName={`w-auto transition-[height] duration-300 ease-out ${
                   headerCompact ? "h-8 sm:h-9" : "h-9 sm:h-11"
                 }`}
+                nameClassName="text-[1.5rem] sm:text-[1.8rem]"
+                taglineClassName="text-[8.5px] text-white/65 sm:text-[10px]"
               />
-              <span className="leading-none">
-                <span className="block font-[family-name:var(--font-display)] text-[1.45rem] font-semibold tracking-[0.24em] text-[var(--secondary)] sm:text-[1.75rem]">
-                  MAALEEN
-                </span>
-                <span className="mt-1 block text-[8.5px] font-semibold uppercase tracking-[0.34em] text-white/60 sm:text-[10px]">
-                  Kitchen &amp; Dining
-                </span>
-              </span>
             </Link>
 
             <nav
@@ -953,7 +942,7 @@ export function SiteHeader() {
               </Link>
               <Link
                 href="/contact"
-                className="ml-2 hidden items-center gap-2 rounded-full bg-[var(--secondary)] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--primary)] shadow-sm transition-colors hover:bg-[#d4b08a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:inline-flex"
+                className="ml-2 hidden items-center gap-2 rounded-full bg-[var(--secondary)] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--primary)] shadow-sm transition-colors hover:bg-[#f8c76f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:inline-flex"
               >
                 <LuCalendarCheck className="h-4 w-4" aria-hidden />
                 Book a table
@@ -1334,18 +1323,13 @@ export function SiteHeader() {
                     href="/"
                     onClick={() => setMenuOpen(false)}
                     className="inline-flex h-12 max-w-[75%] items-center justify-center"
-                    aria-label="Maaleen"
+                    aria-label="ERP17 Restaurant"
                   >
-                    <Image
-                      src="/Maaleen_New_Logo-2.png"
-                      alt=""
-                      width={160}
-                      height={120}
-                      className="h-9 w-auto object-contain"
+                    <BrandLogo
+                      markClassName="h-9 w-auto"
+                      nameClassName="text-2xl"
+                      taglineClassName="text-[9px] text-white/70"
                     />
-                    <span className="ml-2.5 font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[0.24em] text-[var(--secondary)]">
-                      MAALEEN
-                    </span>
                   </Link>
                   <button
                     onClick={() => setMenuOpen(false)}
@@ -1496,9 +1480,9 @@ export function SiteHeader() {
               width: dockWidth,
               backdropFilter: "blur(28px) saturate(1.45)",
               WebkitBackdropFilter: "blur(28px) saturate(1.45)",
-              backgroundColor: "rgba(255, 246, 238, 0.84)",
+              backgroundColor: "rgba(255, 248, 239, 0.86)",
               backgroundImage:
-                "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,240,225,0.16) 52%, rgba(197,158,117,0.24) 100%)",
+                "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,240,225,0.16) 52%, rgba(245,181,74,0.24) 100%)",
               WebkitMaskImage: "url(#maaleen-dock-mask)",
               maskImage: "url(#maaleen-dock-mask)",
             }}

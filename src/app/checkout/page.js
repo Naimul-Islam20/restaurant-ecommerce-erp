@@ -352,8 +352,8 @@ export default function CheckoutPage() {
                     <select
                       value={form.city}
                       onChange={handleChange("city")}
-                      className={`w-full rounded-md border bg-white px-3 py-2 text-sm text-stone-900 focus:border-[#8b3a3a] focus:ring-1 focus:ring-[#8b3a3a] focus:outline-none transition-colors ${
-                        fieldErrors.city ? "border-[#8b3a3a]" : "border-stone-200"
+                      className={`w-full rounded-md border bg-white px-3 py-2 text-sm text-stone-900 focus:border-[#a51e22] focus:ring-1 focus:ring-[#a51e22] focus:outline-none transition-colors ${
+                        fieldErrors.city ? "border-[#a51e22]" : "border-stone-200"
                       }`}
                     >
                       <option value="">Select City</option>
@@ -394,7 +394,7 @@ export default function CheckoutPage() {
                   type="checkbox"
                   checked={form.saveInfo}
                   onChange={handleChange("saveInfo")}
-                  className="accent-[#8b3a3a]"
+                  className="accent-[#a51e22]"
                 />
                 <span className="text-stone-600">Save this information for next time</span>
               </label>
@@ -642,8 +642,8 @@ export default function CheckoutPage() {
 function PhoneField({ country, value, onChange, hasError = false }) {
   return (
     <div
-      className={`flex overflow-hidden rounded-md border bg-white transition-colors focus-within:border-[#8b3a3a] focus-within:ring-1 focus-within:ring-[#8b3a3a] ${
-        hasError ? "border-[#8b3a3a] ring-1 ring-[#8b3a3a]" : "border-stone-200"
+      className={`flex overflow-hidden rounded-md border bg-white transition-colors focus-within:border-[#a51e22] focus-within:ring-1 focus-within:ring-[#a51e22] ${
+        hasError ? "border-[#a51e22] ring-1 ring-[#a51e22]" : "border-stone-200"
       }`}
     >
       <span className="inline-flex items-center border-r border-stone-200 bg-white px-3 text-xs sm:text-sm text-stone-600">
@@ -671,8 +671,8 @@ function Input({ label, className = "", error, ...props }) {
         <label className="text-xs sm:text-sm font-semibold font-[family-name:var(--font-cormorant)] uppercase tracking-wider text-stone-500">{label}</label>
       )}
       <input
-        className={`w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder:text-stone-300 focus:border-[#8b3a3a] focus:ring-1 focus:ring-[#8b3a3a] focus:outline-none transition-colors ${
-          error ? "border-[#8b3a3a]" : "border-stone-200"
+        className={`w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder:text-stone-300 focus:border-[#a51e22] focus:ring-1 focus:ring-[#a51e22] focus:outline-none transition-colors ${
+          error ? "border-[#a51e22]" : "border-stone-200"
         } ${className}`}
         {...props}
       />

@@ -251,7 +251,7 @@ export function QuickAddModal({ product, onClose }) {
                 type="button"
                 onClick={handleAdd}
                 disabled={!size}
-                className="flex h-12 flex-1 items-center justify-between rounded-full bg-[var(--primary)] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#4d0a12] disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-12 flex-1 items-center justify-between rounded-full bg-[var(--primary)] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#7f1519] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <span>Add to order</span>
                 <span>

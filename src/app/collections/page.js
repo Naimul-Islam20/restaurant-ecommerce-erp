@@ -16,7 +16,7 @@ export const metadata = {
 function SectionHeading({ eyebrow, title, children }) {
   return (
     <div className="mx-auto max-w-xl text-center">
-      <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
+      <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary-dark)]">
         {eyebrow}
       </p>
       <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-semibold text-stone-900 sm:text-4xl">

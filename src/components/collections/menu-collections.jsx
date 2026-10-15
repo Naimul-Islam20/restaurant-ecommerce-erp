@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
+import { BrandMark } from "@/components/layout/brand-logo";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 import { buildShopEditHref, shopHrefForCategory } from "@/data/shop-edits";
 import { getProducts } from "@/lib/products";
@@ -105,13 +105,7 @@ export function MenuDivider({ className = "" }) {
       aria-hidden
     >
       <span className="h-px w-12 bg-[var(--secondary)]/60" />
-      <Image
-        src="/Maaleen_New_Logo-2.png"
-        alt=""
-        width={40}
-        height={30}
-        className="h-5 w-auto"
-      />
+      <BrandMark className="h-5 w-auto text-[var(--secondary)]" />
       <span className="h-px w-12 bg-[var(--secondary)]/60" />
     </div>
   );
@@ -155,7 +149,7 @@ export function MenuCategoryGrid({ className = "", withCollections = false }) {
             className="flex flex-col items-center text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--secondary)]"
           >
             <span className="relative block aspect-square w-full max-w-[13rem] rounded-full border border-[var(--secondary)]/50 p-2 sm:p-2.5">
-              <span className="relative block h-full w-full overflow-hidden rounded-full bg-stone-200 shadow-[0_12px_30px_-12px_rgba(55,0,6,0.45)]">
+              <span className="relative block h-full w-full overflow-hidden rounded-full bg-stone-200 shadow-[0_12px_30px_-12px_rgba(165,30,34,0.45)]">
                 <ImageWithFallback
                   src={category.image}
                   alt=""

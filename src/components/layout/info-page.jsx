@@ -46,7 +46,7 @@ export function InfoPage({ title, children }) {
                     aria-current={active ? "page" : undefined}
                     className={`block border-b-2 px-3 py-3 text-sm whitespace-nowrap transition ${
                       active
-                        ? "border-[#370006] font-semibold text-stone-950"
+                        ? "border-[#a51e22] font-semibold text-stone-950"
                         : "border-transparent text-stone-500"
                     }`}
                   >
@@ -62,7 +62,7 @@ export function InfoPage({ title, children }) {
           <aside className="hidden lg:sticky lg:top-24 lg:block">
             <nav
               aria-label="Information"
-              className="rounded-2xl border border-stone-200/80 bg-white py-3 shadow-[0_10px_30px_rgba(55,0,6,0.04)]"
+              className="rounded-2xl border border-stone-200/80 bg-white py-3 shadow-[0_10px_30px_rgba(165,30,34,0.04)]"
             >
               <p className="px-4 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-400">
                 Information
@@ -77,7 +77,7 @@ export function InfoPage({ title, children }) {
                         aria-current={active ? "page" : undefined}
                         className={`block border-l-2 px-4 py-2.5 text-sm transition ${
                           active
-                            ? "border-[#370006] font-semibold text-stone-950"
+                            ? "border-[#a51e22] font-semibold text-stone-950"
                             : "border-transparent text-stone-500 hover:text-stone-800"
                         }`}
                       >
@@ -90,7 +90,7 @@ export function InfoPage({ title, children }) {
             </nav>
           </aside>
 
-          <div className="min-w-0 text-sm leading-relaxed text-stone-700 sm:text-base [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-stone-950 [&_li]:marker:text-[#370006]">
+          <div className="min-w-0 text-sm leading-relaxed text-stone-700 sm:text-base [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-stone-950 [&_li]:marker:text-[#a51e22]">
             {children}
           </div>
         </div>

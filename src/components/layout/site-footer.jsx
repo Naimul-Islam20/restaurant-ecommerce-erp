@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LuArrowRight,
@@ -11,6 +10,7 @@ import {
   LuMapPin,
   LuPhone,
 } from "react-icons/lu";
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { ChromeContainer } from "@/components/layout/container";
 
 const OPENING_HOURS = [
@@ -94,7 +94,7 @@ export function SiteFooter() {
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--secondary)] px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--primary)] transition-colors hover:bg-[#d4b08a]"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--secondary)] px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--primary)] transition-colors hover:bg-[#f8c76f]"
               >
                 <LuCalendarCheck className="h-4 w-4" aria-hidden />
                 Book a table
@@ -115,22 +115,16 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-12 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-flex items-center gap-3">
-              <Image
-                src="/Maaleen_New_Logo-2.png"
-                alt=""
-                width={160}
-                height={120}
-                className="h-12 w-auto object-contain"
+            <Link
+              href="/"
+              className="inline-flex"
+              aria-label="ERP17 Restaurant home"
+            >
+              <BrandLogo
+                markClassName="h-12 w-auto"
+                nameClassName="text-3xl"
+                taglineClassName="text-[10px] text-white/55"
               />
-              <span className="leading-none">
-                <span className="block font-[family-name:var(--font-display)] text-3xl font-semibold tracking-[0.24em] text-[var(--secondary)]">
-                  MAALEEN
-                </span>
-                <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.34em] text-white/55">
-                  Kitchen &amp; Dining
-                </span>
-              </span>
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
               Seasonal plates cooked from scratch in our Uttara kitchen —

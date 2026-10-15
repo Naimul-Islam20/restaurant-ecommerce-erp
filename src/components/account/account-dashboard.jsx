@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuShoppingBag, LuSparkle } from "react-icons/lu";
 import { AddAddressModal } from "@/components/account/add-address-modal";
+import { BrandMark } from "@/components/layout/brand-logo";
 import { useAuth } from "@/contexts/auth-context";
 import { useWishlist } from "@/contexts/wishlist-context";
 
@@ -58,7 +59,7 @@ const FAVORITES_LIST = [
     name: "Kurti & Tops",
     type: "Everyday Luxury",
     avatarBg: "bg-[#f2efe9]",
-    avatarText: "text-[#370006]",
+    avatarText: "text-[#a51e22]",
     initials: "K",
     isBird: false,
   },
@@ -67,7 +68,7 @@ const FAVORITES_LIST = [
     name: "Festive Edit",
     type: "Exclusive Drop",
     avatarBg: "bg-[#f5e6ea]",
-    avatarText: "text-[#370006]",
+    avatarText: "text-[#a51e22]",
     initials: "",
     isBird: true,
   },
@@ -127,12 +128,12 @@ const OFFERS_DATA = [
   },
 ];
 
-// SVG Icon Definitions styled with Maaleen burgundy (#370006) theme
+// SVG Icon Definitions styled with Maaleen burgundy (#a51e22) theme
 function IconSun({ className = "h-4 w-4" }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
-      <circle cx="12" cy="12" r="4" fill="#c59e75" stroke="#c59e75" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="#c59e75" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="4" fill="#f5b54a" stroke="#f5b54a" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="#f5b54a" strokeLinecap="round" />
     </svg>
   );
 }
@@ -300,7 +301,7 @@ function IconPhone({ className = "h-6 w-6" }) {
 
 function IconMaaleenBird({ className = "h-5 w-5" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="#370006" className={className}>
+    <svg viewBox="0 0 24 24" fill="#a51e22" className={className}>
       <path d="M21.5 5.5c-2 2.5-5 3.5-7.5 3-1.5-.3-3-1.2-4-2.5-1 1.5-2.5 3-4.5 3.5C3.5 9.8 2 9 1 7.5c2 4 6 7 10 7 3.5 0 7-2 9-5.5-.5 1.5-1 2.5-2 3.5 2-.5 3.5-2 3.5-7z" />
     </svg>
   );
@@ -403,11 +404,11 @@ function ProfileSection({ user }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[#370006]">Profile Details</h2>
+        <h2 className="text-xl font-bold text-[#a51e22]">Profile Details</h2>
         <button
           type="button"
           onClick={() => setEditing((value) => !value)}
-          className="text-sm font-semibold text-[#370006] hover:underline"
+          className="text-sm font-semibold text-[#a51e22] hover:underline"
         >
           {editing ? "Cancel" : "Edit Profile"}
         </button>
@@ -422,7 +423,7 @@ function ProfileSection({ user }) {
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm((curr) => ({ ...curr, name: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm outline-none focus:border-[#370006] focus:ring-1 focus:ring-[#370006]"
+                className="mt-1 w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm outline-none focus:border-[#a51e22] focus:ring-1 focus:ring-[#a51e22]"
               />
             </div>
             <div>
@@ -431,7 +432,7 @@ function ProfileSection({ user }) {
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm((curr) => ({ ...curr, email: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm outline-none focus:border-[#370006] focus:ring-1 focus:ring-[#370006]"
+                className="mt-1 w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm outline-none focus:border-[#a51e22] focus:ring-1 focus:ring-[#a51e22]"
               />
             </div>
             <div>
@@ -440,13 +441,13 @@ function ProfileSection({ user }) {
                 type="tel"
                 value={form.phone}
                 onChange={(e) => setForm((curr) => ({ ...curr, phone: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm outline-none focus:border-[#370006] focus:ring-1 focus:ring-[#370006]"
+                className="mt-1 w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm outline-none focus:border-[#a51e22] focus:ring-1 focus:ring-[#a51e22]"
               />
             </div>
             <button
               type="button"
               onClick={() => setEditing(false)}
-              className="rounded-xl bg-[#370006] px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#4a080e]"
+              className="rounded-xl bg-[#a51e22] px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#7f1519]"
             >
               Save Changes
             </button>
@@ -467,8 +468,8 @@ function ProfileSection({ user }) {
             </div>
             <div>
               <dt className="text-xs font-semibold uppercase tracking-wider text-stone-400">Membership</dt>
-              <dd className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[#c59e75]/40 bg-[#fff8f0] px-3 py-1 text-xs font-bold text-[#370006]">
-                <IconShield className="h-3.5 w-3.5 text-[#c59e75]" /> Bronze Member
+              <dd className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[#f5b54a]/40 bg-[#fff8f0] px-3 py-1 text-xs font-bold text-[#a51e22]">
+                <IconShield className="h-3.5 w-3.5 text-[#f5b54a]" /> Bronze Member
               </dd>
             </div>
           </dl>
@@ -484,7 +485,7 @@ function ProfileSection({ user }) {
           <button
             type="button"
             onClick={() => setChangingPassword((v) => !v)}
-            className="text-sm font-semibold text-[#370006] hover:underline"
+            className="text-sm font-semibold text-[#a51e22] hover:underline"
           >
             {changingPassword ? "Cancel" : "Change Password"}
           </button>
@@ -497,19 +498,19 @@ function ProfileSection({ user }) {
               placeholder="Current Password"
               value={passwordForm.current}
               onChange={(e) => setPasswordForm((c) => ({ ...c, current: e.target.value }))}
-              className="w-full rounded-xl border border-stone-300 px-4 py-2 text-sm outline-none focus:border-[#370006]"
+              className="w-full rounded-xl border border-stone-300 px-4 py-2 text-sm outline-none focus:border-[#a51e22]"
             />
             <input
               type="password"
               placeholder="New Password"
               value={passwordForm.next}
               onChange={(e) => setPasswordForm((c) => ({ ...c, next: e.target.value }))}
-              className="w-full rounded-xl border border-stone-300 px-4 py-2 text-sm outline-none focus:border-[#370006]"
+              className="w-full rounded-xl border border-stone-300 px-4 py-2 text-sm outline-none focus:border-[#a51e22]"
             />
             <button
               type="button"
               onClick={() => setChangingPassword(false)}
-              className="rounded-xl bg-[#370006] px-4 py-2 text-sm font-semibold text-white hover:bg-[#4a080e]"
+              className="rounded-xl bg-[#a51e22] px-4 py-2 text-sm font-semibold text-white hover:bg-[#7f1519]"
             >
               Update Password
             </button>
@@ -536,11 +537,11 @@ function AddressesSection() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-[#370006]">Saved Addresses</h2>
+        <h2 className="text-xl font-bold text-[#a51e22]">Saved Addresses</h2>
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="rounded-xl bg-[#370006] px-4 py-2 text-sm font-semibold text-white shadow-xs transition hover:bg-[#4a080e]"
+          className="rounded-xl bg-[#a51e22] px-4 py-2 text-sm font-semibold text-white shadow-xs transition hover:bg-[#7f1519]"
         >
           Add New Address
         </button>
@@ -553,7 +554,7 @@ function AddressesSection() {
               <div className="flex items-center justify-between">
                 <span className="font-bold text-stone-800">{item.title}</span>
                 {item.isDefault ? (
-                  <span className="rounded-full bg-[#370006]/10 px-2.5 py-0.5 text-xs font-semibold text-[#370006]">
+                  <span className="rounded-full bg-[#a51e22]/10 px-2.5 py-0.5 text-xs font-semibold text-[#a51e22]">
                     Default
                   </span>
                 ) : null}
@@ -581,7 +582,7 @@ function AddressesSection() {
 function GenericSection({ title, message = "No active records found." }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-bold text-[#370006]">{title}</h2>
+      <h2 className="text-xl font-bold text-[#a51e22]">{title}</h2>
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-stone-200 bg-white py-14 text-center">
         <p className="text-base font-semibold text-stone-800">{title}</p>
         <p className="mt-1 text-xs text-stone-500">{message}</p>
@@ -610,7 +611,7 @@ function AccountDetailView({ onBack }) {
         <button
           type="button"
           onClick={onBack}
-          className="flex items-center gap-1.5 text-xs font-semibold text-stone-700 transition hover:text-[#370006]"
+          className="flex items-center gap-1.5 text-xs font-semibold text-stone-700 transition hover:text-[#a51e22]"
         >
           <span className="text-base font-bold">‹</span> My Account
         </button>
@@ -618,7 +619,7 @@ function AccountDetailView({ onBack }) {
         <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
-            className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-[#370006]/30 bg-white px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-[#370006] shadow-2xs hover:bg-[#fff9f5] transition"
+            className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-[#a51e22]/30 bg-white px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-[#a51e22] shadow-2xs hover:bg-[#fff9f5] transition"
           >
             <span>+</span> Redeem Gift Card
           </button>
@@ -642,23 +643,23 @@ function AccountDetailView({ onBack }) {
               onClick={() => setSelectedAcc("account-1")}
               className={`relative flex flex-col justify-between rounded-2xl border p-4 shadow-2xs cursor-pointer transition ${
                 selectedAcc === "account-1"
-                  ? "border-[#370006] bg-white ring-2 ring-[#370006]/10"
+                  ? "border-[#a51e22] bg-white ring-2 ring-[#a51e22]/10"
                   : "border-stone-200 bg-stone-50/50 hover:bg-white"
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold tracking-wide text-[#370006]">
+                <span className="text-xs font-bold tracking-wide text-[#a51e22]">
                   {showBal ? "1,450 PTS" : "b******.xx"}
                 </span>
-                <span className="text-[#c59e75] text-sm">⭐</span>
+                <span className="text-[#f5b54a] text-sm">⭐</span>
               </div>
               <div className="mt-4 flex items-center gap-3">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#370006] text-white font-black text-xs">
-                  <Image src="/Maaleen_New_Logo-2.png" alt="" width={26} height={16} className="h-4 w-auto object-contain" />
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#a51e22] text-white font-black text-xs">
+                  <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
                 </div>
                 <div>
                   <p className="text-[11px] font-bold uppercase text-stone-800">MAALEEN REWARDS</p>
-                  <p className="text-[10px] text-[#c59e75] font-semibold">Bronze Member</p>
+                  <p className="text-[10px] text-[#f5b54a] font-semibold">Bronze Member</p>
                 </div>
               </div>
             </div>
@@ -671,7 +672,7 @@ function AccountDetailView({ onBack }) {
               onClick={() => setSelectedAcc("card-1")}
               className={`flex flex-col justify-between rounded-2xl border p-4 shadow-2xs cursor-pointer transition ${
                 selectedAcc === "card-1"
-                  ? "border-[#370006] bg-white ring-2 ring-[#370006]/10"
+                  ? "border-[#a51e22] bg-white ring-2 ring-[#a51e22]/10"
                   : "border-stone-200 bg-white hover:border-stone-300"
               }`}
             >
@@ -681,7 +682,7 @@ function AccountDetailView({ onBack }) {
                 </span>
               </div>
               <div className="mt-4 flex items-center gap-3">
-                <div className="flex h-7 w-8 shrink-0 items-center justify-center rounded bg-[#c59e75] text-[8px] font-black text-white">
+                <div className="flex h-7 w-8 shrink-0 items-center justify-center rounded bg-[#f5b54a] text-[8px] font-black text-white">
                   MLN
                 </div>
                 <div>
@@ -693,7 +694,7 @@ function AccountDetailView({ onBack }) {
 
             <button
               type="button"
-              className="mt-3 flex items-center gap-1.5 text-xs font-bold text-[#370006] hover:underline"
+              className="mt-3 flex items-center gap-1.5 text-xs font-bold text-[#a51e22] hover:underline"
             >
               + Add Gift Voucher
             </button>
@@ -703,13 +704,13 @@ function AccountDetailView({ onBack }) {
         {/* Right Main Column: Passbook Card, Tabs & Details */}
         <div className="space-y-4 sm:space-y-5 lg:col-span-8 xl:col-span-8">
           {/* Top Account Passbook Hero Card */}
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#c59e75]/30 bg-gradient-to-r from-[#370006] via-[#4a080e] to-[#2c0005] p-5 sm:p-6 text-white shadow-md">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#f5b54a]/30 bg-gradient-to-r from-[#a51e22] via-[#7f1519] to-[#5e1013] p-5 sm:p-6 text-white shadow-md">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-widest text-[#c59e75]">MAALEEN STORE CREDIT</p>
+                <p className="text-xs font-extrabold uppercase tracking-widest text-[#f5b54a]">MAALEEN STORE CREDIT</p>
                 <p className="text-xs font-medium text-stone-300">ID: MLN-89274</p>
               </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#c59e75]/20 text-[#c59e75] font-bold text-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5b54a]/20 text-[#f5b54a] font-bold text-sm">
                 ✦
               </div>
             </div>
@@ -728,7 +729,7 @@ function AccountDetailView({ onBack }) {
                 onClick={() => setActiveTab("details")}
                 className={`pb-2.5 sm:pb-3 text-xs font-bold transition border-b-2 ${
                   activeTab === "details"
-                    ? "border-[#370006] text-[#370006]"
+                    ? "border-[#a51e22] text-[#a51e22]"
                     : "border-transparent text-stone-500 hover:text-stone-800"
                 }`}
               >
@@ -739,7 +740,7 @@ function AccountDetailView({ onBack }) {
                 onClick={() => setActiveTab("transactions")}
                 className={`pb-2.5 sm:pb-3 text-xs font-bold transition border-b-2 ${
                   activeTab === "transactions"
-                    ? "border-[#370006] text-[#370006]"
+                    ? "border-[#a51e22] text-[#a51e22]"
                     : "border-transparent text-stone-500 hover:text-stone-800"
                 }`}
               >
@@ -754,11 +755,11 @@ function AccountDetailView({ onBack }) {
               <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
                 <div>
                   <p className="text-[11px] font-medium text-stone-400">Membership Tier</p>
-                  <p className="text-xs font-bold text-[#370006]">BRONZE MEMBER</p>
+                  <p className="text-xs font-bold text-[#a51e22]">BRONZE MEMBER</p>
                 </div>
                 <div>
                   <p className="text-[11px] font-medium text-stone-400">Total Earned Points</p>
-                  <p className="text-xs font-bold text-[#c59e75]">1,450 PTS</p>
+                  <p className="text-xs font-bold text-[#f5b54a]">1,450 PTS</p>
                 </div>
                 <div>
                   <p className="text-[11px] font-medium text-stone-400">Member Opening Date</p>
@@ -776,7 +777,7 @@ function AccountDetailView({ onBack }) {
                       <p className="font-bold text-stone-800">{tx.title}</p>
                       <p className="text-[10px] text-stone-400">{tx.date}</p>
                     </div>
-                    <span className={`font-bold ${tx.type === "credit" ? "text-emerald-600" : "text-[#370006]"}`}>
+                    <span className={`font-bold ${tx.type === "credit" ? "text-emerald-600" : "text-[#a51e22]"}`}>
                       {tx.amount}
                     </span>
                   </div>
@@ -789,16 +790,16 @@ function AccountDetailView({ onBack }) {
           <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
             <button
               type="button"
-              className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-4 shadow-2xs transition hover:bg-[#fff9f5] hover:border-[#370006]/30 group"
+              className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-4 shadow-2xs transition hover:bg-[#fff9f5] hover:border-[#a51e22]/30 group"
             >
-              <IconChequeBook className="h-5 w-5 text-[#370006] transition group-hover:scale-110" />
+              <IconChequeBook className="h-5 w-5 text-[#a51e22] transition group-hover:scale-110" />
               <span className="text-xs font-bold text-stone-800">Cheque Management</span>
             </button>
             <button
               type="button"
-              className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-4 shadow-2xs transition hover:bg-[#fff9f5] hover:border-[#370006]/30 group"
+              className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-4 shadow-2xs transition hover:bg-[#fff9f5] hover:border-[#a51e22]/30 group"
             >
-              <IconShareNetwork className="h-5 w-5 text-[#370006] transition group-hover:scale-110" />
+              <IconShareNetwork className="h-5 w-5 text-[#a51e22] transition group-hover:scale-110" />
               <span className="text-xs font-bold text-stone-800">Share Account Details</span>
             </button>
           </div>
@@ -858,7 +859,7 @@ function MobileDashboardHome({ onNavigate }) {
                 "linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(255,248,244,0.5) 58%, rgba(255,236,228,0.38) 100%)",
             }}
           >
-            <div className="flex items-center gap-2 text-lg font-semibold tracking-wide text-[#370006]">
+            <div className="flex items-center gap-2 text-lg font-semibold tracking-wide text-[#a51e22]">
               <button
                 type="button"
                 onClick={() => onNavigate("account-detail")}
@@ -884,15 +885,9 @@ function MobileDashboardHome({ onNavigate }) {
               onClick={() => onNavigate("account-detail")}
               className="mt-4 flex w-full items-center gap-2.5 text-left"
             >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#370006] text-[10px] font-bold text-white">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#a51e22] text-[10px] font-bold text-white">
                 {account.id === "rewards" ? (
-                  <Image
-                    src="/Maaleen_New_Logo-2.png"
-                    alt=""
-                    width={26}
-                    height={16}
-                    className="h-4 w-auto object-contain"
-                  />
+                  <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
                 ) : (
                   account.mark
                 )}
@@ -911,7 +906,7 @@ function MobileDashboardHome({ onNavigate }) {
 
       <div className="relative z-0 -mx-3 -mt-[3.7rem] rounded-t-xl bg-white px-3 pt-[4.7rem]">
       <div className="space-y-3.5">
-      <div className="relative rounded-[1.35rem] bg-white px-3 pb-2 pt-3.5 shadow-[0_8px_24px_rgba(55,0,6,0.06)]">
+      <div className="relative rounded-[1.35rem] bg-white px-3 pb-2 pt-3.5 shadow-[0_8px_24px_rgba(165,30,34,0.06)]">
         <div className="grid grid-cols-2">
           {[
             { id: "quick", label: "Quick Shopping", icon: LuShoppingBag },
@@ -926,7 +921,7 @@ function MobileDashboardHome({ onNavigate }) {
                 onClick={() => setTab(item.id)}
                 className={`flex items-center justify-center gap-1.5 rounded-none pb-2.5 text-sm font-semibold ${
                   active
-                    ? "border-b-2 border-[#370006] text-[#370006]"
+                    ? "border-b-2 border-[#a51e22] text-[#a51e22]"
                     : "border-b border-stone-100 text-stone-400"
                 }`}
               >
@@ -962,7 +957,7 @@ function MobileDashboardHome({ onNavigate }) {
                   </span>
                 </>
               );
-              const className = "flex flex-col items-center gap-2 text-center text-[#370006]";
+              const className = "flex flex-col items-center gap-2 text-center text-[#a51e22]";
               if (item.href) {
                 return (
                   <Link key={item.id} href={item.href} className={className}>
@@ -1025,10 +1020,10 @@ function MobileDashboardHome({ onNavigate }) {
         ) : null}
       </div>
 
-      <div className="flex items-center gap-3 rounded-[1.35rem] border border-[#370006]/25 bg-gradient-to-r from-[#370006]/20 to-[#c59e75]/45 px-4 py-3.5 shadow-sm">
-        <IconGift className="h-8 w-8 shrink-0 text-[#370006]" />
+      <div className="flex items-center gap-3 rounded-[1.35rem] border border-[#a51e22]/25 bg-gradient-to-r from-[#a51e22]/20 to-[#f5b54a]/45 px-4 py-3.5 shadow-sm">
+        <IconGift className="h-8 w-8 shrink-0 text-[#a51e22]" />
         <div>
-          <p className="text-sm font-bold leading-snug text-[#370006]">
+          <p className="text-sm font-bold leading-snug text-[#a51e22]">
             Spend &amp; Earn! Get Rewards on Every Order.
           </p>
           <p className="mt-1 text-xs leading-relaxed text-stone-600">
@@ -1037,14 +1032,14 @@ function MobileDashboardHome({ onNavigate }) {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[1.35rem] bg-white shadow-[0_8px_24px_rgba(55,0,6,0.05)]">
+      <div className="overflow-hidden rounded-[1.35rem] bg-white shadow-[0_8px_24px_rgba(165,30,34,0.05)]">
         <h3 className="px-4 pb-3 pt-4 text-[15px] font-semibold text-stone-800">My Orders</h3>
         <button
           type="button"
           onClick={() => onNavigate("orders")}
           className="mt-2 flex w-full items-center gap-3 border-t border-stone-100 px-4 py-3.5 text-left"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#370006]/5 text-[#370006]">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#a51e22]/5 text-[#a51e22]">
             <IconPackage className="h-5 w-5" />
           </span>
           <span className="min-w-0 flex-1">
@@ -1060,7 +1055,7 @@ function MobileDashboardHome({ onNavigate }) {
       <div>
         <div className="mb-3 flex items-center justify-between">
           <h3 className="text-sm font-bold text-stone-800">Offers &amp; Vouchers</h3>
-          <Link href="/shop" className="text-xs font-bold text-[#370006]">
+          <Link href="/shop" className="text-xs font-bold text-[#a51e22]">
             View All &gt;
           </Link>
         </div>
@@ -1070,8 +1065,8 @@ function MobileDashboardHome({ onNavigate }) {
               key={offer.id}
               className="flex overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs"
             >
-              <div className="flex w-7 shrink-0 items-center justify-center bg-[#370006] px-1">
-                <span className="rotate-180 text-[9px] font-black uppercase tracking-widest text-[#c59e75] [writing-mode:vertical-rl]">
+              <div className="flex w-7 shrink-0 items-center justify-center bg-[#a51e22] px-1">
+                <span className="rotate-180 text-[9px] font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
                   {offer.tag}
                 </span>
               </div>
@@ -1086,7 +1081,7 @@ function MobileDashboardHome({ onNavigate }) {
                   />
                 </div>
                 <div className="min-w-0">
-                  <span className="mb-1 inline-block rounded bg-[#370006] px-1.5 py-0.5 text-[8px] font-extrabold uppercase text-white">
+                  <span className="mb-1 inline-block rounded bg-[#a51e22] px-1.5 py-0.5 text-[8px] font-extrabold uppercase text-white">
                     {offer.badge}
                   </span>
                   <h4 className="truncate text-xs font-bold text-stone-900">{offer.title}</h4>
@@ -1124,7 +1119,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
             className="flex flex-col justify-between rounded-2xl border border-[#eee7e1] bg-white p-3 shadow-xs transition hover:shadow-md cursor-pointer group min-w-0"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold tracking-wide text-[#370006] truncate">
+              <span className="text-xs font-bold tracking-wide text-[#a51e22] truncate">
                 {showAccountBal ? "1,450 PTS" : "bxxxx.xx"}
               </span>
               <button
@@ -1133,19 +1128,19 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                   e.stopPropagation();
                   setShowAccountBal((v) => !v);
                 }}
-                className="ml-1 shrink-0 text-stone-400 transition hover:text-[#370006]"
+                className="ml-1 shrink-0 text-stone-400 transition hover:text-[#a51e22]"
                 aria-label="Toggle points visibility"
               >
                 {showAccountBal ? <IconEye className="h-3.5 w-3.5" /> : <IconEyeSlash className="h-3.5 w-3.5" />}
               </button>
             </div>
             <div className="mt-3 flex items-center gap-2">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#370006] text-white font-bold text-xs shadow-xs">
-                <Image src="/Maaleen_New_Logo-2.png" alt="" width={26} height={16} className="h-4 w-auto object-contain" />
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#a51e22] text-white font-bold text-xs shadow-xs">
+                <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#370006] transition truncate">MAALEEN REWARDS</p>
-                <p className="text-[10px] text-[#c59e75] font-semibold truncate">Bronze Member</p>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">MAALEEN REWARDS</p>
+                <p className="text-[10px] text-[#f5b54a] font-semibold truncate">Bronze Member</p>
               </div>
             </div>
           </div>
@@ -1156,7 +1151,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
             className="flex flex-col justify-between rounded-2xl border border-[#eee7e1] bg-white p-3 shadow-xs transition hover:shadow-md cursor-pointer group min-w-0"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold tracking-wide text-[#370006] truncate">
+              <span className="text-xs font-bold tracking-wide text-[#a51e22] truncate">
                 {showCardBal ? "৳ 2,500" : "bxxxx.xx"}
               </span>
               <button
@@ -1165,18 +1160,18 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                   e.stopPropagation();
                   setShowCardBal((v) => !v);
                 }}
-                className="ml-1 shrink-0 text-stone-400 transition hover:text-[#370006]"
+                className="ml-1 shrink-0 text-stone-400 transition hover:text-[#a51e22]"
                 aria-label="Toggle credit visibility"
               >
                 {showCardBal ? <IconEye className="h-3.5 w-3.5" /> : <IconEyeSlash className="h-3.5 w-3.5" />}
               </button>
             </div>
             <div className="mt-3 flex items-center gap-2">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-[#c59e75] font-extrabold text-[8px] text-white tracking-tighter shadow-xs">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-[#f5b54a] font-extrabold text-[8px] text-white tracking-tighter shadow-xs">
                 MLN
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#370006] transition truncate">STORE CREDIT</p>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">STORE CREDIT</p>
                 <p className="text-[10px] text-stone-400 truncate">MLN-89274</p>
               </div>
             </div>
@@ -1188,10 +1183,10 @@ function DashboardHomeView({ onNavigate, wishCount }) {
             onClick={() => onNavigate("account-detail")}
           >
             <div className="flex flex-row items-center gap-2 text-center">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#370006]/10 text-[#370006]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
                 <IconChevronRight className="h-3.5 w-3.5" />
               </span>
-              <span className="text-xs font-semibold text-[#370006]">View All Accounts</span>
+              <span className="text-xs font-semibold text-[#a51e22]">View All Accounts</span>
             </div>
           </div>
         </div>
@@ -1206,10 +1201,10 @@ function DashboardHomeView({ onNavigate, wishCount }) {
               const IconComponent = item.icon;
               const content = (
                 <>
-                  <span className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#370006]/5 text-[#370006] transition group-hover:bg-[#370006]/10 group-hover:scale-110">
+                  <span className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#a51e22]/5 text-[#a51e22] transition group-hover:bg-[#a51e22]/10 group-hover:scale-110">
                     <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 stroke-[1.6]" />
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-medium text-stone-700 group-hover:text-[#370006] leading-tight">
+                  <span className="text-[10px] sm:text-[11px] font-medium text-stone-700 group-hover:text-[#a51e22] leading-tight">
                     {item.label}
                   </span>
                 </>
@@ -1274,7 +1269,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
             <h3 className="text-xs sm:text-sm font-bold text-stone-800">Offers &amp; Vouchers</h3>
             <Link
               href="/shop"
-              className="text-xs font-bold text-[#370006] hover:underline"
+              className="text-xs font-bold text-[#a51e22] hover:underline"
             >
               View All &gt;
             </Link>
@@ -1287,8 +1282,8 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                 key={offer.id}
                 className="group flex overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs"
               >
-                <div className="flex w-7 shrink-0 items-center justify-center bg-[#370006] px-1">
-                  <span className="rotate-180 text-[9px] font-black uppercase tracking-widest text-[#c59e75] [writing-mode:vertical-rl]">
+                <div className="flex w-7 shrink-0 items-center justify-center bg-[#a51e22] px-1">
+                  <span className="rotate-180 text-[9px] font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
                     {offer.tag}
                   </span>
                 </div>
@@ -1303,7 +1298,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                     />
                   </div>
                   <div className="min-w-0">
-                    <span className="inline-block rounded bg-[#370006] px-1.5 py-0.5 text-[8px] font-extrabold uppercase text-white mb-1">
+                    <span className="inline-block rounded bg-[#a51e22] px-1.5 py-0.5 text-[8px] font-extrabold uppercase text-white mb-1">
                       {offer.badge}
                     </span>
                     <h4 className="text-xs font-bold text-stone-900 truncate">{offer.title}</h4>
@@ -1323,8 +1318,8 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                 key={offer.id}
                 className="group flex w-[280px] shrink-0 overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs transition hover:-translate-y-1 hover:shadow-md"
               >
-                <div className="flex w-9 shrink-0 items-center justify-center bg-[#370006] px-1">
-                  <span className="rotate-180 text-[10px] font-black uppercase tracking-widest text-[#c59e75] [writing-mode:vertical-rl]">
+                <div className="flex w-9 shrink-0 items-center justify-center bg-[#a51e22] px-1">
+                  <span className="rotate-180 text-[10px] font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
                     {offer.tag}
                   </span>
                 </div>
@@ -1337,7 +1332,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                       className="object-cover transition duration-300 group-hover:scale-105"
                       sizes="280px"
                     />
-                    <span className="absolute right-2 top-2 rounded bg-[#370006] px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-xs">
+                    <span className="absolute right-2 top-2 rounded bg-[#a51e22] px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-xs">
                       {offer.badge}
                     </span>
                   </div>
@@ -1357,10 +1352,10 @@ function DashboardHomeView({ onNavigate, wishCount }) {
       {/* DEDICATED RIGHT COLUMN FOR BANNER CARDS ONLY */}
       <div className="w-full min-w-0 space-y-3 lg:col-span-4 xl:col-span-4">
         {/* Banner 1: Spend & Earn */}
-        <div className="flex items-center gap-3 rounded-2xl border border-[#c59e75]/40 bg-gradient-to-r from-[#fffbf7] to-[#fff3e6] p-3 shadow-xs">
-          <IconGift className="h-7 w-7 shrink-0 text-[#370006]" />
+        <div className="flex items-center gap-3 rounded-2xl border border-[#f5b54a]/40 bg-gradient-to-r from-[#fffbf7] to-[#fff3e6] p-3 shadow-xs">
+          <IconGift className="h-7 w-7 shrink-0 text-[#a51e22]" />
           <div className="min-w-0 flex-1">
-            <h4 className="text-[11px] font-bold leading-snug text-[#370006]">
+            <h4 className="text-[11px] font-bold leading-snug text-[#a51e22]">
               Spend &amp; Earn! Get Rewards on Every Order.
             </h4>
             <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
@@ -1372,7 +1367,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
         {/* Banner 2: Start Tracking to Save */}
         <div className="flex items-center gap-3 rounded-2xl border border-amber-200/80 bg-gradient-to-r from-[#fffaf3] to-[#fdf4e8] p-3 shadow-xs">
           <div className="min-w-0 flex-1">
-            <h4 className="text-[11px] font-bold leading-snug text-[#370006]">
+            <h4 className="text-[11px] font-bold leading-snug text-[#a51e22]">
               Start Tracking to Save!
             </h4>
             <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
@@ -1490,7 +1485,7 @@ export function AccountDashboard() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="fixed inset-x-0 top-0 z-[80] flex items-center gap-2 bg-[#370006] px-4 py-3 shadow-lg"
+                  className="fixed inset-x-0 top-0 z-[80] flex items-center gap-2 bg-[#a51e22] px-4 py-3 shadow-lg"
                 >
                   <button
                     type="button"
@@ -1527,14 +1522,8 @@ export function AccountDashboard() {
       {/* Top Header Bar */}
       <header className="sticky top-0 z-30 hidden items-center justify-between border-b border-[#eee7e1] bg-white px-4 sm:px-6 py-3 sm:py-3.5 shadow-2xs font-sans lg:flex">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center" aria-label="Maaleen">
-          <Image
-            src="/Maaleen_New_Logo-2.png"
-            alt=""
-            width={80}
-            height={50}
-            className="h-9 w-auto object-contain"
-          />
+        <Link href="/" className="flex items-center" aria-label="ERP17 Restaurant">
+          <BrandMark className="h-9 w-auto text-[var(--secondary)]" />
         </Link>
 
         {/* Right Action Icons */}
@@ -1544,24 +1533,24 @@ export function AccountDashboard() {
             aria-label={searchOpen ? "Close search" : "Search"}
             aria-expanded={searchOpen}
             onClick={() => setSearchOpen((open) => !open)}
-            className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#370006]"
+            className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#a51e22]"
           >
             <IconSearch className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
           <button
             type="button"
             aria-label="Trophy Rewards"
-            className="hidden sm:flex h-9 w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#370006]"
+            className="hidden sm:flex h-9 w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#a51e22]"
           >
             <IconTrophy className="h-5 w-5" />
           </button>
           <button
             type="button"
             aria-label="Notifications"
-            className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#370006]"
+            className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#a51e22]"
           >
             <IconBell className="h-4 w-4 sm:h-5 sm:w-5" />
-            <span className="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#c59e75] px-1 text-[8px] font-black text-white shadow-xs">
+            <span className="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#f5b54a] px-1 text-[8px] font-black text-white shadow-xs">
               2
             </span>
           </button>
@@ -1575,13 +1564,13 @@ export function AccountDashboard() {
           {/* User Profile Card */}
           <div className="flex items-start gap-3 px-1">
             <div className="relative">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f2efe9] text-[#370006]">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f2efe9] text-[#a51e22]">
                 <IconUser className="h-7 w-7" />
               </div>
               <button
                 type="button"
                 onClick={() => setActiveSection("profile")}
-                className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-[#f5e6ea] text-[#370006] shadow-xs hover:scale-110 transition"
+                className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border border-white bg-[#f5e6ea] text-[#a51e22] shadow-xs hover:scale-110 transition"
               >
                 <IconGear className="h-3 w-3" />
               </button>
@@ -1593,8 +1582,8 @@ export function AccountDashboard() {
                 <span>{greeting}</span>
               </div>
               <p className="truncate text-sm font-bold text-stone-900">{firstName}</p>
-              <span className="mt-1 inline-flex items-center gap-1 rounded-full border border-[#eee7e1] bg-[#fffaf5] px-2 py-0.5 text-[10px] font-semibold text-[#370006]">
-                <IconShield className="h-3 w-3 text-[#c59e75]" />
+              <span className="mt-1 inline-flex items-center gap-1 rounded-full border border-[#eee7e1] bg-[#fffaf5] px-2 py-0.5 text-[10px] font-semibold text-[#a51e22]">
+                <IconShield className="h-3 w-3 text-[#f5b54a]" />
                 Bronze Member
               </span>
             </div>
@@ -1612,11 +1601,11 @@ export function AccountDashboard() {
                   onClick={() => setActiveSection(item.id)}
                   className={`flex w-full items-center gap-3.5 rounded-xl px-3.5 py-2.5 text-left text-xs font-semibold transition ${
                     active
-                      ? "border border-[#370006]/20 bg-[#370006]/5 text-[#370006] shadow-2xs"
+                      ? "border border-[#a51e22]/20 bg-[#a51e22]/5 text-[#a51e22] shadow-2xs"
                       : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"
                   }`}
                 >
-                  <IconComp className={`h-4 w-4 ${active ? "text-[#370006]" : "text-stone-500"}`} />
+                  <IconComp className={`h-4 w-4 ${active ? "text-[#a51e22]" : "text-stone-500"}`} />
                   {item.label}
                 </button>
               );
@@ -1628,7 +1617,7 @@ export function AccountDashboard() {
             <button
               type="button"
               onClick={handleSignOut}
-              className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-stone-500 transition hover:text-[#370006]"
+              className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-stone-500 transition hover:text-[#a51e22]"
             >
               <IconLogout className="h-4 w-4" />
               Log out
@@ -1637,7 +1626,7 @@ export function AccountDashboard() {
         </aside>
 
         <div
-          className={`bg-gradient-to-b from-[#9a3038] via-[#6e1520] to-[#370006] px-4 pt-3.5 text-white lg:hidden ${
+          className={`bg-gradient-to-b from-[#9a3038] via-[#8c1a1e] to-[#a51e22] px-4 pt-3.5 text-white lg:hidden ${
             activeSection === "dashboard" ? "pb-24" : "pb-6"
           }`}
         >
@@ -1674,7 +1663,7 @@ export function AccountDashboard() {
                 className="relative flex h-10 w-10 items-center justify-center rounded-full text-white"
               >
                 <IconBell className="h-5 w-5" />
-                <span className="absolute right-0.5 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#f0c14d] px-1 text-[9px] font-bold text-[#370006]">
+                <span className="absolute right-0.5 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#f0c14d] px-1 text-[9px] font-bold text-[#a51e22]">
                   2
                 </span>
               </button>
@@ -1720,13 +1709,13 @@ export function AccountDashboard() {
               const IconComp = item.icon;
               const active = !item.href && !item.signOut && activeSection === item.id;
               const className = `relative flex flex-col items-center gap-1 rounded-none px-1 pb-2 pt-2 text-[10px] font-semibold ${
-                active ? "text-[#370006]" : "text-stone-400"
+                active ? "text-[#a51e22]" : "text-stone-400"
               }`;
               const inner = (
                 <>
                   <span
                     className={`absolute inset-x-0 top-0 mx-auto h-[3px] w-8 rounded-b-full ${
-                      active ? "bg-[#370006]" : "bg-transparent"
+                      active ? "bg-[#a51e22]" : "bg-transparent"
                     }`}
                   />
                   <IconComp className="mt-1 h-5 w-5" />

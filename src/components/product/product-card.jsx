@@ -35,7 +35,7 @@ export function ProductCard({ product }) {
   const [quickAddOpen, setQuickAddOpen] = useState(false);
 
   return (
-    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-[var(--surface-elevated)] shadow-[0_1px_2px_rgba(55,0,6,0.04)]">
+    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-[var(--surface-elevated)] shadow-[0_1px_2px_rgba(165,30,34,0.04)]">
       <button
         type="button"
         onClick={() => setQuickAddOpen(true)}
