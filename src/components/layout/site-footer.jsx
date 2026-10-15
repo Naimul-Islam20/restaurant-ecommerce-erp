@@ -71,7 +71,7 @@ export function SiteFooter() {
 
   return (
     <footer
-      className={`maaleen-footer-mobile-extend bg-[var(--primary)] text-white/80 ${
+      className={`maaleen-footer-mobile-extend bg-[var(--ink)] text-white/80 ${
         isAuthPage ? "mt-0" : "mt-16"
       }`}
     >

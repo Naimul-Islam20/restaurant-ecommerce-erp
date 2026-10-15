@@ -176,7 +176,7 @@ button:not([class*="rounded-"]) {
     right: 0;
     top: 100%;
     height: calc(4rem + env(safe-area-inset-bottom, 0px));
-    background-color: var(--primary);
+    background-color: var(--ink);
     pointer-events: none;
   }
 }
