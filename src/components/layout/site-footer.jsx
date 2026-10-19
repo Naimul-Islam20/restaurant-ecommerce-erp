@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LuArrowRight,
-  LuCalendarCheck,
   LuClock,
   LuMail,
   LuMapPin,
@@ -75,41 +73,6 @@ export function SiteFooter() {
         isAuthPage ? "mt-0" : "mt-10"
       }`}
     >
-      {/* Reservation banner */}
-      <div className="border-b border-[var(--secondary)]/25 bg-black/20">
-        <ChromeContainer>
-          <div className="flex flex-col items-center gap-6 py-8 text-center md:flex-row md:justify-between md:text-start">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
-                Reserve your evening
-              </p>
-              <p className="mt-2 font-[family-name:var(--font-display)] text-3xl font-semibold text-white sm:text-4xl">
-                A table is waiting for you
-              </p>
-              <p className="mt-2 text-sm text-white/65">
-                Dine in with family and friends, or have the kitchen deliver to
-                your door.
-              </p>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--secondary)] px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--primary)] transition-colors hover:bg-[#f8c76f]"
-              >
-                <LuCalendarCheck className="h-4 w-4" aria-hidden />
-                Book a table
-              </Link>
-              <Link
-                href="/shop"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--secondary)]/70 px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--secondary)] transition-colors hover:bg-white/10"
-              >
-                Order online
-                <LuArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-          </div>
-        </ChromeContainer>
-      </div>
 
       <ChromeContainer>
         <div className="grid grid-cols-1 gap-10 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
