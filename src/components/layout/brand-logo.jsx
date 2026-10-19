@@ -30,16 +30,19 @@ export function BrandLogo({
   nameClassName = "text-[1.6rem]",
   taglineClassName = "text-[10px] text-white/60",
   showTagline = true,
+  // "light" for dark backgrounds (saffron), "dark" for white backgrounds (red)
+  tone = "light",
   className = "",
 }) {
+  const color = tone === "dark" ? "text-[var(--primary)]" : "text-[var(--secondary)]";
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <BrandMark
-        className={`shrink-0 text-[var(--secondary)] ${markClassName}`}
+        className={`shrink-0 ${color} ${markClassName}`}
       />
       <span className="leading-none">
         <span
-          className={`block font-[family-name:var(--font-display)] font-bold tracking-[0.12em] lining-nums text-[var(--secondary)] ${nameClassName}`}
+          className={`block font-[family-name:var(--font-display)] font-bold tracking-[0.12em] lining-nums ${color} ${nameClassName}`}
         >
           ERP17
         </span>

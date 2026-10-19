@@ -6,89 +6,91 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { LuShoppingBag, LuSparkle } from "react-icons/lu";
+import {
+  LuBellOff,
+  LuBike,
+  LuCalendarCheck,
+  LuCircleCheck,
+  LuCrown,
+  LuGift,
+  LuMedal,
+  LuShoppingBag,
+  LuSparkle,
+  LuStar,
+  LuTag,
+} from "react-icons/lu";
 import { AddAddressModal } from "@/components/account/add-address-modal";
-import { BrandMark } from "@/components/layout/brand-logo";
+import { BrandLogo, BrandMark } from "@/components/layout/brand-logo";
 import { useAuth } from "@/contexts/auth-context";
+import { useCart } from "@/contexts/cart-context";
+import { useToast } from "@/contexts/toast-context";
+import { formatPrice } from "@/lib/format";
+import { getProductBySlug } from "@/lib/products";
 import { useWishlist } from "@/contexts/wishlist-context";
 
 // Sidebar navigation items for the account dashboard
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: IconHome },
   { id: "orders", label: "My Orders", icon: IconPackage },
-  { id: "wishlist", label: "Wishlist & Rewards", icon: IconHeart },
+  { id: "rewards", label: "Rewards", icon: IconTrophy },
+  { id: "wishlist", label: "Favourites", icon: IconHeart },
+  { id: "notifications", label: "Notifications", icon: IconBell },
   { id: "services", label: "Saved Addresses", icon: IconMapPin },
 ];
 
-// Quick Shopping 10 action grid items for the account dashboard
+// Quick order & services grid (10 actions) for the account dashboard
 const QUICK_SHOPPING_ACTIONS = [
-  { id: "shop-all", label: "Shop All", href: "/shop", icon: IconBag },
+  { id: "order-food", label: "Order Food", href: "/shop", icon: IconBag },
   { id: "track-order", label: "Track Order", href: "/track-order", icon: IconTruck },
-  { id: "collections", label: "Collections", href: "/collections", icon: IconGrid },
-  { id: "new-arrivals", label: "New Arrivals", href: "/shop", icon: IconSpark },
-  { id: "wishlist", label: "Wishlist", idNav: "wishlist", icon: IconHeart },
+  { id: "specials", label: "Chef's Specials", href: "/collections/featured", icon: IconGrid },
+  { id: "new-dishes", label: "New Dishes", href: "/collections/new-arrivals", icon: IconSpark },
+  { id: "favourites", label: "Favourites", idNav: "wishlist", icon: IconHeart },
   { id: "store-credit", label: "Store Credit", idNav: "account-detail", icon: IconCreditCard },
-  { id: "gift-cards", label: "Gift Cards", href: "/shop", icon: IconGift },
-  { id: "size-guide", label: "Size Guide", href: "/size-guide", icon: IconTag },
-  { id: "exchange", label: "Refund & Replacement", href: "/exchange-refund", icon: IconRefresh },
-  { id: "support", label: "Customer Care", href: "/contact", icon: IconPhone },
+  { id: "offers", label: "Today's Offers", href: "/collections/sale", icon: IconGift },
+  { id: "delivery", label: "Delivery Info", href: "/shipping-policy", icon: IconTag },
+  { id: "refund", label: "Refund & Replacement", href: "/exchange-refund", icon: IconRefresh },
+  { id: "support", label: "Call Restaurant", href: "tel:+8801786493740", icon: IconPhone },
 ];
 
-// My Favourite collections & edits
+// Favourite dishes shown as round thumbnails (images come from the menu data)
 const FAVORITES_LIST = [
+  { id: "f1", slug: "dhaka-kacchi-biryani", name: "Kacchi Biryani", type: "Mains" },
+  { id: "f2", slug: "butter-chicken", name: "Butter Chicken", type: "Mains" },
+  { id: "f3", slug: "beef-seekh-kebab", name: "Seekh Kebab", type: "Starters" },
+  { id: "f4", slug: "molten-chocolate-cake", name: "Chocolate Cake", type: "Desserts" },
+  { id: "f5", slug: "mango-lassi", name: "Mango Lassi", type: "Drinks" },
+  { id: "f6", slug: "masala-chai", name: "Masala Chai", type: "Drinks" },
+].map((fav) => ({ ...fav, image: getProductBySlug(fav.slug)?.images?.[0] }));
+
+// Past orders shown on "My Orders" (demo data until orders come from the backend)
+const ORDERS = [
   {
-    id: "f1",
-    name: "Silk Sarees",
-    type: "Signature Edit",
-    avatarBg: "bg-[#f5ebd9]",
-    avatarText: "text-[#b37d38]",
-    initials: "S",
-    isBird: false,
+    id: "ERP-10501",
+    date: "Today, 1:40 PM",
+    status: "On the way",
+    items: [
+      { slug: "dhaka-kacchi-biryani", qty: 2 },
+      { slug: "mango-lassi", qty: 2 },
+    ],
   },
   {
-    id: "f2",
-    name: "Evening Wear",
-    type: "Formal Collection",
-    avatarBg: "bg-[#f7e8e8]",
-    avatarText: "text-[#9e2a2b]",
-    initials: "E",
-    isBird: false,
+    id: "ERP-10482",
+    date: "12 Oct 2026",
+    status: "Delivered",
+    items: [
+      { slug: "butter-chicken", qty: 1 },
+      { slug: "beef-seekh-kebab", qty: 1 },
+      { slug: "masala-chai", qty: 2 },
+    ],
   },
   {
-    id: "f3",
-    name: "Kurti & Tops",
-    type: "Everyday Luxury",
-    avatarBg: "bg-[#f2efe9]",
-    avatarText: "text-[#a51e22]",
-    initials: "K",
-    isBird: false,
-  },
-  {
-    id: "f4",
-    name: "Festive Edit",
-    type: "Exclusive Drop",
-    avatarBg: "bg-[#f5e6ea]",
-    avatarText: "text-[#a51e22]",
-    initials: "",
-    isBird: true,
-  },
-  {
-    id: "f5",
-    name: "Velvet Suits",
-    type: "Winter Edition",
-    avatarBg: "bg-[#f7f0e1]",
-    avatarText: "text-[#a1742a]",
-    initials: "V",
-    isBird: false,
-  },
-  {
-    id: "f6",
-    name: "Linen Edit",
-    type: "Casual Wear",
-    avatarBg: "bg-[#eaeee8]",
-    avatarText: "text-[#4a6b47]",
-    initials: "L",
-    isBird: false,
+    id: "ERP-10455",
+    date: "05 Oct 2026",
+    status: "Delivered",
+    items: [
+      { slug: "house-beef-burger", qty: 2 },
+      { slug: "molten-chocolate-cake", qty: 1 },
+    ],
   },
 ];
 
@@ -104,24 +106,24 @@ const OFFERS_DATA = [
   },
   {
     id: "o2",
-    tag: "FREE SHIP",
+    tag: "FREE DELIVERY",
     badge: "MEMBER",
-    title: "Orders Over ৳3000",
-    description: "Enjoy complimentary nationwide express delivery on orders exceeding ৳3000.",
+    title: "Orders Over ৳1,500",
+    description: "Free delivery anywhere in Uttara when your order is over ৳1,500.",
     image: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80",
   },
   {
     id: "o3",
     tag: "10% OFF",
     badge: "LIMITED",
-    title: "Dinner Plates",
-    description: "Selected house mains — a short list of featured plates this week.",
+    title: "Chef's Specials",
+    description: "10% off the chef's featured mains this week — kacchi, butter chicken and more.",
     image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80",
   },
   {
     id: "o4",
     tag: "BUNDLE",
-    badge: "EDITORIAL",
+    badge: "COMBO",
     title: "Meal for Two",
     description: "Pair a main with a starter and a drink and save on the bundle.",
     image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80",
@@ -295,14 +297,6 @@ function IconPhone({ className = "h-6 w-6" }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}>
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  );
-}
-
-function IconBrandBird({ className = "h-5 w-5" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="#a51e22" className={className}>
-      <path d="M21.5 5.5c-2 2.5-5 3.5-7.5 3-1.5-.3-3-1.2-4-2.5-1 1.5-2.5 3-4.5 3.5C3.5 9.8 2 9 1 7.5c2 4 6 7 10 7 3.5 0 7-2 9-5.5-.5 1.5-1 2.5-2 3.5 2-.5 3.5-2 3.5-7z" />
     </svg>
   );
 }
@@ -579,14 +573,475 @@ function AddressesSection() {
   );
 }
 
-function GenericSection({ title, message = "No active records found." }) {
+// Notifications (demo data until they come from the backend)
+const INITIAL_NOTIFICATIONS = [
+  {
+    id: "n1",
+    type: "order",
+    icon: LuBike,
+    title: "Your order is on the way",
+    text: "Order #ERP-10501 left our kitchen. Your rider will call when nearby.",
+    time: "10 min ago",
+    read: false,
+  },
+  {
+    id: "n2",
+    type: "offer",
+    icon: LuTag,
+    title: "Friday special: 15% off Kacchi",
+    text: "Order Kacchi Biryani this Friday and get 15% off — dine-in or delivery.",
+    time: "2 hours ago",
+    read: false,
+  },
+  {
+    id: "n3",
+    type: "reward",
+    icon: LuStar,
+    title: "You earned 110 points",
+    text: "Points from order #ERP-10482 were added to your ERP17 Rewards.",
+    time: "Yesterday",
+    read: true,
+  },
+  {
+    id: "n4",
+    type: "order",
+    icon: LuCircleCheck,
+    title: "Order delivered",
+    text: "Order #ERP-10482 was delivered. Enjoy your meal!",
+    time: "12 Oct",
+    read: true,
+  },
+  {
+    id: "n5",
+    type: "booking",
+    icon: LuCalendarCheck,
+    title: "Table booking confirmed",
+    text: "Table for 4 on Saturday, 8:00 PM. We'll hold it for 15 minutes.",
+    time: "10 Oct",
+    read: true,
+  },
+];
+
+const NOTIFICATION_FILTERS = [
+  { id: "all", label: "All" },
+  { id: "order", label: "Orders" },
+  { id: "offer", label: "Offers" },
+  { id: "reward", label: "Rewards" },
+];
+
+// Rewards tiers, redeemable treats and points history
+const REWARD_POINTS = 1450;
+
+const REWARD_TIERS = [
+  { name: "Bronze", min: 0, icon: LuMedal, perk: "1 point for every ৳10" },
+  { name: "Silver", min: 2000, icon: LuStar, perk: "1.5× points + free dessert on birthday" },
+  { name: "Gold", min: 5000, icon: LuCrown, perk: "2× points + priority table booking" },
+];
+
+const REDEEMABLE = [
+  { id: "r1", points: 100, title: "Free Masala Chai" },
+  { id: "r2", points: 500, title: "৳50 off any order" },
+  { id: "r3", points: 1000, title: "Free Molten Chocolate Cake" },
+  { id: "r4", points: 2500, title: "Free Kacchi Biryani" },
+];
+
+const POINTS_HISTORY = [
+  { id: "p1", date: "12 Oct 2026", title: "Order #ERP-10482", points: +110 },
+  { id: "p2", date: "05 Oct 2026", title: "Order #ERP-10455", points: +116 },
+  { id: "p3", date: "28 Sep 2026", title: "Converted to store credit", points: -500 },
+  { id: "p4", date: "15 Sep 2026", title: "Birthday bonus", points: +300 },
+];
+
+const STATUS_STYLES = {
+  "On the way": "bg-amber-50 text-amber-700",
+  Delivered: "bg-emerald-50 text-emerald-700",
+};
+
+// MY ORDERS - past orders with one-tap reorder
+function OrdersSection() {
+  const { addItem } = useCart();
+  const { showToast } = useToast();
+
+  const orders = ORDERS.map((order) => {
+    const lines = order.items
+      .map((item) => ({ ...item, product: getProductBySlug(item.slug) }))
+      .filter((line) => line.product);
+    const total = lines.reduce(
+      (sum, line) => sum + line.product.price * line.qty,
+      0,
+    );
+    return { ...order, lines, total };
+  });
+
+  function reorder(order) {
+    order.lines.forEach(({ product, qty }) => {
+      addItem({
+        productId: product.id,
+        slug: product.slug,
+        name: product.name,
+        price: product.price,
+        compareAtPrice: product.compareAtPrice,
+        currency: product.currency,
+        image: product.images?.[0],
+        size: product.sizes?.includes("M") ? "M" : product.sizes?.[0],
+        color: product.colors?.[0]?.name ?? "",
+        quantity: qty,
+      });
+    });
+    showToast(`Order #${order.id} added to your cart`);
+  }
+
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-bold text-[#a51e22]">{title}</h2>
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-stone-200 bg-white py-14 text-center">
-        <p className="text-base font-semibold text-stone-800">{title}</p>
-        <p className="mt-1 text-xs text-stone-500">{message}</p>
+      <h2 className="text-xl font-bold text-[#a51e22]">My Orders</h2>
+      <ul className="space-y-4">
+        {orders.map((order) => (
+          <li
+            key={order.id}
+            className="rounded-2xl border border-[#eee7e1] bg-white p-4 shadow-xs sm:p-5"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <p className="text-sm font-bold text-stone-900">#{order.id}</p>
+                <p className="text-xs text-stone-500">{order.date}</p>
+              </div>
+              <span
+                className={`rounded-full px-3 py-1 text-xs font-semibold ${STATUS_STYLES[order.status] ?? "bg-stone-100 text-stone-600"}`}
+              >
+                {order.status}
+              </span>
+            </div>
+
+            <ul className="mt-4 space-y-3 border-t border-stone-100 pt-4">
+              {order.lines.map(({ product, qty }) => (
+                <li key={product.slug} className="flex items-center gap-3">
+                  <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-stone-100">
+                    <Image
+                      src={product.images[0]}
+                      alt=""
+                      fill
+                      sizes="44px"
+                      className="object-cover"
+                    />
+                  </span>
+                  <span className="min-w-0 flex-1 text-sm text-stone-800">
+                    {product.name}
+                    <span className="text-stone-400"> × {qty}</span>
+                  </span>
+                  <span className="text-sm font-semibold text-stone-900">
+                    {formatPrice(product.price * qty, product.currency)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-stone-100 pt-4">
+              <p className="text-sm text-stone-600">
+                Total{" "}
+                <span className="font-bold text-[#a51e22]">
+                  {formatPrice(order.total, "BDT")}
+                </span>
+              </p>
+              <div className="flex gap-2">
+                {order.status === "On the way" ? (
+                  <Link
+                    href="/track-order"
+                    className="rounded-full border border-[#a51e22] px-4 py-2 text-xs font-semibold text-[#a51e22]"
+                  >
+                    Track order
+                  </Link>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={() => reorder(order)}
+                  className="rounded-full bg-[#a51e22] px-4 py-2 text-xs font-semibold text-white"
+                >
+                  Reorder
+                </button>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// REWARDS - tier progress, redeemable treats and points history
+function RewardsSection() {
+  const { showToast } = useToast();
+  const currentTier =
+    [...REWARD_TIERS].reverse().find((tier) => REWARD_POINTS >= tier.min) ??
+    REWARD_TIERS[0];
+  const nextTier = REWARD_TIERS.find((tier) => tier.min > REWARD_POINTS);
+  const progress = nextTier
+    ? ((REWARD_POINTS - currentTier.min) / (nextTier.min - currentTier.min)) * 100
+    : 100;
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-bold text-[#a51e22]">Rewards</h2>
+
+      <div className="rounded-2xl bg-[#a51e22] p-5 text-white shadow-xs sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#f5b54a]">
+          ERP17 Rewards · {currentTier.name} Member
+        </p>
+        <p className="mt-2 text-3xl font-black">
+          {REWARD_POINTS.toLocaleString()}{" "}
+          <span className="text-base font-semibold">points</span>
+        </p>
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/20">
+          <div
+            className="h-full rounded-full bg-[#f5b54a]"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <p className="mt-2 text-sm text-white/80">
+          {nextTier
+            ? `${(nextTier.min - REWARD_POINTS).toLocaleString()} more points to reach ${nextTier.name}`
+            : "You are at the top tier — thank you!"}
+        </p>
       </div>
+
+      <div>
+        <h3 className="mb-3 text-base font-bold text-stone-900">Membership tiers</h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {REWARD_TIERS.map(({ name, min, icon: Icon, perk }) => {
+            const active = name === currentTier.name;
+            return (
+              <div
+                key={name}
+                className={`rounded-2xl border bg-white p-4 shadow-xs ${
+                  active ? "border-[#a51e22] ring-1 ring-[#a51e22]" : "border-[#eee7e1]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  {active ? (
+                    <span className="rounded-full bg-[#a51e22] px-2.5 py-0.5 text-xs font-semibold text-white">
+                      Current
+                    </span>
+                  ) : null}
+                </div>
+                <p className="mt-3 font-bold text-stone-900">{name}</p>
+                <p className="text-xs text-stone-500">
+                  {min === 0 ? "Starting tier" : `From ${min.toLocaleString()} points`}
+                </p>
+                <p className="mt-2 text-sm text-stone-600">{perk}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="mb-3 text-base font-bold text-stone-900">Redeem your points</h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {REDEEMABLE.map((reward) => {
+            const canRedeem = REWARD_POINTS >= reward.points;
+            return (
+              <div
+                key={reward.id}
+                className="flex items-center gap-3 rounded-2xl border border-[#eee7e1] bg-white p-4 shadow-xs"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f5b54a]/20 text-[#a51e22]">
+                  <LuGift className="h-5 w-5" aria-hidden />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-stone-900">{reward.title}</p>
+                  <p className="text-xs text-stone-500">
+                    {reward.points.toLocaleString()} points
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={!canRedeem}
+                  onClick={() => showToast(`${reward.title} added as a voucher`)}
+                  className="rounded-full bg-[#a51e22] px-4 py-2 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:bg-stone-200 disabled:text-stone-500"
+                >
+                  {canRedeem ? "Redeem" : "Locked"}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-[#eee7e1] bg-white shadow-xs">
+        <h3 className="border-b border-stone-100 px-5 py-4 text-base font-bold text-stone-900">
+          Points history
+        </h3>
+        <ul>
+          {POINTS_HISTORY.map((entry) => (
+            <li
+              key={entry.id}
+              className="flex items-center justify-between border-b border-stone-100 px-5 py-3.5 last:border-b-0"
+            >
+              <div>
+                <p className="text-sm font-semibold text-stone-800">{entry.title}</p>
+                <p className="text-xs text-stone-500">{entry.date}</p>
+              </div>
+              <span
+                className={`text-sm font-bold ${
+                  entry.points > 0 ? "text-emerald-600" : "text-[#a51e22]"
+                }`}
+              >
+                {entry.points > 0 ? "+" : ""}
+                {entry.points} pts
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+// FAVOURITES - dishes saved with the heart button
+function FavouritesSection() {
+  const { items, removeItem } = useWishlist();
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-xl font-bold text-[#a51e22]">Favourites</h2>
+      {items.length === 0 ? (
+        <div className="flex flex-col items-center rounded-2xl border border-dashed border-stone-200 bg-white px-6 py-14 text-center">
+          <IconHeart className="h-8 w-8 text-[#a51e22]" />
+          <p className="mt-3 text-base font-semibold text-stone-800">
+            No favourite dishes yet
+          </p>
+          <p className="mt-1 text-sm text-stone-500">
+            Tap the heart on any dish to save it here.
+          </p>
+          <Link
+            href="/shop"
+            className="mt-5 rounded-full bg-[#a51e22] px-5 py-2.5 text-sm font-semibold text-white"
+          >
+            Browse menu
+          </Link>
+        </div>
+      ) : (
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {items.map((item) => (
+            <li
+              key={item.productId}
+              className="flex items-center gap-3 rounded-2xl border border-[#eee7e1] bg-white p-3 shadow-xs"
+            >
+              <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-stone-100">
+                {item.image ? (
+                  <Image src={item.image} alt="" fill sizes="64px" className="object-cover" />
+                ) : null}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-bold text-stone-900">{item.name}</p>
+                <p className="text-sm font-semibold text-[#a51e22]">
+                  {formatPrice(item.price, item.currency)}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => removeItem(item.productId)}
+                className="rounded-full px-3 py-1.5 text-xs font-semibold text-stone-500 hover:bg-stone-100"
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+// NOTIFICATIONS - order updates, offers, rewards and bookings
+function NotificationsSection({ notifications, onMarkRead, onMarkAllRead }) {
+  const [filter, setFilter] = useState("all");
+  const unread = notifications.filter((n) => !n.read).length;
+  const shown =
+    filter === "all"
+      ? notifications
+      : notifications.filter((n) => n.type === filter);
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-bold text-[#a51e22]">Notifications</h2>
+          <p className="text-sm text-stone-500">
+            {unread > 0 ? `${unread} unread` : "You're all caught up"}
+          </p>
+        </div>
+        {unread > 0 ? (
+          <button
+            type="button"
+            onClick={onMarkAllRead}
+            className="rounded-full border border-[#a51e22] px-4 py-2 text-xs font-semibold text-[#a51e22]"
+          >
+            Mark all as read
+          </button>
+        ) : null}
+      </div>
+
+      <div className="flex gap-2 overflow-x-auto scrollbar-none">
+        {NOTIFICATION_FILTERS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setFilter(item.id)}
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium ${
+              filter === item.id
+                ? "bg-[#a51e22] text-white"
+                : "bg-white text-stone-600 ring-1 ring-[#eee7e1]"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      {shown.length === 0 ? (
+        <div className="flex flex-col items-center rounded-2xl border border-dashed border-stone-200 bg-white px-6 py-14 text-center">
+          <LuBellOff className="h-8 w-8 text-stone-400" aria-hidden />
+          <p className="mt-3 text-sm text-stone-500">No notifications here yet.</p>
+        </div>
+      ) : (
+        <ul className="overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs">
+          {shown.map(({ id, icon: Icon, title, text, time, read }) => (
+            <li key={id} className="border-b border-stone-100 last:border-b-0">
+              <button
+                type="button"
+                onClick={() => onMarkRead(id)}
+                className={`flex w-full items-start gap-3 px-4 py-4 text-left sm:px-5 ${
+                  read ? "" : "bg-[#fff8f0]"
+                }`}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
+                  <Icon className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-start justify-between gap-3">
+                    <span
+                      className={`text-sm text-stone-900 ${read ? "font-semibold" : "font-bold"}`}
+                    >
+                      {title}
+                    </span>
+                    <span className="shrink-0 text-xs text-stone-400">{time}</span>
+                  </span>
+                  <span className="mt-0.5 block text-sm text-stone-600">{text}</span>
+                </span>
+                {!read ? (
+                  <span
+                    className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[#a51e22]"
+                    aria-label="Unread"
+                  />
+                ) : null}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -598,10 +1053,10 @@ function AccountDetailView({ onBack }) {
   const [showBal, setShowBal] = useState(false);
 
   const transactions = [
-    { id: "t1", date: "01 Oct 2026", title: "Store Credit Cashback", amount: "+ ৳ 500.00", type: "credit" },
-    { id: "t2", date: "28 Sep 2026", title: "Reward Points Conversion", amount: "+ ৳ 1,000.00", type: "credit" },
-    { id: "t3", date: "20 Sep 2026", title: "Order Checkout #MLN-40192", amount: "- ৳ 3,250.00", type: "debit" },
-    { id: "t4", date: "15 Sep 2026", title: "Welcome Gift Bonus", amount: "+ ৳ 1,000.00", type: "credit" },
+    { id: "t1", date: "12 Oct 2026", title: "Paid for order #ERP-10482", amount: "- ৳ 900.00", type: "debit" },
+    { id: "t2", date: "06 Oct 2026", title: "Refund for missing item", amount: "+ ৳ 220.00", type: "credit" },
+    { id: "t3", date: "28 Sep 2026", title: "Reward points converted", amount: "+ ৳ 500.00", type: "credit" },
+    { id: "t4", date: "15 Sep 2026", title: "Birthday treat bonus", amount: "+ ৳ 300.00", type: "credit" },
   ];
 
   return (
@@ -619,13 +1074,13 @@ function AccountDetailView({ onBack }) {
         <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
-            className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-[#a51e22]/30 bg-white px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-[#a51e22] shadow-2xs hover:bg-[#fff9f5] transition"
+            className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-[#a51e22]/30 bg-white px-2.5 sm:px-3 py-1.5 text-xs sm:text-xs font-semibold text-[#a51e22] shadow-2xs hover:bg-[#fff9f5] transition"
           >
             <span>+</span> Redeem Gift Card
           </button>
           <button
             type="button"
-            className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-stone-200 bg-white px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-stone-700 shadow-2xs hover:bg-stone-50 transition"
+            className="flex items-center gap-1 sm:gap-1.5 rounded-xl border border-stone-200 bg-white px-2.5 sm:px-3 py-1.5 text-xs sm:text-xs font-semibold text-stone-700 shadow-2xs hover:bg-stone-50 transition"
           >
             <IconGear className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-stone-500" /> Settings
           </button>
@@ -658,8 +1113,8 @@ function AccountDetailView({ onBack }) {
                   <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase text-stone-800">ERP17 REWARDS</p>
-                  <p className="text-[10px] text-[#f5b54a] font-semibold">Bronze Member</p>
+                  <p className="text-xs font-bold uppercase text-stone-800">ERP17 REWARDS</p>
+                  <p className="text-xs text-[#f5b54a] font-semibold">Bronze Member</p>
                 </div>
               </div>
             </div>
@@ -683,11 +1138,11 @@ function AccountDetailView({ onBack }) {
               </div>
               <div className="mt-4 flex items-center gap-3">
                 <div className="flex h-7 w-8 shrink-0 items-center justify-center rounded bg-[#f5b54a] text-[8px] font-black text-white">
-                  MLN
+                  ERP
                 </div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase text-stone-800">STORE CREDIT CARD</p>
-                  <p className="text-[10px] text-stone-400">ID: MLN-89274</p>
+                  <p className="text-xs font-bold uppercase text-stone-800">STORE CREDIT CARD</p>
+                  <p className="text-xs text-stone-400">ID: ERP-89274</p>
                 </div>
               </div>
             </div>
@@ -708,7 +1163,7 @@ function AccountDetailView({ onBack }) {
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-widest text-[#f5b54a]">ERP17 STORE CREDIT</p>
-                <p className="text-xs font-medium text-stone-300">ID: MLN-89274</p>
+                <p className="text-xs font-medium text-stone-300">ID: ERP-89274</p>
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5b54a]/20 text-[#f5b54a] font-bold text-sm">
                 ✦
@@ -716,7 +1171,7 @@ function AccountDetailView({ onBack }) {
             </div>
 
             <div className="mt-6 sm:mt-8">
-              <p className="text-[11px] font-medium text-stone-300">Available Credit Balance</p>
+              <p className="text-xs font-medium text-stone-300">Available Credit Balance</p>
               <p className="text-xl font-black text-white sm:text-3xl">৳ 2,500.00</p>
             </div>
           </div>
@@ -754,15 +1209,15 @@ function AccountDetailView({ onBack }) {
             <div className="rounded-2xl border border-[#eee7e1] bg-white p-4 sm:p-5 shadow-2xs">
               <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
                 <div>
-                  <p className="text-[11px] font-medium text-stone-400">Membership Tier</p>
+                  <p className="text-xs font-medium text-stone-400">Membership Tier</p>
                   <p className="text-xs font-bold text-[#a51e22]">BRONZE MEMBER</p>
                 </div>
                 <div>
-                  <p className="text-[11px] font-medium text-stone-400">Total Earned Points</p>
+                  <p className="text-xs font-medium text-stone-400">Total Earned Points</p>
                   <p className="text-xs font-bold text-[#f5b54a]">1,450 PTS</p>
                 </div>
                 <div>
-                  <p className="text-[11px] font-medium text-stone-400">Member Opening Date</p>
+                  <p className="text-xs font-medium text-stone-400">Member Opening Date</p>
                   <p className="text-xs font-bold text-stone-800">05 Nov 2023</p>
                 </div>
               </div>
@@ -775,7 +1230,7 @@ function AccountDetailView({ onBack }) {
                   <div key={tx.id} className="flex items-center justify-between p-3.5 sm:p-4 text-xs">
                     <div>
                       <p className="font-bold text-stone-800">{tx.title}</p>
-                      <p className="text-[10px] text-stone-400">{tx.date}</p>
+                      <p className="text-xs text-stone-400">{tx.date}</p>
                     </div>
                     <span className={`font-bold ${tx.type === "credit" ? "text-emerald-600" : "text-[#a51e22]"}`}>
                       {tx.amount}
@@ -793,14 +1248,14 @@ function AccountDetailView({ onBack }) {
               className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-4 shadow-2xs transition hover:bg-[#fff9f5] hover:border-[#a51e22]/30 group"
             >
               <IconChequeBook className="h-5 w-5 text-[#a51e22] transition group-hover:scale-110" />
-              <span className="text-xs font-bold text-stone-800">Cheque Management</span>
+              <span className="text-xs font-bold text-stone-800">Redeem Points</span>
             </button>
             <button
               type="button"
               className="flex items-center justify-center gap-2.5 rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-4 shadow-2xs transition hover:bg-[#fff9f5] hover:border-[#a51e22]/30 group"
             >
               <IconShareNetwork className="h-5 w-5 text-[#a51e22] transition group-hover:scale-110" />
-              <span className="text-xs font-bold text-stone-800">Share Account Details</span>
+              <span className="text-xs font-bold text-stone-800">Invite a Friend</span>
             </button>
           </div>
         </div>
@@ -821,7 +1276,7 @@ function MobileDashboardHome({ onNavigate }) {
       id: "rewards",
       shown: showRewards,
       toggle: () => setShowRewards((value) => !value),
-      masked: "bxxxx.xx",
+      masked: "••••••",
       value: "1,450 PTS",
       title: "ERP17 REWARDS",
       detail: "Bronze Member",
@@ -831,11 +1286,11 @@ function MobileDashboardHome({ onNavigate }) {
       id: "credit",
       shown: showCredit,
       toggle: () => setShowCredit((value) => !value),
-      masked: "bxxxx.xx",
+      masked: "••••••",
       value: "৳ 2,500",
       title: "STORE CREDIT",
-      detail: "MLN-89274",
-      mark: "MLN",
+      detail: "ERP-89274",
+      mark: "ERP",
     },
   ];
 
@@ -885,7 +1340,7 @@ function MobileDashboardHome({ onNavigate }) {
               onClick={() => onNavigate("account-detail")}
               className="mt-4 flex w-full items-center gap-2.5 text-left"
             >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#a51e22] text-[10px] font-bold text-white">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#a51e22] text-xs font-bold text-white">
                 {account.id === "rewards" ? (
                   <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
                 ) : (
@@ -893,7 +1348,7 @@ function MobileDashboardHome({ onNavigate }) {
                 )}
               </span>
               <span className="min-w-0">
-                <span className="block text-[11px] font-bold uppercase tracking-wide text-stone-800">
+                <span className="block text-xs font-bold uppercase tracking-wide text-stone-800">
                   {account.title}
                 </span>
                 <span className="block text-xs text-stone-500">{account.detail}</span>
@@ -909,7 +1364,7 @@ function MobileDashboardHome({ onNavigate }) {
       <div className="relative rounded-[1.35rem] bg-white px-3 pb-2 pt-3.5 shadow-[0_8px_24px_rgba(165,30,34,0.06)]">
         <div className="grid grid-cols-2">
           {[
-            { id: "quick", label: "Quick Shopping", icon: LuShoppingBag },
+            { id: "quick", label: "Quick Order", icon: LuShoppingBag },
             { id: "favourites", label: "Favourites", icon: LuSparkle },
           ].map((item) => {
             const TabIcon = item.icon;
@@ -952,7 +1407,7 @@ function MobileDashboardHome({ onNavigate }) {
               const inner = (
                 <>
                   <IconComponent className="h-7 w-7 stroke-[1.6]" />
-                  <span className="text-[11px] font-medium leading-tight text-stone-700">
+                  <span className="text-xs font-medium leading-tight text-stone-700">
                     {item.label}
                   </span>
                 </>
@@ -982,15 +1437,19 @@ function MobileDashboardHome({ onNavigate }) {
             {FAVORITES_LIST.map((fav) => (
               <Link
                 key={fav.id}
-                href="/collections"
-                className="flex w-16 shrink-0 flex-col items-center text-center"
+                href="/shop"
+                className="flex w-20 shrink-0 flex-col items-center text-center"
               >
                 <span
-                  className={`flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold ${fav.avatarBg} ${fav.avatarText}`}
+                  className={`flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold bg-[#f5ebd9] ring-2 ring-[#f5b54a]/40`}
                 >
-                  {fav.isBird ? <IconBrandBird className="h-5 w-5" /> : fav.initials}
+                  <span className="relative block h-full w-full overflow-hidden rounded-full">
+                  {fav.image ? (
+                    <Image src={fav.image} alt="" fill sizes="48px" className="object-cover" />
+                  ) : null}
                 </span>
-                <span className="mt-1.5 line-clamp-1 w-full text-[11px] font-semibold text-stone-800">
+                </span>
+                <span className="mt-1.5 line-clamp-1 w-full text-xs font-semibold text-stone-800">
                   {fav.name}
                 </span>
               </Link>
@@ -1045,7 +1504,7 @@ function MobileDashboardHome({ onNavigate }) {
           <span className="min-w-0 flex-1">
             <span className="block text-sm font-semibold text-stone-900">Track an order</span>
             <span className="block text-xs text-stone-500">
-              See shipments and delivery updates.
+              See your live delivery status and past orders.
             </span>
           </span>
           <IconChevronRight className="h-4 w-4 text-stone-400" />
@@ -1066,7 +1525,7 @@ function MobileDashboardHome({ onNavigate }) {
               className="flex overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs"
             >
               <div className="flex w-7 shrink-0 items-center justify-center bg-[#a51e22] px-1">
-                <span className="rotate-180 text-[9px] font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
+                <span className="rotate-180 text-xs font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
                   {offer.tag}
                 </span>
               </div>
@@ -1085,7 +1544,7 @@ function MobileDashboardHome({ onNavigate }) {
                     {offer.badge}
                   </span>
                   <h4 className="truncate text-xs font-bold text-stone-900">{offer.title}</h4>
-                  <p className="mt-0.5 line-clamp-2 text-[10px] leading-relaxed text-stone-500">
+                  <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-stone-500">
                     {offer.description}
                   </p>
                 </div>
@@ -1112,7 +1571,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
       {/* LEFT MAIN COLUMN (spans 8 of 12 cols on desktop) */}
       <div className="w-full min-w-0 space-y-4 sm:space-y-5 lg:col-span-8 xl:col-span-8">
         {/* TOP CARDS ROW (Rewards, Store Credit, View All) */}
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+        <div className="grid grid-cols-[1fr_1fr_auto] gap-2.5 sm:gap-3">
           {/* Account Card 1: Rewards */}
           <div
             onClick={() => onNavigate("account-detail")}
@@ -1120,7 +1579,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold tracking-wide text-[#a51e22] truncate">
-                {showAccountBal ? "1,450 PTS" : "bxxxx.xx"}
+                {showAccountBal ? "1,450 PTS" : "••••••"}
               </span>
               <button
                 type="button"
@@ -1139,8 +1598,8 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                 <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">ERP17 REWARDS</p>
-                <p className="text-[10px] text-[#f5b54a] font-semibold truncate">Bronze Member</p>
+                <p className="text-xs font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">ERP17 REWARDS</p>
+                <p className="text-xs text-[#f5b54a] font-semibold truncate">Bronze Member</p>
               </div>
             </div>
           </div>
@@ -1152,7 +1611,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold tracking-wide text-[#a51e22] truncate">
-                {showCardBal ? "৳ 2,500" : "bxxxx.xx"}
+                {showCardBal ? "৳ 2,500" : "••••••"}
               </span>
               <button
                 type="button"
@@ -1168,32 +1627,32 @@ function DashboardHomeView({ onNavigate, wishCount }) {
             </div>
             <div className="mt-3 flex items-center gap-2">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-[#f5b54a] font-extrabold text-[8px] text-white tracking-tighter shadow-xs">
-                MLN
+                ERP
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">STORE CREDIT</p>
-                <p className="text-[10px] text-stone-400 truncate">MLN-89274</p>
+                <p className="text-xs font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">STORE CREDIT</p>
+                <p className="text-xs text-stone-400 truncate">ERP-89274</p>
               </div>
             </div>
           </div>
 
-          {/* View All — spans full width on mobile */}
+          {/* View All — sits to the right of the two cards */}
           <div
-            className="col-span-2 flex items-center justify-center rounded-2xl border border-[#eee7e1] bg-white p-3 shadow-xs hover:bg-[#fff9f5] transition cursor-pointer"
+            className="flex items-center justify-center rounded-2xl border border-[#eee7e1] bg-white px-5 py-3 shadow-xs hover:bg-[#fff9f5] transition cursor-pointer"
             onClick={() => onNavigate("account-detail")}
           >
-            <div className="flex flex-row items-center gap-2 text-center">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
-                <IconChevronRight className="h-3.5 w-3.5" />
+            <div className="flex flex-col items-center gap-1.5 text-center">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
+                <IconChevronRight className="h-4 w-4" />
               </span>
-              <span className="text-xs font-semibold text-[#a51e22]">View All Accounts</span>
+              <span className="whitespace-nowrap text-xs font-semibold text-[#a51e22]">View All</span>
             </div>
           </div>
         </div>
 
         {/* QUICK SHOPPING CARD */}
         <div className="rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-5 shadow-xs">
-          <h3 className="text-xs sm:text-sm font-semibold text-stone-800">Quick Shopping &amp; Services</h3>
+          <h3 className="text-sm sm:text-base font-semibold text-stone-800">Quick Order &amp; Services</h3>
           <hr className="my-2.5 sm:my-3 border-stone-100" />
 
           <div className="grid grid-cols-5 gap-y-4 gap-x-1 sm:gap-y-5 sm:gap-x-4">
@@ -1204,7 +1663,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                   <span className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-[#a51e22]/5 text-[#a51e22] transition group-hover:bg-[#a51e22]/10 group-hover:scale-110">
                     <IconComponent className="h-4 w-4 sm:h-5 sm:w-5 stroke-[1.6]" />
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-medium text-stone-700 group-hover:text-[#a51e22] leading-tight">
+                  <span className="text-xs sm:text-sm font-medium text-stone-700 group-hover:text-[#a51e22] leading-tight">
                     {item.label}
                   </span>
                 </>
@@ -1234,28 +1693,28 @@ function DashboardHomeView({ onNavigate, wishCount }) {
 
         {/* MY FAVOURITE COLLECTIONS */}
         <div className="rounded-2xl border border-[#eee7e1] bg-white p-3.5 sm:p-5 shadow-xs overflow-hidden">
-          <h3 className="text-xs sm:text-sm font-semibold text-stone-800">My Favourite Collections</h3>
+          <h3 className="text-sm sm:text-base font-semibold text-stone-800">My Favourite Dishes</h3>
 
           <div className="mt-3 -mx-3.5 sm:-mx-5 flex items-center gap-3 overflow-x-auto px-3.5 sm:px-5 pb-2 scrollbar-none">
             {FAVORITES_LIST.map((fav) => (
               <Link
                 key={fav.id}
-                href="/collections"
-                className="flex w-16 sm:w-20 shrink-0 flex-col items-center text-center cursor-pointer transition hover:opacity-80"
+                href="/shop"
+                className="flex w-20 sm:w-24 shrink-0 flex-col items-center text-center cursor-pointer transition hover:opacity-80"
               >
                 <div
-                  className={`flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-full text-sm font-bold shadow-xs ${fav.avatarBg} ${fav.avatarText}`}
+                  className={`flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-full text-sm font-bold shadow-xs bg-[#f5ebd9] ring-2 ring-[#f5b54a]/40`}
                 >
-                  {fav.isBird ? (
-                    <IconBrandBird className="h-5 w-5" />
-                  ) : (
-                    fav.initials
-                  )}
+                  <span className="relative block h-full w-full overflow-hidden rounded-full">
+                    {fav.image ? (
+                      <Image src={fav.image} alt="" fill sizes="52px" className="object-cover" />
+                    ) : null}
+                  </span>
                 </div>
-                <span className="mt-1.5 text-[10px] sm:text-xs font-semibold text-stone-800 line-clamp-1 w-full">
+                <span className="mt-1.5 text-xs sm:text-xs font-semibold text-stone-800 line-clamp-1 w-full">
                   {fav.name}
                 </span>
-                <span className="mt-0.5 text-[9px] sm:text-[10px] text-stone-400 line-clamp-1 w-full">
+                <span className="mt-0.5 text-xs sm:text-xs text-stone-400 line-clamp-1 w-full">
                   {fav.type}
                 </span>
               </Link>
@@ -1266,7 +1725,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
         {/* OFFERS & VOUCHERS SECTION */}
         <div className="min-w-0">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs sm:text-sm font-bold text-stone-800">Offers &amp; Vouchers</h3>
+            <h3 className="text-sm sm:text-base font-bold text-stone-800">Offers &amp; Vouchers</h3>
             <Link
               href="/shop"
               className="text-xs font-bold text-[#a51e22] hover:underline"
@@ -1283,7 +1742,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                 className="group flex overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs"
               >
                 <div className="flex w-7 shrink-0 items-center justify-center bg-[#a51e22] px-1">
-                  <span className="rotate-180 text-[9px] font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
+                  <span className="rotate-180 text-xs font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
                     {offer.tag}
                   </span>
                 </div>
@@ -1302,7 +1761,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                       {offer.badge}
                     </span>
                     <h4 className="text-xs font-bold text-stone-900 truncate">{offer.title}</h4>
-                    <p className="mt-0.5 line-clamp-2 text-[10px] leading-relaxed text-stone-500">
+                    <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-stone-500">
                       {offer.description}
                     </p>
                   </div>
@@ -1319,7 +1778,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                 className="group flex w-[280px] shrink-0 overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="flex w-9 shrink-0 items-center justify-center bg-[#a51e22] px-1">
-                  <span className="rotate-180 text-[10px] font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
+                  <span className="rotate-180 text-xs font-black uppercase tracking-widest text-[#f5b54a] [writing-mode:vertical-rl]">
                     {offer.tag}
                   </span>
                 </div>
@@ -1332,13 +1791,13 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                       className="object-cover transition duration-300 group-hover:scale-105"
                       sizes="280px"
                     />
-                    <span className="absolute right-2 top-2 rounded bg-[#a51e22] px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-xs">
+                    <span className="absolute right-2 top-2 rounded bg-[#a51e22] px-1.5 py-0.5 text-xs font-extrabold uppercase tracking-wide text-white shadow-xs">
                       {offer.badge}
                     </span>
                   </div>
                   <div className="p-3">
                     <h4 className="text-xs font-bold text-stone-900">{offer.title}</h4>
-                    <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-stone-500">
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-stone-500">
                       {offer.description}
                     </p>
                   </div>
@@ -1355,23 +1814,23 @@ function DashboardHomeView({ onNavigate, wishCount }) {
         <div className="flex items-center gap-3 rounded-2xl border border-[#f5b54a]/40 bg-gradient-to-r from-[#fffbf7] to-[#fff3e6] p-3 shadow-xs">
           <IconGift className="h-7 w-7 shrink-0 text-[#a51e22]" />
           <div className="min-w-0 flex-1">
-            <h4 className="text-[11px] font-bold leading-snug text-[#a51e22]">
+            <h4 className="text-xs font-bold leading-snug text-[#a51e22]">
               Spend &amp; Earn! Get Rewards on Every Order.
             </h4>
-            <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
+            <p className="mt-1 text-xs leading-relaxed text-stone-600">
               Order from the ERP17 Restaurant menu and earn reward points on every checkout.
             </p>
           </div>
         </div>
 
-        {/* Banner 2: Start Tracking to Save */}
+        {/* Banner 2: Live order tracking */}
         <div className="flex items-center gap-3 rounded-2xl border border-amber-200/80 bg-gradient-to-r from-[#fffaf3] to-[#fdf4e8] p-3 shadow-xs">
           <div className="min-w-0 flex-1">
-            <h4 className="text-[11px] font-bold leading-snug text-[#a51e22]">
-              Start Tracking to Save!
+            <h4 className="text-xs font-bold leading-snug text-[#a51e22]">
+              Track Your Food Live!
             </h4>
-            <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
-              Track active orders and set a wishlist budget for your next meal.
+            <p className="mt-1 text-xs leading-relaxed text-stone-600">
+              See where your order is — from our kitchen to your door.
             </p>
           </div>
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-xl shadow-xs">
@@ -1393,6 +1852,14 @@ export function AccountDashboard() {
   const { totalItems: wishCount } = useWishlist();
 
   const [activeSection, setActiveSection] = useState("dashboard");
+  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+  const unreadCount = notifications.filter((n) => !n.read).length;
+  const markNotificationRead = (id) =>
+    setNotifications((list) =>
+      list.map((n) => (n.id === id ? { ...n, read: true } : n)),
+    );
+  const markAllNotificationsRead = () =>
+    setNotifications((list) => list.map((n) => ({ ...n, read: true })));
   const [greeting, setGreeting] = useState("Good Afternoon");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchMounted, setSearchMounted] = useState(false);
@@ -1445,9 +1912,19 @@ export function AccountDashboard() {
       case "account-detail":
         return <AccountDetailView onBack={() => setActiveSection("dashboard")} />;
       case "orders":
-        return <GenericSection title="My Orders" message="View active shipments and order history." />;
+        return <OrdersSection />;
       case "wishlist":
-        return <GenericSection title="Wishlist & Rewards" message={`Saved items (${wishCount}) and ERP17 reward points history.`} />;
+        return <FavouritesSection />;
+      case "rewards":
+        return <RewardsSection />;
+      case "notifications":
+        return (
+          <NotificationsSection
+            notifications={notifications}
+            onMarkRead={markNotificationRead}
+            onMarkAllRead={markAllNotificationsRead}
+          />
+        );
       case "services":
         return <AddressesSection />;
       case "profile":
@@ -1470,7 +1947,7 @@ export function AccountDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fcf9f6] text-stone-900 font-sans antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-[#fcf9f6] text-stone-900 font-sans antialiased overflow-x-clip">
       {searchMounted
         ? createPortal(
             <AnimatePresence>
@@ -1480,7 +1957,7 @@ export function AccountDashboard() {
                   action="/shop"
                   method="get"
                   role="search"
-                  aria-label="Search products"
+                  aria-label="Search dishes"
                   initial={{ y: "-100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
@@ -1502,7 +1979,7 @@ export function AccountDashboard() {
                     <input
                       type="search"
                       name="q"
-                      placeholder="Search products"
+                      placeholder="Search dishes"
                       autoFocus
                       className="h-11 w-full rounded-full border border-white/35 bg-white/10 px-4 pr-24 text-sm text-white outline-none placeholder:text-white/70 focus:border-white"
                     />
@@ -1520,14 +1997,26 @@ export function AccountDashboard() {
           )
         : null}
       {/* Top Header Bar */}
-      <header className="sticky top-0 z-30 hidden items-center justify-between border-b border-[#eee7e1] bg-white px-4 sm:px-6 py-3 sm:py-3.5 shadow-2xs font-sans lg:flex">
+      <header className="sticky top-0 z-30 hidden h-16 items-center justify-between border-b border-[#eee7e1] bg-white px-8 shadow-2xs font-sans lg:flex">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center" aria-label="ERP17 Restaurant">
-          <BrandMark className="h-9 w-auto text-[var(--secondary)]" />
+        <Link href="/" className="flex items-center" aria-label="ERP17 Restaurant home">
+          <BrandLogo
+            tone="dark"
+            markClassName="h-8 w-auto"
+            nameClassName="text-2xl"
+            taglineClassName="text-xs text-stone-500"
+          />
         </Link>
 
         {/* Right Action Icons */}
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-2">
+          <Link
+            href="/shop"
+            className="mr-2 inline-flex items-center gap-2 rounded-full bg-[#a51e22] px-5 py-2 text-sm font-semibold text-white"
+          >
+            <IconBag className="h-4 w-4" />
+            Order food
+          </Link>
           <button
             type="button"
             aria-label={searchOpen ? "Close search" : "Search"}
@@ -1539,28 +2028,36 @@ export function AccountDashboard() {
           </button>
           <button
             type="button"
-            aria-label="Trophy Rewards"
-            className="hidden sm:flex h-9 w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#a51e22]"
+            aria-label="Rewards"
+            onClick={() => setActiveSection("rewards")}
+            className={`hidden sm:flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-stone-100 hover:text-[#a51e22] ${
+              activeSection === "rewards" ? "bg-[#a51e22]/10 text-[#a51e22]" : "text-stone-600"
+            }`}
           >
             <IconTrophy className="h-5 w-5" />
           </button>
           <button
             type="button"
-            aria-label="Notifications"
-            className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-[#a51e22]"
+            aria-label={`Notifications, ${unreadCount} unread`}
+            onClick={() => setActiveSection("notifications")}
+            className={`relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full transition hover:bg-stone-100 hover:text-[#a51e22] ${
+              activeSection === "notifications" ? "bg-[#a51e22]/10 text-[#a51e22]" : "text-stone-600"
+            }`}
           >
             <IconBell className="h-4 w-4 sm:h-5 sm:w-5" />
-            <span className="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#f5b54a] px-1 text-[8px] font-black text-white shadow-xs">
-              2
-            </span>
+            {unreadCount > 0 ? (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#a51e22] px-1 text-[10px] font-bold text-white shadow-xs">
+                {unreadCount}
+              </span>
+            ) : null}
           </button>
         </div>
       </header>
 
       {/* Main Body Container */}
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col lg:flex-row overflow-x-hidden">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col lg:flex-row overflow-x-clip">
         {/* Sidebar - Desktop Only */}
-        <aside className="sticky top-[53px] sm:top-[57px] hidden h-[calc(100vh-53px)] sm:h-[calc(100vh-57px)] w-[240px] shrink-0 flex-col border-r border-[#eee7e1] bg-white px-4 py-6 lg:flex overflow-y-auto">
+        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-[260px] shrink-0 flex-col self-start overflow-y-auto border-r border-[#eee7e1] bg-white px-5 py-6 lg:flex">
           {/* User Profile Card */}
           <div className="flex items-start gap-3 px-1">
             <div className="relative">
@@ -1581,8 +2078,8 @@ export function AccountDashboard() {
                 <IconSun className="h-3.5 w-3.5" />
                 <span>{greeting}</span>
               </div>
-              <p className="truncate text-sm font-bold text-stone-900">{firstName}</p>
-              <span className="mt-1 inline-flex items-center gap-1 rounded-full border border-[#eee7e1] bg-[#fffaf5] px-2 py-0.5 text-[10px] font-semibold text-[#a51e22]">
+              <p className="truncate text-base font-bold text-stone-900">{firstName}</p>
+              <span className="mt-1 inline-flex items-center gap-1 rounded-full border border-[#eee7e1] bg-[#fffaf5] px-2 py-0.5 text-xs font-semibold text-[#a51e22]">
                 <IconShield className="h-3 w-3 text-[#f5b54a]" />
                 Bronze Member
               </span>
@@ -1590,7 +2087,7 @@ export function AccountDashboard() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="mt-8 flex-1 space-y-1.5">
+          <nav className="mt-6 flex-1 space-y-1 border-t border-stone-100 pt-5">
             {NAV_ITEMS.map((item) => {
               const IconComp = item.icon;
               const active = activeSection === item.id;
@@ -1599,13 +2096,13 @@ export function AccountDashboard() {
                   key={item.id}
                   type="button"
                   onClick={() => setActiveSection(item.id)}
-                  className={`flex w-full items-center gap-3.5 rounded-xl px-3.5 py-2.5 text-left text-xs font-semibold transition ${
+                  className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition ${
                     active
                       ? "border border-[#a51e22]/20 bg-[#a51e22]/5 text-[#a51e22] shadow-2xs"
                       : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"
                   }`}
                 >
-                  <IconComp className={`h-4 w-4 ${active ? "text-[#a51e22]" : "text-stone-500"}`} />
+                  <IconComp className={`h-5 w-5 ${active ? "text-[#a51e22]" : "text-stone-500"}`} />
                   {item.label}
                 </button>
               );
@@ -1613,13 +2110,13 @@ export function AccountDashboard() {
           </nav>
 
           {/* Sidebar Footer Logout */}
-          <div className="border-t border-stone-100 pt-4">
+          <div className="mt-auto border-t border-stone-100 pt-4">
             <button
               type="button"
               onClick={handleSignOut}
-              className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-stone-500 transition hover:text-[#a51e22]"
+              className="flex w-full items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold text-stone-500 transition hover:bg-stone-50 hover:text-[#a51e22]"
             >
-              <IconLogout className="h-4 w-4" />
+              <IconLogout className="h-5 w-5" />
               Log out
             </button>
           </div>
@@ -1652,20 +2149,23 @@ export function AccountDashboard() {
               <button
                 type="button"
                 aria-label="Rewards"
-                onClick={() => setActiveSection("wishlist")}
+                onClick={() => setActiveSection("rewards")}
                 className="flex h-10 w-10 items-center justify-center rounded-full text-white"
               >
                 <IconTrophy className="h-5 w-5" />
               </button>
               <button
                 type="button"
-                aria-label="Notifications"
+                aria-label={`Notifications, ${unreadCount} unread`}
+                onClick={() => setActiveSection("notifications")}
                 className="relative flex h-10 w-10 items-center justify-center rounded-full text-white"
               >
                 <IconBell className="h-5 w-5" />
-                <span className="absolute right-0.5 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#f0c14d] px-1 text-[9px] font-bold text-[#a51e22]">
-                  2
-                </span>
+                {unreadCount > 0 ? (
+                  <span className="absolute right-0.5 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#f0c14d] px-1 text-xs font-bold text-[#a51e22]">
+                    {unreadCount}
+                  </span>
+                ) : null}
               </button>
             </div>
           </div>
@@ -1702,13 +2202,13 @@ export function AccountDashboard() {
             {[
               { id: "dashboard", label: "Home", icon: IconHome },
               { id: "orders", label: "Orders", icon: IconPackage },
-              { id: "shop", label: "Shop", href: "/shop", icon: IconBag },
-              { id: "wishlist", label: "Wishlist", icon: IconHeart },
+              { id: "shop", label: "Menu", href: "/shop", icon: IconBag },
+              { id: "wishlist", label: "Favourites", icon: IconHeart },
               { id: "signout", label: "Sign out", icon: IconLogout, signOut: true },
             ].map((item) => {
               const IconComp = item.icon;
               const active = !item.href && !item.signOut && activeSection === item.id;
-              const className = `relative flex flex-col items-center gap-1 rounded-none px-1 pb-2 pt-2 text-[10px] font-semibold ${
+              const className = `relative flex flex-col items-center gap-1 rounded-none px-1 pb-2 pt-2 text-xs font-semibold ${
                 active ? "text-[#a51e22]" : "text-stone-400"
               }`;
               const inner = (
