@@ -167,12 +167,7 @@ export default function AboutUsPage() {
               imageClassName="object-cover"
             />
           </div>
-          <div className="absolute -bottom-6 right-4 rounded-2xl bg-[var(--primary)] px-6 py-4 text-white shadow-xl sm:right-6">
-            <p className="text-3xl font-bold text-[var(--secondary)]">6+</p>
-            <p className="text-xs font-medium text-white/80">
-              Years of cooking
-            </p>
-          </div>
+        
         </div>
         <div>
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold text-stone-900 sm:text-4xl">
