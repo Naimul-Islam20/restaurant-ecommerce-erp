@@ -9,7 +9,7 @@ import { getProducts } from "@/lib/products";
 
 export const metadata = {
   title: "Shop",
-  description: "Browse every Maaleen piece in one place.",
+  description: "Browse the full ERP17 Restaurant menu.",
 };
 
 function CatalogFallback() {

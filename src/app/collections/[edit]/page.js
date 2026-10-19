@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
   }
   return {
     title: config.label,
-    description: `Shop ${config.label} — Maaleen.`,
+    description: `${config.label} at ERP17 Restaurant.`,
   };
 }
 

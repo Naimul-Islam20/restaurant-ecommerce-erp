@@ -10,7 +10,7 @@ import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 export const metadata = {
   title: "Specials & Collections",
   description:
-    "Explore the Maaleen menu — starters, mains, desserts, drinks, chef's specials and today's offers.",
+    "Explore the ERP17 Restaurant menu — starters, mains, desserts, drinks, chef's specials and today's offers.",
 };
 
 function SectionHeading({ eyebrow, title, children }) {

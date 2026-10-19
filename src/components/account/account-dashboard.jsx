@@ -12,7 +12,7 @@ import { BrandMark } from "@/components/layout/brand-logo";
 import { useAuth } from "@/contexts/auth-context";
 import { useWishlist } from "@/contexts/wishlist-context";
 
-// Sidebar navigation items matching Maaleen E-commerce layout
+// Sidebar navigation items for the account dashboard
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: IconHome },
   { id: "orders", label: "My Orders", icon: IconPackage },
@@ -20,7 +20,7 @@ const NAV_ITEMS = [
   { id: "services", label: "Saved Addresses", icon: IconMapPin },
 ];
 
-// Quick Shopping 10 action grid items matching Maaleen brand
+// Quick Shopping 10 action grid items for the account dashboard
 const QUICK_SHOPPING_ACTIONS = [
   { id: "shop-all", label: "Shop All", href: "/shop", icon: IconBag },
   { id: "track-order", label: "Track Order", href: "/track-order", icon: IconTruck },
@@ -92,7 +92,7 @@ const FAVORITES_LIST = [
   },
 ];
 
-// Offers and vouchers for the Maaleen restaurant menu
+// Offers and vouchers for the ERP17 Restaurant menu
 const OFFERS_DATA = [
   {
     id: "o1",
@@ -128,7 +128,7 @@ const OFFERS_DATA = [
   },
 ];
 
-// SVG Icon Definitions styled with Maaleen burgundy (#a51e22) theme
+// SVG Icon Definitions styled with the site red (#a51e22)
 function IconSun({ className = "h-4 w-4" }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
@@ -299,7 +299,7 @@ function IconPhone({ className = "h-6 w-6" }) {
   );
 }
 
-function IconMaaleenBird({ className = "h-5 w-5" }) {
+function IconBrandBird({ className = "h-5 w-5" }) {
   return (
     <svg viewBox="0 0 24 24" fill="#a51e22" className={className}>
       <path d="M21.5 5.5c-2 2.5-5 3.5-7.5 3-1.5-.3-3-1.2-4-2.5-1 1.5-2.5 3-4.5 3.5C3.5 9.8 2 9 1 7.5c2 4 6 7 10 7 3.5 0 7-2 9-5.5-.5 1.5-1 2.5-2 3.5 2-.5 3.5-2 3.5-7z" />
@@ -591,7 +591,7 @@ function GenericSection({ title, message = "No active records found." }) {
   );
 }
 
-// ACCOUNT DETAIL VIEW - MAALEEN BRANDED REPLICA OF CITYTOUCH ACCOUNT DETAILS PAGE
+// ACCOUNT DETAIL VIEW - account details page
 function AccountDetailView({ onBack }) {
   const [activeTab, setActiveTab] = useState("details"); // "details" | "transactions"
   const [selectedAcc, setSelectedAcc] = useState("account-1");
@@ -658,7 +658,7 @@ function AccountDetailView({ onBack }) {
                   <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase text-stone-800">MAALEEN REWARDS</p>
+                  <p className="text-[11px] font-bold uppercase text-stone-800">ERP17 REWARDS</p>
                   <p className="text-[10px] text-[#f5b54a] font-semibold">Bronze Member</p>
                 </div>
               </div>
@@ -707,7 +707,7 @@ function AccountDetailView({ onBack }) {
           <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#f5b54a]/30 bg-gradient-to-r from-[#a51e22] via-[#7f1519] to-[#5e1013] p-5 sm:p-6 text-white shadow-md">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-widest text-[#f5b54a]">MAALEEN STORE CREDIT</p>
+                <p className="text-xs font-extrabold uppercase tracking-widest text-[#f5b54a]">ERP17 STORE CREDIT</p>
                 <p className="text-xs font-medium text-stone-300">ID: MLN-89274</p>
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5b54a]/20 text-[#f5b54a] font-bold text-sm">
@@ -809,7 +809,7 @@ function AccountDetailView({ onBack }) {
   );
 }
 
-// Main Dashboard Content View - MAALEEN BRANDED REPLICA WITH SEPARATE RIGHT COLUMN
+// Main Dashboard Content View - with separate right column
 function MobileDashboardHome({ onNavigate }) {
   const [showRewards, setShowRewards] = useState(false);
   const [showCredit, setShowCredit] = useState(false);
@@ -823,7 +823,7 @@ function MobileDashboardHome({ onNavigate }) {
       toggle: () => setShowRewards((value) => !value),
       masked: "bxxxx.xx",
       value: "1,450 PTS",
-      title: "MAALEEN REWARDS",
+      title: "ERP17 REWARDS",
       detail: "Bronze Member",
       mark: "★",
     },
@@ -988,7 +988,7 @@ function MobileDashboardHome({ onNavigate }) {
                 <span
                   className={`flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold ${fav.avatarBg} ${fav.avatarText}`}
                 >
-                  {fav.isBird ? <IconMaaleenBird className="h-5 w-5" /> : fav.initials}
+                  {fav.isBird ? <IconBrandBird className="h-5 w-5" /> : fav.initials}
                 </span>
                 <span className="mt-1.5 line-clamp-1 w-full text-[11px] font-semibold text-stone-800">
                   {fav.name}
@@ -1027,7 +1027,7 @@ function MobileDashboardHome({ onNavigate }) {
             Spend &amp; Earn! Get Rewards on Every Order.
           </p>
           <p className="mt-1 text-xs leading-relaxed text-stone-600">
-              Order from the Maaleen menu and earn reward points on every checkout.
+              Order from the ERP17 Restaurant menu and earn reward points on every checkout.
           </p>
         </div>
       </div>
@@ -1111,9 +1111,9 @@ function DashboardHomeView({ onNavigate, wishCount }) {
     <div className="hidden w-full lg:grid gap-4 sm:gap-5 lg:gap-6 lg:grid-cols-12 items-start">
       {/* LEFT MAIN COLUMN (spans 8 of 12 cols on desktop) */}
       <div className="w-full min-w-0 space-y-4 sm:space-y-5 lg:col-span-8 xl:col-span-8">
-        {/* TOP CARDS ROW (Maaleen Rewards, Store Credit, View All) */}
+        {/* TOP CARDS ROW (Rewards, Store Credit, View All) */}
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-          {/* Account Card 1: Maaleen Rewards */}
+          {/* Account Card 1: Rewards */}
           <div
             onClick={() => onNavigate("account-detail")}
             className="flex flex-col justify-between rounded-2xl border border-[#eee7e1] bg-white p-3 shadow-xs transition hover:shadow-md cursor-pointer group min-w-0"
@@ -1139,7 +1139,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                 <BrandMark className="h-4 w-auto text-[var(--secondary)]" />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">MAALEEN REWARDS</p>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-stone-800 group-hover:text-[#a51e22] transition truncate">ERP17 REWARDS</p>
                 <p className="text-[10px] text-[#f5b54a] font-semibold truncate">Bronze Member</p>
               </div>
             </div>
@@ -1247,7 +1247,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
                   className={`flex h-11 w-11 sm:h-13 sm:w-13 items-center justify-center rounded-full text-sm font-bold shadow-xs ${fav.avatarBg} ${fav.avatarText}`}
                 >
                   {fav.isBird ? (
-                    <IconMaaleenBird className="h-5 w-5" />
+                    <IconBrandBird className="h-5 w-5" />
                   ) : (
                     fav.initials
                   )}
@@ -1359,7 +1359,7 @@ function DashboardHomeView({ onNavigate, wishCount }) {
               Spend &amp; Earn! Get Rewards on Every Order.
             </h4>
             <p className="mt-1 text-[10px] leading-relaxed text-stone-600">
-              Order from the Maaleen menu and earn reward points on every checkout.
+              Order from the ERP17 Restaurant menu and earn reward points on every checkout.
             </p>
           </div>
         </div>
@@ -1447,7 +1447,7 @@ export function AccountDashboard() {
       case "orders":
         return <GenericSection title="My Orders" message="View active shipments and order history." />;
       case "wishlist":
-        return <GenericSection title="Wishlist & Rewards" message={`Saved items (${wishCount}) and Maaleen reward points history.`} />;
+        return <GenericSection title="Wishlist & Rewards" message={`Saved items (${wishCount}) and ERP17 reward points history.`} />;
       case "services":
         return <AddressesSection />;
       case "profile":

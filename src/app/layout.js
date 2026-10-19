@@ -17,13 +17,13 @@ const dmSans = DM_Sans({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://maaleen.example.com"),
+  metadataBase: new URL("https://erp17restaurant.example.com"),
   title: {
-    default: "Maaleen — Restaurant menu",
-    template: "%s | Maaleen",
+    default: "ERP17 Restaurant — Uttara, Dhaka",
+    template: "%s | ERP17 Restaurant",
   },
   description:
-    "Starters, mains, desserts, and drinks from the Maaleen kitchen. Order the menu.",
+    "Starters, mains, desserts and drinks from the ERP17 Restaurant kitchen in Uttara, Dhaka. Order online or book a table.",
 };
 
 export default function RootLayout({ children }) {

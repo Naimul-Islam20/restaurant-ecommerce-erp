@@ -36,8 +36,9 @@ export default function ContactPage() {
                 Phone Numbers
               </h3>
               <p className="mt-2 space-y-1 text-[13px] sm:text-sm leading-relaxed text-stone-800">
-                <span className="block">+880 1234 567890</span>
-                <span className="block">+880 9876 543210</span>
+                <a href="tel:+8801786493740" className="block hover:text-[var(--accent)]">
+                  +88017 86 493 740
+                </a>
               </p>
             </div>
 
@@ -47,10 +48,10 @@ export default function ContactPage() {
               </h3>
               <p className="mt-2 text-[13px] sm:text-sm leading-relaxed text-stone-800">
                 <a
-                  href="mailto:mrpfoundation19@gmail.com"
+                  href="mailto:support@erp17restaurant.com"
                   className="font-medium text-[var(--accent)] hover:underline"
                 >
-                  mrpfoundation19@gmail.com
+                  support@erp17restaurant.com
                 </a>
               </p>
             </div>
@@ -184,7 +185,7 @@ export default function ContactPage() {
       <div className="mt-14">
         <div className="h-64 sm:h-80 lg:h-96 overflow-hidden rounded-xl border border-stone-200 bg-stone-100">
           <iframe
-            title="Maaleen Location"
+            title="ERP17 Restaurant location"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.593353927257!2d90.399452!3d23.762195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7b8c8f2c4e7%3A0x0000000000000000!2sUttara%20Sector%203!5e0!3m2!1sen!2sbd!4v1700000000000"
             width="100%"
             height="100%"

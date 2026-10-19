@@ -97,10 +97,10 @@ export function InfoPage({ title, intro, updated = "1 October 2026", children })
             </a>{" "}
             or email{" "}
             <a
-              href="mailto:support@maaleen.store"
+              href="mailto:support@erp17restaurant.com"
               className="text-[var(--primary)]"
             >
-              support@maaleen.store
+              support@erp17restaurant.com
             </a>
             .
           </p>

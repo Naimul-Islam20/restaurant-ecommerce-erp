@@ -3,7 +3,7 @@ import { TrackOrderForm } from "@/components/order/track-order-form";
 
 export const metadata = {
   title: "Track Order",
-  description: "Track your Maaleen order with your invoice number.",
+  description: "Track your ERP17 Restaurant order with your invoice number.",
 };
 
 export default function TrackOrderPage() {

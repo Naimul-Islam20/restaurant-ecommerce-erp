@@ -12,7 +12,7 @@ export function ImageWithFallback({
   useNative = false,
   imageClassName = "object-cover",
   fallbackClassName = "flex h-full w-full flex-col items-center justify-center gap-1 bg-stone-200 text-stone-500",
-  fallbackLabel = "MAALEEN",
+  fallbackLabel = "ERP17",
   fallbackLabelClassName = "font-[family-name:var(--font-display)] text-xl tracking-[0.18em]",
   fallbackSubLabel = "",
   fallbackSubLabelClassName = "text-[10px] font-medium uppercase tracking-[0.22em] text-stone-400",

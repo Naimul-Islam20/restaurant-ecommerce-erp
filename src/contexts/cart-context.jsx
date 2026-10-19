@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-const STORAGE_KEY = "maaleen-cart";
+const STORAGE_KEY = "erp17-cart";
 
 const CartContext = createContext(null);
 

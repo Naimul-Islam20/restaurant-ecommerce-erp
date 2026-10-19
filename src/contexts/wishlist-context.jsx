@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-const STORAGE_KEY = "maaleen-wishlist";
+const STORAGE_KEY = "erp17-wishlist";
 
 const WishlistContext = createContext(null);
 

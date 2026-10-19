@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <AuthShell imageAlt="Maaleen dining room">
+    <AuthShell imageAlt="ERP17 Restaurant dining room">
       <LoginPanel />
     </AuthShell>
   );

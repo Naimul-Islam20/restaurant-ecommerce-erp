@@ -10,7 +10,7 @@ import {
 } from "react";
 import { getCountryConfig } from "@/lib/country-config";
 
-const STORAGE_KEY = "maaleen-country";
+const STORAGE_KEY = "erp17-country";
 
 const CountryContext = createContext(null);
 

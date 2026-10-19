@@ -66,7 +66,7 @@ export default function CheckoutPage() {
   const [discountCode, setDiscountCode] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
 
-  // Map Maaleen cart items to the checkout component's expected format
+  // Map cart items to the checkout component's expected format
   const detailedItems = useMemo(() => cartItems.map(item => ({
     ...item,
     title: item.name,
@@ -561,7 +561,7 @@ export default function CheckoutPage() {
                             fill
                             imageClassName="object-cover rounded"
                             sizes="(max-width: 640px) 56px, 80px"
-                            fallbackLabel="MAALEEN"
+                            fallbackLabel="ERP17"
                             fallbackLabelClassName="font-[family-name:var(--font-display)] text-[10px] sm:text-[12px] tracking-[0.1em]"
                           />
                           <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[var(--accent)] text-white text-[10px] font-bold rounded-full flex items-center justify-center z-10 shadow-sm">

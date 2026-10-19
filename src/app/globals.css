@@ -18,7 +18,7 @@
 }
 
 /* Fluid site width: fills viewport on large PCs; only side padding constrains */
-.maaleen-container {
+.erp17-container {
   width: 100%;
   max-width: none;
   margin-inline: auto;
@@ -27,25 +27,25 @@
 }
 
 @media (min-width: 640px) {
-  .maaleen-container {
+  .erp17-container {
     padding-inline: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .maaleen-container {
+  .erp17-container {
     padding-inline: 10rem;
   }
 }
 
 @media (min-width: 1536px) {
-  .maaleen-container {
+  .erp17-container {
     padding-inline: 8rem;
   }
 }
 
 /* Header and footer: wider than page sections. */
-.maaleen-chrome-container {
+.erp17-chrome-container {
   width: 100%;
   max-width: none;
   margin-inline: auto;
@@ -54,19 +54,19 @@
 }
 
 @media (min-width: 640px) {
-  .maaleen-chrome-container {
+  .erp17-chrome-container {
     padding-inline: 1.25rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .maaleen-chrome-container {
+  .erp17-chrome-container {
     padding-inline: 4rem;
   }
 }
 
 @media (min-width: 1536px) {
-  .maaleen-chrome-container {
+  .erp17-chrome-container {
     padding-inline: 2.5rem;
   }
 }
@@ -106,12 +106,12 @@ button:not([class*="rounded-"]) {
 
 /* Home products Embla: slide width = share of carousel viewport (not fixed rem) so 4 fit on lg.
    Margin between slides instead of flex gap — Embla loop + gap can collapse at the wrap. */
-.maaleen-products-embla {
+.erp17-products-embla {
   container-type: inline-size;
   width: 100%;
 }
 
-.maaleen-products-embla-slide {
+.erp17-products-embla-slide {
   flex: 0 0 calc((100cqi - 1.5rem) / 2);
   min-width: 0;
   box-sizing: border-box;
@@ -120,37 +120,37 @@ button:not([class*="rounded-"]) {
 
 /* Mobile-only: show 1 centered item with side peeks */
 @media (max-width: 639px) {
-  .maaleen-products-embla-slide {
+  .erp17-products-embla-slide {
     flex: 0 0 72cqi; /* 72% of container — center is big, sides peek */
     margin-inline-end: 1rem; /* gap between slides */
   }
 
-  .maaleen-products-embla-two-up-mobile .maaleen-products-embla-slide {
+  .erp17-products-embla-two-up-mobile .erp17-products-embla-slide {
     flex-basis: calc((100cqi - 1rem) / 2);
     margin-inline-end: 1rem;
   }
 
-  .maaleen-products-embla-two-up-mobile
-    .maaleen-products-embla-slide:last-child {
+  .erp17-products-embla-two-up-mobile
+    .erp17-products-embla-slide:last-child {
     margin-inline-end: 0;
   }
 }
 
 @media (min-width: 640px) {
-  .maaleen-products-embla-slide {
+  .erp17-products-embla-slide {
     flex-basis: calc((100cqi - 3rem) / 3);
   }
 }
 
 @media (min-width: 1024px) {
-  .maaleen-products-embla-slide {
+  .erp17-products-embla-slide {
     flex-basis: calc((100cqi - 3rem) / 4);
     margin-inline-end: 1rem; /* gap-4, same as the product grids */
   }
 }
 
 @media (min-width: 1280px) {
-  .maaleen-products-embla-slide {
+  .erp17-products-embla-slide {
     flex-basis: calc((100cqi - 4rem) / 5);
   }
 }
@@ -159,11 +159,11 @@ button:not([class*="rounded-"]) {
 
 /* Mobile: extend footer brand texture behind the fixed bottom bar */
 @media (max-width: 639px) {
-  .maaleen-footer-mobile-extend {
+  .erp17-footer-mobile-extend {
     position: relative;
   }
 
-  .maaleen-footer-mobile-extend::after {
+  .erp17-footer-mobile-extend::after {
     content: "";
     position: absolute;
     left: 0;
@@ -176,21 +176,21 @@ button:not([class*="rounded-"]) {
 }
 
 /* Wishlist modal custom scrollbar (visible on 5+ items). */
-.maaleen-wishlist-scroll {
+.erp17-wishlist-scroll {
   scrollbar-width: thin;
   scrollbar-color: #a8a29e #f5f5f4;
 }
 
-.maaleen-wishlist-scroll::-webkit-scrollbar {
+.erp17-wishlist-scroll::-webkit-scrollbar {
   width: 8px;
 }
 
-.maaleen-wishlist-scroll::-webkit-scrollbar-track {
+.erp17-wishlist-scroll::-webkit-scrollbar-track {
   background: #f5f5f4;
   border-radius: 9999px;
 }
 
-.maaleen-wishlist-scroll::-webkit-scrollbar-thumb {
+.erp17-wishlist-scroll::-webkit-scrollbar-thumb {
   background: #a8a29e;
   border-radius: 9999px;
 }

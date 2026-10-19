@@ -3,7 +3,7 @@ import { CartView } from "./cart-view";
 
 export const metadata = {
   title: "Bag",
-  description: "Review items in your Maaleen shopping bag.",
+  description: "Review the dishes in your ERP17 Restaurant order.",
 };
 
 export default function CartPage() {

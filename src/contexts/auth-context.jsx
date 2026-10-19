@@ -10,7 +10,7 @@ import {
 } from "react";
 import { validateEmailLogin } from "@/lib/demo-auth";
 
-const STORAGE_KEY = "maaleen-auth";
+const STORAGE_KEY = "erp17-auth";
 
 const AuthContext = createContext(null);
 

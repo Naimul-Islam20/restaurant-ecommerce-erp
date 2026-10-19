@@ -36,7 +36,7 @@ export default function SuccessPopup({ orderId, total }) {
 
         <div className="p-8 text-center">
           <p className="text-stone-600 leading-relaxed text-justify">
-            Thank you for shopping with MAALEEN. We've received your order and are
+            Thank you for ordering from ERP17 Restaurant. We've received your order and are
             getting it ready for shipment. You'll receive an email confirmation shortly.
           </p>
 

@@ -71,7 +71,7 @@ export function SiteFooter() {
 
   return (
     <footer
-      className={`maaleen-footer-mobile-extend bg-[var(--ink)] text-white/80 ${
+      className={`erp17-footer-mobile-extend bg-[var(--ink)] text-white/80 ${
         isAuthPage ? "mt-0" : "mt-16"
       }`}
     >
@@ -204,14 +204,14 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
-                  href="mailto:support@maaleen.store"
+                  href="mailto:support@erp17restaurant.com"
                   className="flex items-center gap-3 transition-colors hover:text-[var(--secondary)]"
                 >
                   <LuMail
                     className="h-4 w-4 shrink-0 text-[var(--secondary)]"
                     aria-hidden
                   />
-                  support@maaleen.store
+                  support@erp17restaurant.com
                 </a>
               </li>
             </ul>
@@ -242,7 +242,7 @@ export function SiteFooter() {
         {/* Bottom bar */}
         <div className="flex flex-col items-center gap-3 border-t border-white/15 py-6 text-xs text-white/55 sm:flex-row sm:justify-between">
           <p>
-            © {new Date().getFullYear()} Maaleen Kitchen &amp; Dining. All
+            © {new Date().getFullYear()} ERP17 Restaurant. All
             rights reserved.
           </p>
           <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">

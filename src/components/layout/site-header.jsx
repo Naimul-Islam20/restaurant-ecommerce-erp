@@ -1055,7 +1055,7 @@ export function SiteHeader() {
                   <ul
                     className={`space-y-3 ${
                       wishCount > 4
-                        ? "maaleen-wishlist-scroll max-h-[17.75rem] overflow-y-scroll pr-1"
+                        ? "erp17-wishlist-scroll max-h-[17.75rem] overflow-y-scroll pr-1"
                         : ""
                     }`}
                   >
@@ -1488,7 +1488,7 @@ export function SiteHeader() {
           >
             <defs>
               <mask
-                id="maaleen-dock-mask"
+                id="erp17-dock-mask"
                 maskUnits="userSpaceOnUse"
                 maskContentUnits="userSpaceOnUse"
               >
@@ -1513,8 +1513,8 @@ export function SiteHeader() {
               backgroundColor: "rgba(255, 248, 239, 0.86)",
               backgroundImage:
                 "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,240,225,0.16) 52%, rgba(245,181,74,0.24) 100%)",
-              WebkitMaskImage: "url(#maaleen-dock-mask)",
-              maskImage: "url(#maaleen-dock-mask)",
+              WebkitMaskImage: "url(#erp17-dock-mask)",
+              maskImage: "url(#erp17-dock-mask)",
             }}
           />
 

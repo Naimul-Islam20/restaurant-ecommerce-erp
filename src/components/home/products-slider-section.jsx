@@ -342,15 +342,15 @@ export function ProductsSliderSection({
         >
           <div
             ref={emblaRef}
-            className={`maaleen-products-embla overflow-hidden py-1 ${
-              mobileTwoUpNoLoop ? "maaleen-products-embla-two-up-mobile" : ""
+            className={`erp17-products-embla overflow-hidden py-1 ${
+              mobileTwoUpNoLoop ? "erp17-products-embla-two-up-mobile" : ""
             }`}
           >
             <div className="flex">
               {products.map((p) => (
                 <div
                   key={p.id}
-                  className="maaleen-products-embla-slide shrink-0"
+                  className="erp17-products-embla-slide shrink-0"
                 >
                   <ProductCard product={p} />
                 </div>

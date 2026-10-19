@@ -14,7 +14,7 @@ export default function SizeGuidePage() {
         </div>
         <img
           src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80"
-          alt="Maaleen dining table"
+          alt="ERP17 Restaurant dining table"
           className="block h-auto w-full rounded-md"
         />
       </Container>
