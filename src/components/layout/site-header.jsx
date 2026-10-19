@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
 import { useCountry } from "@/contexts/country-context";
+import { COUNTRY_LIST, getCountryConfig } from "@/lib/country-config";
 import { useWishlist } from "@/contexts/wishlist-context";
 import { ChromeContainer } from "@/components/layout/container";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
@@ -693,35 +694,42 @@ export function SiteHeader() {
                     aria-expanded={countryOpen}
                     className="inline-flex items-center gap-1 rounded-full py-0.5 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--secondary)]"
                   >
-                    <span>{countryCode === "BD" ? "🇧🇩 BD" : "🇦🇺 AU"}</span>
+                    <span>
+                      {getCountryConfig(countryCode).flag} {countryCode}
+                    </span>
                     <ChevronDownIcon className="h-3.5 w-3.5" />
                   </button>
                   {countryOpen ? (
-                    <div className="absolute right-0 top-full z-50 mt-2 w-44 rounded-xl border border-[var(--background)] bg-[var(--background)] p-1.5 shadow-xl ring-1 ring-black/10">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCountryCode("BD");
-                          setCountryOpen(false);
-                        }}
-                        className={`flex w-full items-center rounded-lg px-3 py-2 text-left text-sm font-bold text-[var(--primary)] transition-colors hover:bg-stone-900/5 ${
-                          countryCode === "BD" ? "bg-stone-900/10" : ""
-                        }`}
-                      >
-                        🇧🇩 Bangladesh
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCountryCode("AU");
-                          setCountryOpen(false);
-                        }}
-                        className={`mt-1 flex w-full items-center rounded-lg px-3 py-2 text-left text-sm font-bold text-[var(--primary)] transition-colors hover:bg-stone-900/5 ${
-                          countryCode === "AU" ? "bg-stone-900/10" : ""
-                        }`}
-                      >
-                        🇦🇺 Australia
-                      </button>
+                    <div className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-xl bg-white shadow-xl ring-1 ring-black/10">
+                      <p className="border-b border-stone-100 px-4 py-2.5 text-xs font-semibold text-stone-500">
+                        Select your country
+                      </p>
+                      <ul className="max-h-80 overflow-y-auto p-1.5">
+                        {COUNTRY_LIST.map((option) => {
+                          const selected = option.code === countryCode;
+                          return (
+                            <li key={option.code}>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCountryCode(option.code);
+                                  setCountryOpen(false);
+                                }}
+                                aria-pressed={selected}
+                                className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                                  selected
+                                    ? "bg-[var(--primary)]/10 font-bold text-[var(--primary)]"
+                                    : "font-medium text-stone-700 hover:bg-stone-100"
+                                }`}
+                              >
+                                <span className="text-base leading-none">{option.flag}</span>
+                                <span className="min-w-0 flex-1 truncate">{option.label}</span>
+                                <span className="text-xs text-stone-400">+{option.dialCode}</span>
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     </div>
                   ) : null}
                 </div>

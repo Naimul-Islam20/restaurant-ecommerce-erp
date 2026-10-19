@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { getCountryConfig } from "@/lib/country-config";
+import { getCountryConfig, isCountryCode } from "@/lib/country-config";
 
 const STORAGE_KEY = "erp17-country";
 
@@ -21,7 +21,7 @@ export function CountryProvider({ children }) {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "BD" || saved === "AU") {
+      if (isCountryCode(saved)) {
         setCountryCodeState(saved);
       }
     } catch {
@@ -36,7 +36,7 @@ export function CountryProvider({ children }) {
   }, [countryCode, ready]);
 
   const setCountryCode = useCallback((code) => {
-    if (code === "BD" || code === "AU") {
+    if (isCountryCode(code)) {
       setCountryCodeState(code);
     }
   }, []);

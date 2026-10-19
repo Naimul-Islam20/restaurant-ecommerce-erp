@@ -34,7 +34,6 @@ const NAV_ITEMS = [
   { id: "orders", label: "My Orders", icon: IconPackage },
   { id: "rewards", label: "Rewards", icon: IconTrophy },
   { id: "wishlist", label: "Favourites", icon: IconHeart },
-  { id: "notifications", label: "Notifications", icon: IconBell },
   { id: "services", label: "Saved Addresses", icon: IconMapPin },
 ];
 
@@ -955,8 +954,8 @@ function FavouritesSection() {
   );
 }
 
-// NOTIFICATIONS - order updates, offers, rewards and bookings
-function NotificationsSection({ notifications, onMarkRead, onMarkAllRead }) {
+// NOTIFICATIONS - slide-in drawer from the bell icon
+function NotificationsDrawer({ open, onClose, notifications, onMarkRead, onMarkAllRead }) {
   const [filter, setFilter] = useState("all");
   const unread = notifications.filter((n) => !n.read).length;
   const shown =
@@ -964,85 +963,145 @@ function NotificationsSection({ notifications, onMarkRead, onMarkAllRead }) {
       ? notifications
       : notifications.filter((n) => n.type === filter);
 
+  useEffect(() => {
+    if (!open) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    function onKey(event) {
+      if (event.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-bold text-[#a51e22]">Notifications</h2>
-          <p className="text-sm text-stone-500">
-            {unread > 0 ? `${unread} unread` : "You're all caught up"}
-          </p>
-        </div>
-        {unread > 0 ? (
-          <button
+    <AnimatePresence>
+      {open ? (
+        <div className="fixed inset-0 z-[90]">
+          <motion.button
             type="button"
-            onClick={onMarkAllRead}
-            className="rounded-full border border-[#a51e22] px-4 py-2 text-xs font-semibold text-[#a51e22]"
+            aria-label="Close notifications"
+            onClick={onClose}
+            className="absolute inset-0 bg-black/40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+          <motion.aside
+            role="dialog"
+            aria-modal="true"
+            aria-label="Notifications"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-[#fcf9f6] shadow-2xl"
           >
-            Mark all as read
-          </button>
-        ) : null}
-      </div>
-
-      <div className="flex gap-2 overflow-x-auto scrollbar-none">
-        {NOTIFICATION_FILTERS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setFilter(item.id)}
-            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium ${
-              filter === item.id
-                ? "bg-[#a51e22] text-white"
-                : "bg-white text-stone-600 ring-1 ring-[#eee7e1]"
-            }`}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      {shown.length === 0 ? (
-        <div className="flex flex-col items-center rounded-2xl border border-dashed border-stone-200 bg-white px-6 py-14 text-center">
-          <LuBellOff className="h-8 w-8 text-stone-400" aria-hidden />
-          <p className="mt-3 text-sm text-stone-500">No notifications here yet.</p>
-        </div>
-      ) : (
-        <ul className="overflow-hidden rounded-2xl border border-[#eee7e1] bg-white shadow-xs">
-          {shown.map(({ id, icon: Icon, title, text, time, read }) => (
-            <li key={id} className="border-b border-stone-100 last:border-b-0">
+            <div className="flex shrink-0 items-center justify-between gap-3 bg-[#a51e22] px-5 py-4 text-white">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15">
+                  <IconBell className="h-5 w-5" />
+                </span>
+                <div>
+                  <h2 className="text-base font-bold leading-tight">Notifications</h2>
+                  <p className="text-xs text-white/75">
+                    {unread > 0 ? `${unread} unread` : "You're all caught up"}
+                  </p>
+                </div>
+              </div>
               <button
                 type="button"
-                onClick={() => onMarkRead(id)}
-                className={`flex w-full items-start gap-3 px-4 py-4 text-left sm:px-5 ${
-                  read ? "" : "bg-[#fff8f0]"
-                }`}
+                onClick={onClose}
+                aria-label="Close notifications"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
-                  <Icon className="h-5 w-5" aria-hidden />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-start justify-between gap-3">
-                    <span
-                      className={`text-sm text-stone-900 ${read ? "font-semibold" : "font-bold"}`}
-                    >
-                      {title}
-                    </span>
-                    <span className="shrink-0 text-xs text-stone-400">{time}</span>
-                  </span>
-                  <span className="mt-0.5 block text-sm text-stone-600">{text}</span>
-                </span>
-                {!read ? (
-                  <span
-                    className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[#a51e22]"
-                    aria-label="Unread"
-                  />
-                ) : null}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5" aria-hidden>
+                  <path d="M18 6 6 18" strokeLinecap="round" />
+                  <path d="m6 6 12 12" strokeLinecap="round" />
+                </svg>
               </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+            </div>
+
+            <div className="flex shrink-0 gap-2 overflow-x-auto border-b border-[#eee7e1] bg-white px-5 py-3 scrollbar-none">
+              {NOTIFICATION_FILTERS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setFilter(item.id)}
+                  className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium ${
+                    filter === item.id
+                      ? "bg-[#a51e22] text-white"
+                      : "bg-stone-100 text-stone-600"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-y-auto">
+              {shown.length === 0 ? (
+                <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+                  <LuBellOff className="h-8 w-8 text-stone-400" aria-hidden />
+                  <p className="mt-3 text-sm text-stone-500">No notifications here yet.</p>
+                </div>
+              ) : (
+                <ul>
+                  {shown.map(({ id, icon: Icon, title, text, time, read }) => (
+                    <li key={id} className="border-b border-[#eee7e1]">
+                      <button
+                        type="button"
+                        onClick={() => onMarkRead(id)}
+                        className={`flex w-full items-start gap-3 px-5 py-4 text-left ${
+                          read ? "bg-white" : "bg-[#fff3e6]"
+                        }`}
+                      >
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#a51e22]/10 text-[#a51e22]">
+                          <Icon className="h-5 w-5" aria-hidden />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-start justify-between gap-3">
+                            <span
+                              className={`text-sm text-stone-900 ${read ? "font-semibold" : "font-bold"}`}
+                            >
+                              {title}
+                            </span>
+                            <span className="shrink-0 text-xs text-stone-400">{time}</span>
+                          </span>
+                          <span className="mt-0.5 block text-sm text-stone-600">{text}</span>
+                        </span>
+                        {!read ? (
+                          <span
+                            className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[#a51e22]"
+                            aria-label="Unread"
+                          />
+                        ) : null}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {unread > 0 ? (
+              <div className="shrink-0 border-t border-[#eee7e1] bg-white p-4">
+                <button
+                  type="button"
+                  onClick={onMarkAllRead}
+                  className="w-full rounded-full bg-[#a51e22] py-3 text-sm font-semibold text-white"
+                >
+                  Mark all as read
+                </button>
+              </div>
+            ) : null}
+          </motion.aside>
+        </div>
+      ) : null}
+    </AnimatePresence>
   );
 }
 
@@ -1853,6 +1912,7 @@ export function AccountDashboard() {
 
   const [activeSection, setActiveSection] = useState("dashboard");
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const unreadCount = notifications.filter((n) => !n.read).length;
   const markNotificationRead = (id) =>
     setNotifications((list) =>
@@ -1917,14 +1977,6 @@ export function AccountDashboard() {
         return <FavouritesSection />;
       case "rewards":
         return <RewardsSection />;
-      case "notifications":
-        return (
-          <NotificationsSection
-            notifications={notifications}
-            onMarkRead={markNotificationRead}
-            onMarkAllRead={markAllNotificationsRead}
-          />
-        );
       case "services":
         return <AddressesSection />;
       case "profile":
@@ -1948,6 +2000,13 @@ export function AccountDashboard() {
 
   return (
     <div className="min-h-screen bg-[#fcf9f6] text-stone-900 font-sans antialiased overflow-x-clip">
+      <NotificationsDrawer
+        open={notificationsOpen}
+        onClose={() => setNotificationsOpen(false)}
+        notifications={notifications}
+        onMarkRead={markNotificationRead}
+        onMarkAllRead={markAllNotificationsRead}
+      />
       {searchMounted
         ? createPortal(
             <AnimatePresence>
@@ -2039,9 +2098,9 @@ export function AccountDashboard() {
           <button
             type="button"
             aria-label={`Notifications, ${unreadCount} unread`}
-            onClick={() => setActiveSection("notifications")}
+            onClick={() => setNotificationsOpen(true)}
             className={`relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full transition hover:bg-stone-100 hover:text-[#a51e22] ${
-              activeSection === "notifications" ? "bg-[#a51e22]/10 text-[#a51e22]" : "text-stone-600"
+              notificationsOpen ? "bg-[#a51e22]/10 text-[#a51e22]" : "text-stone-600"
             }`}
           >
             <IconBell className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -2157,7 +2216,7 @@ export function AccountDashboard() {
               <button
                 type="button"
                 aria-label={`Notifications, ${unreadCount} unread`}
-                onClick={() => setActiveSection("notifications")}
+                onClick={() => setNotificationsOpen(true)}
                 className="relative flex h-10 w-10 items-center justify-center rounded-full text-white"
               >
                 <IconBell className="h-5 w-5" />

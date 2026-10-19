@@ -30,19 +30,21 @@ const shippingOptionsByCountry = {
       cost: 130,
     },
   ],
-  AU: [
-    {
-      id: "standard-au",
-      label: "Standard Shipping",
-      cost: 15,
-    },
-    {
-      id: "express-au",
-      label: "Express Shipping",
-      cost: 25,
-    },
-  ],
 };
+
+// Every country other than Bangladesh uses the international options.
+const internationalShippingOptions = [
+  {
+    id: "standard-intl",
+    label: "Standard Shipping",
+    cost: 15,
+  },
+  {
+    id: "express-intl",
+    label: "Express Shipping",
+    cost: 25,
+  },
+];
 
 const paymentMethods = [
   {
@@ -111,7 +113,7 @@ export default function CheckoutPage() {
   }
 
   const shippingOptions = useMemo(
-    () => shippingOptionsByCountry[countryCode] ?? shippingOptionsByCountry.BD,
+    () => shippingOptionsByCountry[countryCode] ?? internationalShippingOptions,
     [countryCode],
   );
 
@@ -145,7 +147,7 @@ export default function CheckoutPage() {
   }, [detailedItems.length]);
 
   useEffect(() => {
-    const options = shippingOptionsByCountry[countryCode] ?? shippingOptionsByCountry.BD;
+    const options = shippingOptionsByCountry[countryCode] ?? internationalShippingOptions;
     setForm((prev) => ({
       ...prev,
       city: "",
