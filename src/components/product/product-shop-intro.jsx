@@ -29,7 +29,7 @@ export function ProductShopIntro() {
           <Breadcrumbs
             items={[
               { href: "/", label: "Home" },
-              { href: "/collections", label: "Specials" },
+              { href: "/collections", label: "Categories" },
               {
                 href: buildShopEditHref(editSlug),
                 label: edit.label,

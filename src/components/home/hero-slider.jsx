@@ -11,55 +11,62 @@ const AUTO_MS = 6000;
 
 const SLIDES = [
   {
-    id: "story",
-    title: ["Where every plate", "tells a *story*"],
-    text: "Slow-cooked kacchi, charcoal kebabs and warm desserts — made fresh every day in Uttara.",
+    id: "flavours",
+    title: "Real Dhaka flavours, *made fresh* every day",
+    text: "Slow-cooked kacchi, charcoal kebabs and warm desserts from our Uttara kitchen.",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=85",
   },
   {
-    id: "fresh",
-    title: ["Cooked fresh,", "served *warm*"],
-    text: "Every dish is made to order in our kitchen — never reheated, never rushed.",
+    id: "delivery",
+    title: "Hot food from our kitchen *to your door*",
+    text: "Order online and get it delivered across Dhaka — usually in 30–45 minutes in Uttara.",
     image:
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=85",
   },
   {
     id: "together",
-    title: ["Gather, share", "& *enjoy*"],
-    text: "A cozy dining room for family and friends, or hot food delivered to your door.",
+    title: "A table for family, friends & *good food*",
+    text: "A cozy dining room with a family area — book your table in seconds.",
     image:
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=85",
   },
 ];
 
-// Text animation: each title line rises out of a mask, then copy and buttons fade in.
+/** Splits a title into words; words inside *...* are highlighted. */
+function titleWords(title) {
+  return title.split(/(\*[^*]+\*)/).flatMap((part) => {
+    const highlight = part.startsWith("*");
+    return part
+      .replaceAll("*", "")
+      .split(" ")
+      .filter(Boolean)
+      .map((word) => ({ word, highlight }));
+  });
+}
+
+// Text animation: each line is wiped in from left to right (curtain reveal),
+// one after another. On slide change the text wipes out to the right.
+const curtain = [0.77, 0, 0.175, 1];
 const textBlock = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
-  exit: { opacity: 0, y: -12, transition: { duration: 0.35, ease: "easeIn" } },
+  show: { transition: { staggerChildren: 0.22, delayChildren: 0.2 } },
+  exit: { transition: { staggerChildren: 0.06 } },
 };
-const riseFromMask = {
-  hidden: { y: "110%" },
-  show: { y: "0%", transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+const wipe = {
+  hidden: { clipPath: "inset(0 100% 0 0)", x: -12 },
+  show: {
+    clipPath: "inset(0 0% 0 0)",
+    x: 0,
+    transition: { duration: 1, ease: curtain },
+    // Drop the clip once revealed so focus rings aren't cut off.
+    transitionEnd: { clipPath: "none" },
+  },
+  exit: {
+    clipPath: "inset(0 0 0 100%)",
+    transition: { duration: 0.45, ease: curtain },
+  },
 };
-const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
-/** Renders "*word*" as an italic saffron accent. */
-function TitleLine({ text }) {
-  return text.split(/(\*[^*]+\*)/).map((part, i) =>
-    part.startsWith("*") ? (
-      <em key={i} className="italic text-[var(--secondary)]">
-        {part.slice(1, -1)}
-      </em>
-    ) : (
-      part
-    ),
-  );
-}
 
 const arrowClass =
   "h-9 w-9 items-center justify-center rounded-full border border-white/50 text-white transition-colors hover:bg-white hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-12 sm:w-12 bg-black/20 sm:bg-transparent";
@@ -87,7 +94,7 @@ export function HeroSlider() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {`Slide ${index + 1} of ${SLIDES.length}: ${slide.title.join(" ").replaceAll("*", "")}`}
+        {`Slide ${index + 1} of ${SLIDES.length}: ${slide.title.replaceAll("*", "")}`}
       </div>
 
       {SLIDES.map((s, i) => (
@@ -127,26 +134,27 @@ export function HeroSlider() {
             animate="show"
             exit="exit"
           >
-            <h1 className="sr-only sm:not-sr-only sm:block sm:font-[family-name:var(--font-display)] sm:text-6xl sm:font-semibold sm:leading-[1.05] sm:text-white lg:text-7xl">
-              {slide.title.map((line) => (
+            <motion.h1
+              variants={wipe}
+              className="sr-only pb-1 sm:not-sr-only sm:block sm:max-w-3xl sm:text-5xl sm:font-extrabold sm:leading-[1.1] sm:tracking-tight sm:text-white lg:text-6xl"
+            >
+              {titleWords(slide.title).map(({ word, highlight }, i) => (
                 <span
-                  key={line}
-                  className="mr-[0.25em] inline-block overflow-hidden pb-1 align-bottom"
+                  key={`${word}-${i}`}
+                  className={highlight ? "text-[var(--secondary)]" : undefined}
                 >
-                  <motion.span className="inline-block" variants={riseFromMask}>
-                    <TitleLine text={line} />
-                  </motion.span>
+                  {word}{" "}
                 </span>
               ))}
-            </h1>
+            </motion.h1>
             <motion.p
-              variants={fadeUp}
+              variants={wipe}
               className="mt-5 hidden max-w-2xl text-lg leading-relaxed text-white/85 sm:block lg:text-xl"
             >
               {slide.text}
             </motion.p>
             <motion.div
-              variants={fadeUp}
+              variants={wipe}
               className="flex flex-wrap justify-center gap-3 sm:mt-9 sm:justify-start sm:gap-4"
             >
               <Link

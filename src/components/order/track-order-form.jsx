@@ -79,36 +79,33 @@ export function TrackOrderForm() {
   };
 
   return (
-    <div className="space-y-6">
-      <form
-        onSubmit={handleSubmit}
-        className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8"
-      >
-        <h2 className="text-lg font-bold text-stone-900">Find your order</h2>
-        <p className="mt-1 text-sm text-stone-500">
+    <div>
+      <form onSubmit={handleSubmit}>
+        <h2 className="text-xl font-bold text-stone-900">Find your order</h2>
+        <p className="mt-1 text-base text-stone-500">
           You&apos;ll find the order number in your SMS or email confirmation.
         </p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="text-sm font-medium text-stone-700">Order number</span>
+            <span className="text-sm font-semibold text-stone-700">Order number</span>
             <input
               type="text"
               value={orderId}
               onChange={(event) => setOrderId(event.target.value)}
               placeholder="e.g. ERP-10501"
-              className="mt-1.5 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/15"
+              className="mt-1.5 w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-base text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/15"
               aria-required="true"
             />
           </label>
           <label className="block">
-            <span className="text-sm font-medium text-stone-700">Phone number</span>
+            <span className="text-sm font-semibold text-stone-700">Phone number</span>
             <input
               type="tel"
               value={phone}
               onChange={(event) => setPhone(event.target.value)}
               placeholder="01XXXXXXXXX"
-              className="mt-1.5 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/15"
+              className="mt-1.5 w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-base text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/15"
               aria-required="true"
             />
           </label>
@@ -126,7 +123,7 @@ export function TrackOrderForm() {
       </form>
 
       {result?.notFound ? (
-        <div className="rounded-3xl border border-stone-200 bg-white p-6 text-center shadow-sm sm:p-8">
+        <div className="mt-8 border-t border-stone-200 pt-8 text-center">
           <p className="text-lg font-bold text-stone-900">
             We couldn&apos;t find order #{result.id}
           </p>
@@ -159,11 +156,11 @@ function OrderStatus({ id, order }) {
   );
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-[var(--primary)] px-6 py-5 text-white sm:px-8">
+    <div className="mt-8 border-t border-stone-200 pt-8">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-medium text-white/70">Order #{id}</p>
-          <p className="mt-0.5 text-lg font-bold">{order.eta}</p>
+          <p className="text-sm font-medium text-stone-500">Order #{id}</p>
+          <p className="mt-0.5 text-2xl font-bold text-stone-900">{order.eta}</p>
         </div>
         <span
           className={`rounded-full px-3 py-1 text-xs font-bold ${
@@ -175,7 +172,7 @@ function OrderStatus({ id, order }) {
       </div>
 
       {/* Progress */}
-      <ol className="grid grid-cols-5 gap-1 px-4 pb-2 pt-8 sm:px-8">
+      <ol className="mt-8 grid grid-cols-5 gap-1">
         {STEPS.map(({ id: stepId, label, icon: Icon }, i) => {
           const done = i <= order.step;
           const current = i === order.step && !delivered;
@@ -211,8 +208,8 @@ function OrderStatus({ id, order }) {
         })}
       </ol>
 
-      <div className="grid gap-4 p-6 sm:grid-cols-2 sm:p-8">
-        <div className="rounded-2xl bg-stone-50 p-4">
+      <div className="mt-8 grid gap-8 border-t border-stone-200 pt-8 sm:grid-cols-2">
+        <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">
             {delivered ? "Delivered by" : "Your rider"}
           </p>
@@ -237,17 +234,17 @@ function OrderStatus({ id, order }) {
           <p className="text-sm text-stone-800">{order.address}</p>
         </div>
 
-        <div className="rounded-2xl bg-stone-50 p-4">
+        <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">
             Order summary
           </p>
           <ul className="mt-2 space-y-2.5">
             {lines.map(({ product, qty }) => (
               <li key={product.slug} className="flex items-center gap-3">
-                <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-stone-200">
+                <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-stone-200">
                   <Image src={product.images[0]} alt="" fill sizes="36px" className="object-cover" />
                 </span>
-                <span className="min-w-0 flex-1 truncate text-sm text-stone-800">
+                <span className="min-w-0 flex-1 truncate text-base text-stone-800">
                   {product.name} <span className="text-stone-400">× {qty}</span>
                 </span>
                 <span className="text-sm font-semibold text-stone-900">

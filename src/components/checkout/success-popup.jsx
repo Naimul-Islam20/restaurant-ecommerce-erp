@@ -28,30 +28,39 @@ export default function SuccessPopup({ orderId, total }) {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold">Order Confirmed!</h2>
-          <p className="mt-2 text-sm text-white/80 uppercase tracking-widest">
+          <h2 className="text-2xl font-bold">Order placed!</h2>
+          <p className="mt-2 text-base text-white/85">
             Order #{orderId}
           </p>
         </div>
 
         <div className="p-8 text-center">
-          <p className="text-stone-600 leading-relaxed text-justify">
-            Thank you for ordering from ERP17 Restaurant. We've received your order and are
-            getting it ready for shipment. You'll receive an email confirmation shortly.
+          <p className="text-base leading-relaxed text-stone-600">
+            Thank you for ordering from ERP17 Restaurant! Our kitchen has
+            received your order and will start cooking right away. We&apos;ll
+            send you an SMS when it&apos;s on the way.
           </p>
 
           <div className="mt-8 space-y-4">
             <div className="flex justify-between border-t border-stone-100 pt-4 text-sm">
-              <span className="text-stone-500 uppercase tracking-wider text-[11px] font-bold">Total Amount</span>
-              <span className="font-bold text-stone-900">{formatPrice(total)}</span>
+              <span className="text-base text-stone-500">Total</span>
+              <span className="text-lg font-bold text-[var(--primary)]">{formatPrice(total)}</span>
             </div>
 
-            <Link
-              href="/"
-              className="block w-full rounded-full bg-[var(--accent)] py-4 text-sm font-bold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
-            >
-              Back to Home
-            </Link>
+            <div className="grid grid-cols-2 gap-3">
+              <Link
+                href="/track-order"
+                className="block rounded-full bg-[var(--accent)] py-3.5 text-base font-semibold text-white"
+              >
+                Track order
+              </Link>
+              <Link
+                href="/shop"
+                className="block rounded-full border border-stone-300 py-3.5 text-base font-semibold text-stone-800"
+              >
+                Back to menu
+              </Link>
+            </div>
           </div>
         </div>
       </motion.div>

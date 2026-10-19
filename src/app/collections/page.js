@@ -8,7 +8,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 
 export const metadata = {
-  title: "Specials & Collections",
+  title: "Categories",
   description:
     "Explore the ERP17 Restaurant menu — starters, mains, desserts, drinks, chef's specials and today's offers.",
 };
@@ -49,10 +49,10 @@ export default function CollectionsPage() {
         />
         <Container className="relative py-16 text-center sm:py-24">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
-            Our specials
+            Browse the menu
           </p>
           <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-semibold text-white sm:text-5xl lg:text-6xl">
-            Menu Collections
+            Categories
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/75 sm:text-base">
             Pick a course, try what the chef recommends today, or catch an
@@ -65,7 +65,7 @@ export default function CollectionsPage() {
         <Breadcrumbs
           items={[
             { href: "/", label: "Home" },
-            { href: "/collections", label: "Specials", current: true },
+            { href: "/collections", label: "Categories", current: true },
           ]}
         />
       </Container>

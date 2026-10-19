@@ -36,15 +36,15 @@ export function CheckoutAccountGate({
 
   if (!authReady) {
     return (
-      <div className="h-56 rounded-lg border border-stone-200 bg-white" />
+      <div className="h-40" />
     );
   }
 
   if (isAuthenticated) {
     return (
-      <section className="rounded-lg border border-stone-200 bg-white px-4 py-4 sm:px-5">
+      <section>
         <StepHeading />
-        <p className="mt-4 text-sm text-stone-700">
+        <p className="mt-4 text-base text-stone-700">
           Signed in as{" "}
           <span className="font-semibold text-stone-900">
             {user?.name || user?.email}
@@ -56,18 +56,18 @@ export function CheckoutAccountGate({
 
   if (guestContact) {
     return (
-      <section className="rounded-lg border border-stone-200 bg-white px-4 py-4 sm:px-5">
+      <section>
         <div className="flex items-center justify-between gap-3">
           <StepHeading />
           <button
             type="button"
             onClick={onChangeGuest}
-            className="text-xs font-semibold text-[var(--primary)] underline-offset-2 hover:underline"
+            className="text-sm font-semibold text-[var(--primary)] underline-offset-2 hover:underline"
           >
             Change
           </button>
         </div>
-        <p className="mt-4 text-sm text-stone-700">
+        <p className="mt-4 text-base text-stone-700">
           Checking out as guest ·{" "}
           <span className="font-semibold text-stone-900">{guestContact}</span>
         </p>
@@ -128,9 +128,9 @@ export function CheckoutAccountGate({
   }
 
   return (
-    <section className="rounded-lg border border-stone-200 bg-white px-4 py-5 sm:px-5">
+    <section>
       <StepHeading />
-      <p className="mt-5 text-sm font-semibold text-stone-900">
+      <p className="mt-5 text-base font-semibold text-stone-900">
         Already have an account?
       </p>
 
@@ -146,10 +146,10 @@ export function CheckoutAccountGate({
             setPassword("");
             setError("");
           }}
-          className="w-full rounded-md border border-stone-200 bg-white px-3 py-2.5 text-sm text-stone-900 outline-none placeholder:text-transparent focus:border-[var(--primary)]"
+          className="w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-base text-stone-900 outline-none placeholder:text-transparent focus:border-[var(--primary)]"
         />
         {!identifier ? (
-          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-stone-400">
+          <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-base text-stone-400">
             Please enter phone or email
             <span className="text-red-500">*</span>
           </span>
@@ -168,26 +168,26 @@ export function CheckoutAccountGate({
               setPassword(event.target.value);
               setError("");
             }}
-            className="w-full rounded-md border border-stone-200 bg-white px-3 py-2.5 text-sm text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)]"
+            className="w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-base text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)]"
           />
         </label>
       ) : null}
 
       {error ? (
-        <p className="mt-2 text-xs font-medium text-red-600">{error}</p>
+        <p className="mt-2 text-sm font-medium text-red-600">{error}</p>
       ) : null}
 
       <div className="mt-3 grid grid-cols-2 gap-3">
         <Link
           href="/signup?redirect=/checkout"
-          className="inline-flex items-center justify-center rounded-md border border-stone-300 bg-white px-3 py-2.5 text-sm text-stone-800 transition-colors hover:border-stone-400"
+          className="inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white px-3 py-3 text-base text-stone-800 transition-colors hover:border-stone-400"
         >
           Create Account
         </Link>
         <button
           type="button"
           onClick={handleNext}
-          className="inline-flex items-center justify-center rounded-md bg-[var(--primary)] px-3 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          className="inline-flex items-center justify-center rounded-xl bg-[var(--primary)] px-3 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
         >
           Next
         </button>
@@ -204,7 +204,7 @@ export function CheckoutAccountGate({
         onClick={() =>
           setError("Google sign-in isn't available yet. Use email or checkout as guest.")
         }
-        className="flex w-full items-center justify-center gap-2 rounded-md border border-stone-300 bg-white px-3 py-2.5 text-sm text-stone-800 transition-colors hover:border-stone-400"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-3 text-base text-stone-800 transition-colors hover:border-stone-400"
       >
         <GoogleMark />
         Google
@@ -217,7 +217,7 @@ export function CheckoutAccountGate({
       <button
         type="button"
         onClick={handleGuest}
-        className="flex w-full items-center justify-center rounded-md border border-stone-300 bg-white px-3 py-2.5 text-sm text-stone-800 transition-colors hover:border-stone-400"
+        className="flex w-full items-center justify-center rounded-xl border border-stone-300 bg-white px-3 py-3 text-base text-stone-800 transition-colors hover:border-stone-400"
       >
         Checkout as guest
       </button>
@@ -228,12 +228,10 @@ export function CheckoutAccountGate({
 function StepHeading() {
   return (
     <div className="flex items-center gap-3">
-      <span className="flex h-7 w-7 items-center justify-center bg-[var(--primary)] text-xs font-semibold text-white">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--primary)] text-sm font-bold text-white">
         1
       </span>
-      <h2 className="text-sm font-semibold tracking-[0.16em] text-stone-900">
-        ACCOUNT
-      </h2>
+      <h2 className="text-xl font-bold text-stone-900">Account</h2>
     </div>
   );
 }

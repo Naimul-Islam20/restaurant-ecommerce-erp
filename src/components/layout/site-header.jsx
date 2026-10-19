@@ -369,9 +369,18 @@ function navHrefIsActive(href, pathname, searchParams) {
 const MAIN_NAV = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Menu" },
-  { href: "/collections", label: "Specials" },
+  { href: "/collections", label: "Categories" },
   { href: "/about-us", label: "Our Story" },
   { href: "/contact", label: "Contact" },
+];
+
+// Pages grouped under the "Help" menu.
+const HELP_LINKS = [
+  { href: "/faqs", label: "FAQs", note: "Quick answers" },
+  { href: "/shipping-policy", label: "Delivery Policy", note: "Areas, charges & times" },
+  { href: "/exchange-refund", label: "Refund & Replacement", note: "If something's wrong" },
+  { href: "/return-policy", label: "Cancellation Policy", note: "Change or cancel an order" },
+  { href: "/privacy-policy", label: "Privacy Policy", note: "How we use your data" },
 ];
 
 const navLinkClass = (active) =>
@@ -403,7 +412,39 @@ function MainNavLinks() {
           </Link>
         );
       })}
+      <HelpMenu active={HELP_LINKS.some((link) => link.href === pathname)} />
     </>
+  );
+}
+
+/** "Help" item with a dropdown of the information pages (hover or keyboard focus). */
+function HelpMenu({ active = false }) {
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        aria-haspopup="true"
+        className={`${navLinkClass(active)} inline-flex items-center gap-1 rounded-none`}
+      >
+        Help
+        <ChevronDownIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+      </button>
+      <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-4 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+        <ul className="overflow-hidden rounded-2xl bg-white p-2 shadow-xl ring-1 ring-black/5">
+          {HELP_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="block rounded-xl px-4 py-2.5 transition-colors hover:bg-stone-100"
+              >
+                <span className="block text-sm font-semibold text-stone-900">{link.label}</span>
+                <span className="block text-xs text-stone-500">{link.note}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -415,6 +456,7 @@ function MainNavFallback() {
           {item.label}
         </Link>
       ))}
+      <span className={navLinkClass(false)}>Help</span>
     </>
   );
 }
@@ -1420,7 +1462,7 @@ export function SiteHeader() {
                     {[
                       { href: "/", label: "Home", Icon: LuHouse },
                       { href: "/shop", label: "Menu", Icon: LuBookOpen },
-                      { href: "/collections", label: "Specials", Icon: LuSparkles },
+                      { href: "/collections", label: "Categories", Icon: LuSparkles },
                       { href: "/about-us", label: "Our Story", Icon: LuInfo },
                       { href: "/contact", label: "Contact", Icon: LuMail },
                       { href: "/track-order", label: "Track Order", Icon: LuBike },
@@ -1433,6 +1475,25 @@ export function SiteHeader() {
                         >
                           <Icon className="h-[22px] w-[22px] shrink-0 text-[var(--primary)]" aria-hidden />
                           {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="my-6 border-b border-stone-200" />
+
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">
+                    Help
+                  </p>
+                  <ul className="space-y-4">
+                    {HELP_LINKS.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          onClick={() => setMenuOpen(false)}
+                          className="block text-base font-medium text-stone-800 transition-colors hover:text-[var(--accent)]"
+                        >
+                          {link.label}
                         </Link>
                       </li>
                     ))}

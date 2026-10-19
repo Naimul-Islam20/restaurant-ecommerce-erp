@@ -21,7 +21,7 @@ const OPENING_HOURS = [
 
 const EXPLORE_LINKS = [
   { href: "/shop", label: "Our Menu" },
-  { href: "/collections", label: "Chef's Specials" },
+  { href: "/collections", label: "Categories" },
   { href: "/about-us", label: "Our Story" },
   { href: "/contact", label: "Reservations" },
   { href: "/track-order", label: "Track Your Order" },
