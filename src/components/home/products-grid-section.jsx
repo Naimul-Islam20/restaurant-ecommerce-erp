@@ -102,25 +102,31 @@ export function ProductsGridSection({
           </ul>
         </motion.div>
 
-        {/* Once everything is shown, the button rides the grid down, then fades. */}
+        {/* See more / See less toggle */}
         <AnimatePresence initial={false}>
-          {remaining > 0 ? (
+          {(remaining > 0 || loads > 0) && (
             <motion.div
-              key="load-more"
+              key="see-more-less"
               className="mt-10 flex justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { delay: 0.8, duration: 0.3 } }}
             >
               <button
                 type="button"
                 onClick={() => {
-                  setLoads((n) => n + 1);
+                  if (remaining > 0) {
+                    setLoads((n) => n + 1);
+                  } else {
+                    setLoads(0);
+                  }
                 }}
                 className="inline-flex items-center rounded-full border-2 border-[var(--primary)] px-8 py-3 text-sm font-semibold text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
               >
-                Load more
+                {remaining > 0 ? "See more" : "See less"}
               </button>
             </motion.div>
-          ) : null}
+          )}
         </AnimatePresence>
       </Container>
     </section>
