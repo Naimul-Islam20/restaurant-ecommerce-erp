@@ -19,11 +19,11 @@ const dmSans = DM_Sans({
 export const metadata = {
   metadataBase: new URL("https://erp17restaurant.example.com"),
   title: {
-    default: "ERP17 Restaurant — Uttara, Dhaka",
+    default: "ERP17 Restaurant — Halishahar, Chittagong",
     template: "%s | ERP17 Restaurant",
   },
   description:
-    "Starters, mains, desserts and drinks from the ERP17 Restaurant kitchen in Uttara, Dhaka. Order online or book a table.",
+    "Starters, mains, desserts and drinks from the ERP17 Restaurant kitchen in Halishahar, Chittagong. Order online or book a table.",
 };
 
 export default function RootLayout({ children }) {

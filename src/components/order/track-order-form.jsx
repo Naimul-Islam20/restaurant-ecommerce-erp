@@ -29,7 +29,7 @@ const DEMO_ORDERS = {
     eta: "Arriving in about 15 minutes",
     times: ["1:40 PM", "1:42 PM", "1:45 PM", "2:05 PM", null],
     rider: { name: "Rahim Uddin", phone: "+8801700000000" },
-    address: "House 12, Road 7, Sector 7, Uttara",
+    address: "House 12, Road 7, H Block, Halishahar",
     items: [
       { slug: "dhaka-kacchi-biryani", qty: 2 },
       { slug: "mango-lassi", qty: 2 },
@@ -40,7 +40,7 @@ const DEMO_ORDERS = {
     eta: "Delivered on 12 Oct at 8:32 PM",
     times: ["7:50 PM", "7:52 PM", "7:55 PM", "8:15 PM", "8:32 PM"],
     rider: { name: "Karim Hossain", phone: "+8801700000001" },
-    address: "Flat 4B, Road 3, Sector 3, Uttara",
+    address: "Flat 4B, Road 3, K Block, Halishahar",
     items: [
       { slug: "butter-chicken", qty: 1 },
       { slug: "beef-seekh-kebab", qty: 1 },

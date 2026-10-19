@@ -7,16 +7,16 @@ export const metadata = {
 };
 
 const ZONES = [
-  { area: "Uttara (all sectors)", charge: "৳40", time: "30–45 min" },
-  { area: "Airport, Khilkhet, Abdullahpur", charge: "৳60", time: "40–60 min" },
-  { area: "Rest of Dhaka", charge: "৳80", time: "60–90 min" },
+  { area: "Halishahar (all blocks)", charge: "৳40", time: "30–45 min" },
+  { area: "Agrabad, Pahartali, Patenga", charge: "৳60", time: "40–60 min" },
+  { area: "Rest of Chittagong", charge: "৳80", time: "60–90 min" },
 ];
 
 export default function DeliveryPolicyPage() {
   return (
     <InfoPage
       title="Delivery Policy"
-      intro="Hot food from our Uttara kitchen to your door, every day from 12 PM to 11 PM."
+      intro="Hot food from our Halishahar kitchen to your door, every day from 12 PM to 11 PM."
     >
       <InfoSection title="Delivery areas & charges">
         <div className="overflow-hidden rounded-xl border border-stone-200">

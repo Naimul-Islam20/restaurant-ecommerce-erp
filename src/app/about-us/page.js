@@ -15,19 +15,19 @@ import { getProducts } from "@/lib/products";
 export const metadata = {
   title: "Our Story",
   description:
-    "ERP17 Restaurant is a family kitchen in Uttara, Dhaka serving biryani, grills, desserts and drinks for dine-in and delivery since 2019.",
+    "ERP17 Restaurant is a family kitchen in Halishahar, Chittagong serving biryani, grills, desserts and drinks for dine-in and delivery since 2019.",
 };
 
 const TIMELINE = [
   {
     year: "2019",
     title: "A small kitchen opens",
-    text: "ERP17 Restaurant starts in Uttara Sector 3 with six tables and a short menu of kacchi, kebabs and chai.",
+    text: "ERP17 Restaurant starts in Halishahar K Block with six tables and a short menu of kacchi, kebabs and chai.",
   },
   {
     year: "2021",
     title: "Home delivery begins",
-    text: "Our own riders start delivering across Uttara, with packaging that keeps gravies and crisp items apart.",
+    text: "Our own riders start delivering across Halishahar, with packaging that keeps gravies and crisp items apart.",
   },
   {
     year: "2023",
@@ -88,17 +88,17 @@ const TEAM = [
 const REVIEWS = [
   {
     name: "Sabbir Rahman",
-    area: "Uttara Sector 7",
-    text: "Best kacchi in Uttara, no question. The meat falls off the bone and the rice is never oily. We come almost every Friday with the family.",
+    area: "Halishahar H Block",
+    text: "Best kacchi in Halishahar, no question. The meat falls off the bone and the rice is never oily. We come almost every Friday with the family.",
   },
   {
     name: "Farhana Akter",
-    area: "Banani",
+    area: "Agrabad",
     text: "Ordered for my office lunch and everything arrived hot. The butter chicken and naan were perfect, and the packaging kept the gravy separate.",
   },
   {
     name: "Imran Chowdhury",
-    area: "Uttara Sector 3",
+    area: "Halishahar K Block",
     text: "Clean place, friendly staff and fair prices. The molten chocolate cake is a must — my kids won't leave without it.",
   },
 ];
@@ -116,7 +116,7 @@ function SectionHeading({ title, className = "" }) {
 
 export default function AboutUsPage() {
   const stats = [
-    { value: "2019", label: "Serving Uttara since" },
+    { value: "2019", label: "Serving Halishahar since" },
     { value: `${getProducts().length}+`, label: "Dishes on the menu" },
     { value: "1,000+", label: "Happy guests every week" },
     { value: "60", label: "Seats in our dining room" },
@@ -142,7 +142,7 @@ export default function AboutUsPage() {
             Our Story
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/80 sm:text-base">
-            ERP17 Restaurant · Uttara, Dhaka · Since 2019
+            ERP17 Restaurant · Halishahar, Chittagong · Since 2019
           </p>
         </Container>
       </section>
@@ -182,13 +182,13 @@ export default function AboutUsPage() {
           <div className="mt-5 space-y-4 text-sm leading-relaxed text-stone-700 sm:text-base">
             <p>
               ERP17 Restaurant started in 2019 as a small family kitchen in
-              Uttara with one idea: cook the food we grew up eating, and cook it
+              Halishahar with one idea: cook the food we grew up eating, and cook it
               properly. Kacchi on a slow dum, kebabs off real charcoal and chai
               brewed the long way.
             </p>
             <p>
               Today we serve starters, mains, desserts and drinks to guests in
-              our dining room and to homes across Dhaka. The menu has grown, but
+              our dining room and to homes across Chittagong. The menu has grown, but
               the kitchen still works the same way — fresh every service,
               nothing reheated, and every plate checked before it leaves.
             </p>

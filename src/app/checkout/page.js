@@ -26,16 +26,16 @@ import { CheckoutAccountGate } from "@/components/checkout/checkout-account-gate
 import SuccessPopup from "@/components/checkout/success-popup";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 
-// Delivery zones in Dhaka (matches the Delivery Policy page).
+// Delivery zones in Chittagong (matches the Delivery Policy page).
 const BD_ZONES = [
-  { id: "uttara", label: "Uttara (all sectors)", fee: 40, time: "30–45 min" },
+  { id: "halishahar", label: "Halishahar (all blocks)", fee: 40, time: "30–45 min" },
   {
     id: "airport",
-    label: "Airport, Khilkhet, Abdullahpur",
+    label: "Agrabad, Pahartali, Patenga",
     fee: 60,
     time: "40–60 min",
   },
-  { id: "dhaka", label: "Rest of Dhaka", fee: 80, time: "60–90 min" },
+  { id: "chittagong", label: "Rest of Chittagong", fee: 80, time: "60–90 min" },
 ];
 
 // Every country other than Bangladesh uses the international options.
@@ -552,7 +552,7 @@ export default function CheckoutPage() {
                       Pick up from ERP17 Restaurant
                     </span>
                     <br />
-                    House #1/A, Road #6, Sector #3, Uttara · ready in 20–25 min
+                    House #1/A, Road #6, K Block, Halishahar · ready in 20–25 min
                   </span>
                 </p>
               )}

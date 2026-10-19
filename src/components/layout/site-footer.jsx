@@ -127,7 +127,7 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
-              Seasonal plates cooked from scratch in our Uttara kitchen —
+              Seasonal plates cooked from scratch in our Halishahar kitchen —
               starters, mains, desserts and drinks for dine-in and delivery.
             </p>
             <div className="mt-6 flex items-center gap-2.5">
@@ -185,9 +185,9 @@ export function SiteFooter() {
                   aria-hidden
                 />
                 <span className="leading-relaxed">
-                  House #1/A, Road #6, Sector #3
+                  House #1/A, Road #6, K Block
                   <br />
-                  Uttara Model Town, Dhaka-1230
+                  Halishahar, Chittagong-4216
                 </span>
               </li>
               <li>

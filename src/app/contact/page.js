@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/container";
 export const metadata = {
   title: "Contact Us",
   description:
-    "Book a table, ask about an order or get in touch with ERP17 Restaurant in Uttara, Dhaka.",
+    "Book a table, ask about an order or get in touch with ERP17 Restaurant in Halishahar, Chittagong.",
 };
 
 const INFO = [
@@ -25,7 +25,7 @@ const INFO = [
   {
     title: "Address",
     icon: LuMapPin,
-    lines: ["House #1/A, Road #6, Sector #3", "Uttara, Dhaka-1230"],
+    lines: ["House #1/A, Road #6, K Block", "Halishahar, Chittagong-4216"],
   },
   {
     title: "Opening hours",
@@ -148,13 +148,13 @@ export default function ContactPage() {
         <div className="relative mx-auto mt-8 max-w-6xl overflow-hidden rounded-3xl bg-stone-200 shadow-sm">
           <iframe
             title="ERP17 Restaurant location"
-            src="https://www.google.com/maps?q=Uttara%20Sector%203%2C%20Dhaka%201230&output=embed"
+            src="https://www.google.com/maps?q=K%20Block%2C%20Halishahar%2C%20Chittagong&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="h-80 w-full sm:h-96"
           />
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Uttara%20Sector%203%2C%20Dhaka%201230"
+            href="https://www.google.com/maps/search/?api=1&query=K%20Block%2C%20Halishahar%2C%20Chittagong"
             target="_blank"
             rel="noreferrer"
             className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-white shadow-lg"

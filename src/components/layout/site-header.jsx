@@ -723,7 +723,7 @@ export function SiteHeader() {
                 </a>
                 <span className="hidden items-center gap-1.5 lg:inline-flex">
                   <LuMapPin className="h-3.5 w-3.5" aria-hidden />
-                  Uttara Sector 3, Dhaka
+                  Halishahar K Block, Chittagong
                 </span>
               </div>
               <div className="flex shrink-0 items-center gap-3 sm:gap-4">
@@ -831,36 +831,65 @@ export function SiteHeader() {
                     <SearchIcon className="h-5 w-5" />
                   )}
                 </button>
+                {/* Desktop search: a full-width bar that drops down from the top */}
                 <AnimatePresence>
                   {searchOpen ? (
-                    <motion.form
-                      action="/shop"
-                      method="get"
-                      role="search"
-                      aria-label="Search the menu"
-                      className="absolute right-0 top-full z-50 mt-3 w-[340px] rounded-2xl border border-stone-200 bg-[var(--surface-elevated)] p-2 shadow-xl ring-1 ring-black/5 lg:w-[400px]"
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      <div className="relative">
-                        <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
-                        <input
-                          type="search"
-                          name="q"
-                          placeholder="Search dishes, drinks…"
-                          className="h-11 w-full rounded-xl bg-stone-100 pl-10 pr-24 text-sm text-stone-900 placeholder:text-stone-500 outline-none focus:ring-2 focus:ring-[var(--secondary)]"
-                          autoFocus
-                        />
-                        <button
-                          type="submit"
-                          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg bg-[var(--primary)] px-3.5 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
-                        >
-                          Search
-                        </button>
-                      </div>
-                    </motion.form>
+                    <>
+                      <motion.button
+                        key="search-backdrop"
+                        type="button"
+                        aria-label="Close search"
+                        onClick={() => setSearchOpen(false)}
+                        className="fixed inset-0 z-[70] cursor-default bg-black/40"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      <motion.div
+                        key="search-panel"
+                        className="fixed inset-x-0 top-0 z-[71] bg-white shadow-2xl"
+                        initial={{ y: "-100%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "-100%" }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <ChromeContainer className="py-8">
+                          <form
+                            action="/search"
+                            method="get"
+                            role="search"
+                            aria-label="Search the menu"
+                            className="mx-auto flex max-w-3xl items-center gap-3"
+                          >
+                            <div className="relative flex-1">
+                              <SearchIcon className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-stone-400" />
+                              <input
+                                type="search"
+                                name="q"
+                                placeholder="Search dishes, drinks…"
+                                className="h-14 w-full rounded-full border border-stone-200 bg-stone-50 pl-14 pr-32 text-lg text-stone-900 outline-none placeholder:text-stone-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/15"
+                                autoFocus
+                              />
+                              <button
+                                type="submit"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-[var(--primary)] px-6 py-2.5 text-base font-semibold text-white"
+                              >
+                                Search
+                              </button>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setSearchOpen(false)}
+                              aria-label="Close search"
+                              className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-stone-500 hover:bg-stone-100"
+                            >
+                              <CloseIcon className="h-6 w-6" />
+                            </button>
+                          </form>
+                        </ChromeContainer>
+                      </motion.div>
+                    </>
                   ) : null}
                 </AnimatePresence>
               </div>
@@ -1022,7 +1051,7 @@ export function SiteHeader() {
               {searchOpen ? (
                 <motion.form
                   ref={mobileSearchRef}
-                  action="/shop"
+                  action="/search"
                   method="get"
                   role="search"
                   aria-label="Search the menu"

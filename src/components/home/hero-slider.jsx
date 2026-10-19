@@ -12,15 +12,15 @@ const AUTO_MS = 6000;
 const SLIDES = [
   {
     id: "flavours",
-    title: "Real Dhaka flavours, *made fresh* every day",
-    text: "Slow-cooked kacchi, charcoal kebabs and warm desserts from our Uttara kitchen.",
+    title: "Real Chittagong flavours, *made fresh* every day",
+    text: "Slow-cooked kacchi, charcoal kebabs and warm desserts from our Halishahar kitchen.",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=85",
   },
   {
     id: "delivery",
     title: "Hot food from our kitchen *to your door*",
-    text: "Order online and get it delivered across Dhaka — usually in 30–45 minutes in Uttara.",
+    text: "Order online and get it delivered across Chittagong — usually in 30–45 minutes in Halishahar.",
     image:
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=85",
   },

@@ -108,7 +108,7 @@ const OFFERS_DATA = [
     tag: "FREE DELIVERY",
     badge: "MEMBER",
     title: "Orders Over ৳1,500",
-    description: "Free delivery anywhere in Uttara when your order is over ৳1,500.",
+    description: "Free delivery anywhere in Halishahar when your order is over ৳1,500.",
     image: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80",
   },
   {
@@ -2013,7 +2013,7 @@ export function AccountDashboard() {
               {searchOpen ? (
                 <motion.form
                   key="dashboard-search"
-                  action="/shop"
+                  action="/search"
                   method="get"
                   role="search"
                   aria-label="Search dishes"

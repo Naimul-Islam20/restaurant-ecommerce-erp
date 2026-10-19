@@ -11,7 +11,7 @@ const FAQ_GROUPS = [
     items: [
       {
         q: "Where is ERP17 Restaurant?",
-        a: "House #1/A, Road #6, Sector #3, Uttara Model Town, Dhaka-1230. We are open every day — Saturday to Thursday 12 PM – 11 PM, Friday 2:30 PM – 11:30 PM.",
+        a: "House #1/A, Road #6, K Block, Halishahar, Chittagong-4216. We are open every day — Saturday to Thursday 12 PM – 11 PM, Friday 2:30 PM – 11:30 PM.",
       },
       {
         q: "Is the food halal?",
@@ -32,11 +32,11 @@ const FAQ_GROUPS = [
       },
       {
         q: "Which areas do you deliver to?",
-        a: "All of Uttara, plus Airport, Khilkhet, Abdullahpur and the rest of Dhaka. Charges start from ৳40 — see the Delivery Policy for the full list.",
+        a: "All of Halishahar, plus Agrabad, Pahartali, Patenga and the rest of Chittagong. Charges start from ৳40 — see the Delivery Policy for the full list.",
       },
       {
         q: "How long does delivery take?",
-        a: "Usually 30–45 minutes inside Uttara and up to 90 minutes for the rest of Dhaka. Peak hours and rain can add a little time.",
+        a: "Usually 30–45 minutes inside Halishahar and up to 90 minutes for the rest of Chittagong. Peak hours and rain can add a little time.",
       },
       {
         q: "Can I track my order?",

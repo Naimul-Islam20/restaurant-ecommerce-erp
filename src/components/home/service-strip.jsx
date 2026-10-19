@@ -7,7 +7,7 @@ import { Container } from "@/components/layout/container";
 const ITEMS = [
   {
     title: "Delivery charge",
-    text: "Uttara ৳40 · Dhaka ৳80",
+    text: "Halishahar ৳40 · Chittagong ৳80",
     icon: LuTruck,
   },
   {
