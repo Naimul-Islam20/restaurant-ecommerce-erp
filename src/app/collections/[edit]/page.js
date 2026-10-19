@@ -40,13 +40,13 @@ export default async function CollectionEditPage({ params }) {
   const products = getProducts();
 
   return (
-    <Container className="py-10 sm:py-14">
+    <Container className="py-8 sm:py-10">
       <ProductShopIntro />
       <div
         aria-hidden
-        className="mt-10 w-screen max-w-none border-b border-stone-200 sm:mt-12 ml-[calc(50%-50vw)]"
+        className="mt-6 w-screen max-w-none border-b border-stone-200 sm:mt-8 ml-[calc(50%-50vw)]"
       />
-      <div className="mt-12">
+      <div className="mt-6 sm:mt-8">
         <ProductsCatalog products={products} />
       </div>
     </Container>

@@ -53,7 +53,7 @@ export default function ContactPage() {
   return (
     <div className="bg-[var(--surface)]">
       <section className="bg-[var(--primary)]">
-        <Container className="py-12 text-center sm:py-16">
+        <Container className="py-10 text-center sm:py-12">
           <p className="text-sm font-medium text-white/70">
             <Link href="/" className="hover:text-white">
               Home
@@ -70,7 +70,7 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <Container className="py-10 sm:py-14">
+      <Container className="py-8 sm:py-10">
         <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-[0_20px_50px_-20px_rgba(36,30,27,0.25)] lg:grid-cols-[400px_minmax(0,1fr)]">
           {/* Contact details */}
           <div className="flex flex-col bg-[var(--ink)] p-8 text-white sm:p-10">

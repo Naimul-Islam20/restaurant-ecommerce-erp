@@ -35,7 +35,7 @@ export function InfoPage({ title, intro, updated = "1 October 2026", children })
   return (
     <div className="bg-[var(--surface)]">
       <section className="bg-[var(--primary)]">
-        <Container className="py-12 text-center sm:py-16">
+        <Container className="py-10 text-center sm:py-12">
           <p className="text-xs font-medium text-white/70">
             <Link href="/" className="hover:text-white">
               Home
@@ -87,7 +87,7 @@ export function InfoPage({ title, intro, updated = "1 October 2026", children })
         </Container>
       </nav>
 
-      <Container className="py-10 sm:py-14">
+      <Container className="py-8 sm:py-10">
         <article className="mx-auto max-w-3xl rounded-3xl border border-stone-200 bg-white p-6 text-sm leading-relaxed text-stone-700 sm:p-10 sm:text-base [&_li]:marker:text-[var(--primary)] [&_strong]:font-semibold [&_strong]:text-stone-900">
           {children}
           <p className="mt-10 border-t border-stone-100 pt-5 text-xs text-stone-400">

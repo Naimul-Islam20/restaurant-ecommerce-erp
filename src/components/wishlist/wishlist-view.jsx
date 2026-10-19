@@ -39,7 +39,7 @@ export function WishlistView() {
         </Container>
       </section>
 
-      <Container className="py-10 sm:py-14">
+      <Container className="py-8 sm:py-10">
         {!ready ? (
           <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
             {Array.from({ length: 5 }).map((_, i) => (

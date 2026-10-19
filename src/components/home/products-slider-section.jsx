@@ -220,8 +220,8 @@ export function ProductsSliderSection({
   const contentClass = compactMobileSpacing
     ? "py-6 sm:py-10"
     : reduceBottomSpacing
-      ? "pt-10 pb-0 sm:pt-14 sm:pb-2"
-      : "py-10 sm:py-14";
+      ? "pt-8 pb-0 sm:pt-10 sm:pb-2"
+      : "py-8 sm:py-10";
   const Wrapper = useParentContainer ? "div" : Container;
 
   return (
@@ -251,7 +251,7 @@ export function ProductsSliderSection({
 
         <div
           className={`${
-            compactMobileSpacing ? "mt-5" : "mt-10"
+            compactMobileSpacing ? "mt-5" : "mt-6"
           } min-w-0 ${useDesktopCarouselOnMobile ? "hidden" : "sm:hidden"}`}
         >
           <div
@@ -335,7 +335,7 @@ export function ProductsSliderSection({
 
         <div
           className={`${
-            compactMobileSpacing ? "mt-5" : "mt-10"
+            compactMobileSpacing ? "mt-5" : "mt-6"
           } min-w-0 ${
             useDesktopCarouselOnMobile ? "block" : "hidden sm:block"
           }`}

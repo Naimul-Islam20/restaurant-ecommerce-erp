@@ -59,7 +59,7 @@ export function ProductsGridSection({
 
   return (
     <section className="border-t border-stone-200 bg-[var(--surface)]">
-      <Container className="py-10 sm:py-14">
+      <Container className="py-8 sm:py-10">
         <div className="flex items-end justify-between gap-4">
           <h2 className="font-[family-name:var(--font-display)] text-2xl text-stone-900 sm:text-3xl">
             {title}
@@ -73,7 +73,7 @@ export function ProductsGridSection({
         </div>
 
         <motion.div
-          className="mt-10 overflow-hidden"
+          className="mt-6 overflow-hidden"
           initial={false}
           animate={{ height: gridHeight }}
           transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}

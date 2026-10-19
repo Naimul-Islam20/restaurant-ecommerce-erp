@@ -72,13 +72,13 @@ export function SiteFooter() {
   return (
     <footer
       className={`erp17-footer-mobile-extend bg-[var(--ink)] text-white/80 ${
-        isAuthPage ? "mt-0" : "mt-16"
+        isAuthPage ? "mt-0" : "mt-10"
       }`}
     >
       {/* Reservation banner */}
       <div className="border-b border-[var(--secondary)]/25 bg-black/20">
         <ChromeContainer>
-          <div className="flex flex-col items-center gap-6 py-10 text-center md:flex-row md:justify-between md:text-start">
+          <div className="flex flex-col items-center gap-6 py-8 text-center md:flex-row md:justify-between md:text-start">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
                 Reserve your evening
@@ -112,7 +112,7 @@ export function SiteFooter() {
       </div>
 
       <ChromeContainer>
-        <div className="grid grid-cols-1 gap-12 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        <div className="grid grid-cols-1 gap-10 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
           <div>
             <Link

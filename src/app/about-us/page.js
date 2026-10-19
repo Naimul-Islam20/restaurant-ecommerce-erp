@@ -137,7 +137,7 @@ export default function AboutUsPage() {
           className="absolute inset-0 bg-gradient-to-b from-[var(--primary)]/40 via-[var(--primary)]/60 to-[var(--primary)]"
           aria-hidden
         />
-        <Container className="relative py-16 text-center sm:py-24">
+        <Container className="relative py-10 text-center sm:py-14">
           <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold text-white sm:text-5xl lg:text-6xl">
             Our Story
           </h1>
@@ -157,7 +157,7 @@ export default function AboutUsPage() {
       </Container>
 
       {/* Intro */}
-      <Container className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-2 lg:gap-16">
+      <Container className="grid items-center gap-10 py-8 sm:py-12 lg:grid-cols-2 lg:gap-16">
         <div className="relative">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-stone-200">
             <ImageWithFallback
@@ -227,7 +227,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Journey */}
-      <Container className="py-12 sm:py-16">
+      <Container className="py-8 sm:py-12">
         <SectionHeading title="Our Journey" />
         <ol className="relative mx-auto mt-10 max-w-3xl sm:mt-12">
           <span
@@ -263,7 +263,7 @@ export default function AboutUsPage() {
 
       {/* Values */}
       <div className="border-y border-stone-200 bg-[var(--background)]/60">
-        <Container className="py-12 sm:py-16">
+        <Container className="py-8 sm:py-12">
           <SectionHeading title="What We Stand For" />
           <ul className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {VALUES.map(({ title, icon: Icon, text }) => (
@@ -287,7 +287,7 @@ export default function AboutUsPage() {
       </div>
 
       {/* Team */}
-      <Container className="py-12 sm:py-16">
+      <Container className="py-8 sm:py-12">
         <SectionHeading title="Meet the Team" />
         <ul className="mx-auto mt-10 grid max-w-4xl gap-5 sm:mt-12 sm:grid-cols-3">
           {TEAM.map((person) => (
@@ -318,7 +318,7 @@ export default function AboutUsPage() {
 
       {/* Reviews */}
       <div className="border-t border-stone-200">
-        <Container className="py-12 sm:py-16">
+        <Container className="py-8 sm:py-12">
           <SectionHeading title="What Our Guests Say" />
           <ul className="mt-10 grid gap-4 sm:mt-12 md:grid-cols-3 md:gap-5">
             {REVIEWS.map((review) => (

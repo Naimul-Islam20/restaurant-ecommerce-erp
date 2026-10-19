@@ -47,7 +47,7 @@ export default function CollectionsPage() {
           className="absolute inset-0 bg-gradient-to-b from-[var(--primary)]/40 via-[var(--primary)]/60 to-[var(--primary)]"
           aria-hidden
         />
-        <Container className="relative py-16 text-center sm:py-24">
+        <Container className="relative py-10 text-center sm:py-14">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary)]">
             Browse the menu
           </p>
@@ -70,21 +70,21 @@ export default function CollectionsPage() {
         />
       </Container>
 
-      <Container className="py-12 sm:py-16">
+      <Container className="py-8 sm:py-12">
         <SectionHeading eyebrow="Browse the menu" title="All Categories">
           Every course, the chef&apos;s specials, new dishes and today&apos;s
           offers — pick where to start.
         </SectionHeading>
-        <MenuCategoryGrid withCollections className="mt-10 sm:mt-14" />
+        <MenuCategoryGrid withCollections className="mt-8 sm:mt-10" />
       </Container>
 
       <div className="border-y border-stone-200 bg-[var(--background)]/60">
-        <Container className="py-12 sm:py-16">
+        <Container className="py-8 sm:py-12">
           <SectionHeading eyebrow="Chef recommends" title="Specials & Offers">
             Dishes the kitchen is proud of, new plates this week, and
             favourites at a lighter price.
           </SectionHeading>
-          <MenuHighlightGrid className="mt-10 sm:mt-14" />
+          <MenuHighlightGrid className="mt-8 sm:mt-10" />
         </Container>
       </div>
     </div>

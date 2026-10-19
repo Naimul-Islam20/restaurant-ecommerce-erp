@@ -40,7 +40,7 @@ function DividerFallback() {
   return (
     <div
       aria-hidden
-      className="mt-8 w-screen max-w-none border-b border-stone-200 sm:mt-10 ml-[calc(50%-50vw)]"
+      className="mt-6 w-screen max-w-none border-b border-stone-200 sm:mt-8 ml-[calc(50%-50vw)]"
     />
   );
 }
@@ -50,7 +50,7 @@ function ShopPageSkeleton() {
     <>
       <IntroFallback />
       <DividerFallback />
-      <div className="mt-10">
+      <div className="mt-6 sm:mt-8">
         <CatalogFallback />
       </div>
     </>
@@ -64,7 +64,7 @@ function ShopContent({ products }) {
         <ProductShopIntro />
       </Suspense>
       <DividerFallback />
-      <div className="mt-10">
+      <div className="mt-6 sm:mt-8">
         <Suspense fallback={<CatalogFallback />}>
           <ProductsCatalog products={products} />
         </Suspense>
@@ -86,7 +86,7 @@ export default async function ShopPage({ searchParams }) {
   const products = getProducts();
 
   return (
-    <Container className="py-10 sm:py-14">
+    <Container className="py-8 sm:py-10">
       <Suspense fallback={<ShopPageSkeleton />}>
         <ShopContent products={products} />
       </Suspense>

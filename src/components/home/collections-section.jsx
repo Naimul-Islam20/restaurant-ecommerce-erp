@@ -13,7 +13,7 @@ export function CollectionsSection() {
       id="collections"
       className="border-b border-stone-200 bg-[var(--surface)]"
     >
-      <Container className="pb-14 pt-6 sm:pb-20 sm:pt-8">
+      <Container className="pb-10 pt-6 sm:pb-14 sm:pt-8">
         <div className="mx-auto max-w-xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary-dark)]">
             From our kitchen
@@ -24,11 +24,11 @@ export function CollectionsSection() {
           <MenuDivider className="mt-4" />
         </div>
 
-        <MenuCategoryGrid withCollections className="mt-10 sm:mt-14" />
+        <MenuCategoryGrid withCollections className="mt-8 sm:mt-10" />
 
-        <MenuHighlightGrid className="mt-12 sm:mt-16" />
+        <MenuHighlightGrid className="mt-8 sm:mt-10" />
 
-        <div className="mt-10 text-center">
+        <div className="mt-8 text-center">
           <Link
             href="/shop"
             className="inline-flex items-center gap-2 border-b border-[var(--primary)] pb-0.5 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]"
