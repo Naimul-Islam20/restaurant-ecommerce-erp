@@ -1,205 +1,169 @@
+import Link from "next/link";
+import { LuClock, LuMail, LuMapPin, LuPhone } from "react-icons/lu";
+import { ContactForm } from "@/components/contact/contact-form";
 import { Container } from "@/components/layout/container";
+
+export const metadata = {
+  title: "Contact Us",
+  description:
+    "Book a table, ask about an order or get in touch with ERP17 Restaurant in Uttara, Dhaka.",
+};
+
+const INFO = [
+  {
+    title: "Phone",
+    icon: LuPhone,
+    lines: ["+88017 86 493 740"],
+    href: "tel:+8801786493740",
+  },
+  {
+    title: "Email",
+    icon: LuMail,
+    lines: ["support@erp17restaurant.com"],
+    href: "mailto:support@erp17restaurant.com",
+  },
+  {
+    title: "Address",
+    icon: LuMapPin,
+    lines: ["House #1/A, Road #6, Sector #3", "Uttara, Dhaka-1230"],
+  },
+  {
+    title: "Opening hours",
+    icon: LuClock,
+    lines: ["Sat – Thu: 12 PM – 11 PM", "Friday: 2:30 PM – 11:30 PM"],
+  },
+];
+
+const SOCIAL = [
+  {
+    label: "Facebook",
+    path: "M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.21 10.44 22v-7.04H7.9v-2.9h2.54V9.86c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22C18.34 21.21 22 17.08 22 12.06Z",
+  },
+  {
+    label: "Instagram",
+    path: "M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2Zm0 4.66a5.14 5.14 0 1 0 0 10.28 5.14 5.14 0 0 0 0-10.28Zm0 8.48a3.34 3.34 0 1 1 0-6.68 3.34 3.34 0 0 1 0 6.68Zm5.34-9.89a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z",
+  },
+  {
+    label: "YouTube",
+    path: "M21.6 7.2a2.4 2.4 0 0 0-1.68-1.7C18.2 5 12 5 12 5s-6.2 0-7.92.5A2.4 2.4 0 0 0 2.4 7.2 25.1 25.1 0 0 0 2 12a25.1 25.1 0 0 0 .4 4.8 2.4 2.4 0 0 0 1.68 1.7C5.8 19 12 19 12 19s6.2 0 7.92-.5a2.4 2.4 0 0 0 1.68-1.7A25.1 25.1 0 0 0 22 12a25.1 25.1 0 0 0-.4-4.8ZM10 15.2V8.8L15.2 12 10 15.2Z",
+  },
+];
 
 export default function ContactPage() {
   return (
-    <section className="w-full py-12 sm:py-16 lg:py-20">
-      <Container>
-      <div className="text-center max-w-2xl mx-auto">
-        <h1 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900">
-          Contact Us
-        </h1>
-        <p className="mt-4 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-          Have a question about your order, sizing, or our products? Reach out to us
-          using the form or contact details below and our team will get back to you
-          as soon as possible.
-        </p>
-      </div>
+    <div className="bg-[var(--surface)]">
+      <section className="bg-[var(--primary)]">
+        <Container className="py-12 text-center sm:py-16">
+          <p className="text-sm font-medium text-white/70">
+            <Link href="/" className="hover:text-white">
+              Home
+            </Link>
+            <span className="mx-1.5">/</span>
+            <span>Contact</span>
+          </p>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-semibold text-white sm:text-5xl">
+            Contact Us
+          </h1>
+          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+            Book a table, ask about an order or just say hello.
+          </p>
+        </Container>
+      </section>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)] items-start">
-        <div className="space-y-6">
-          <h2 className="text-base sm:text-lg font-semibold tracking-wide text-stone-900">
-            Contact Directly
-          </h2>
-          <div className="space-y-5 text-sm sm:text-[15px] text-stone-700">
-            <div>
-              <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-stone-900">
-                Our Address
-              </h3>
-              <p className="mt-2 text-[13px] sm:text-sm leading-relaxed text-stone-800">
-                House #1/A, Road #6, Sector #3<br />
-                Uttara Model Town, Uttara, Dhaka-1230
-              </p>
-            </div>
+      <Container className="py-10 sm:py-14">
+        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl bg-white shadow-[0_20px_50px_-20px_rgba(36,30,27,0.25)] lg:grid-cols-[400px_minmax(0,1fr)]">
+          {/* Contact details */}
+          <div className="flex flex-col bg-[var(--ink)] p-8 text-white sm:p-10">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold">
+              Get in touch
+            </h2>
+            <p className="mt-2 text-base text-white/70">
+              We usually answer calls and messages within a few minutes during
+              opening hours.
+            </p>
 
-            <div>
-              <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-stone-900">
-                Phone Numbers
-              </h3>
-              <p className="mt-2 space-y-1 text-[13px] sm:text-sm leading-relaxed text-stone-800">
-                <a href="tel:+8801786493740" className="block hover:text-[var(--accent)]">
-                  +88017 86 493 740
-                </a>
-              </p>
-            </div>
+            <ul className="mt-8 space-y-6">
+              {INFO.map(({ title, icon: Icon, lines, href }) => (
+                <li key={title} className="flex gap-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--secondary)] text-[var(--ink)]">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold uppercase tracking-wider text-[var(--secondary)]">
+                      {title}
+                    </p>
+                    {lines.map((line) =>
+                      href ? (
+                        <a
+                          key={line}
+                          href={href}
+                          className="mt-0.5 block text-base text-white [overflow-wrap:anywhere] hover:text-[var(--secondary)]"
+                        >
+                          {line}
+                        </a>
+                      ) : (
+                        <p key={line} className="mt-0.5 text-base text-white/90">
+                          {line}
+                        </p>
+                      ),
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
 
-            <div>
-              <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-stone-900">
-                Email
-              </h3>
-              <p className="mt-2 text-[13px] sm:text-sm leading-relaxed text-stone-800">
-                <a
-                  href="mailto:support@erp17restaurant.com"
-                  className="font-medium text-[var(--accent)] hover:underline"
-                >
-                  support@erp17restaurant.com
-                </a>
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-stone-900">
-                Social Media
-              </h3>
-              <div className="mt-3 flex flex-wrap gap-2.5">
-                <a
-                  href="#"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-stone-300 bg-white text-stone-800 shadow-sm hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-                  aria-label="Facebook"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                    fill="currentColor"
+            <div className="mt-10 border-t border-white/15 pt-6 lg:mt-auto">
+              <p className="text-sm font-semibold text-white/70">Follow us</p>
+              <div className="mt-3 flex gap-3">
+                {SOCIAL.map((social) => (
+                  <a
+                    key={social.label}
+                    href="#"
+                    aria-label={social.label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white hover:border-[var(--secondary)] hover:text-[var(--secondary)]"
                   >
-                    <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.21 10.44 22v-7.04H7.9v-2.9h2.54V9.86c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.9h-2.34V22C18.34 21.21 22 17.08 22 12.06Z" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-stone-300 bg-white text-stone-800 shadow-sm hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-                  aria-label="Instagram"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                  >
-                    <rect x="3" y="3" width="18" height="18" rx="5" />
-                    <circle cx="12" cy="12" r="4.2" />
-                    <circle cx="17" cy="7" r="1" fill="currentColor" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-stone-300 bg-white text-stone-800 shadow-sm hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-                  aria-label="YouTube"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                    fill="currentColor"
-                  >
-                    <path d="M21.6 7.2a2.4 2.4 0 0 0-1.68-1.7C18.2 5 12 5 12 5s-6.2 0-7.92.5A2.4 2.4 0 0 0 2.4 7.2 25.1 25.1 0 0 0 2 12a25.1 25.1 0 0 0 .4 4.8 2.4 2.4 0 0 0 1.68 1.7C5.8 19 12 19 12 19s6.2 0 7.92-.5a2.4 2.4 0 0 0 1.68-1.7A25.1 25.1 0 0 0 22 12a25.1 25.1 0 0 0-.4-4.8ZM10 15.2V8.8L15.2 12 10 15.2Z" />
-                  </svg>
-                </a>
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+                      <path d={social.path} />
+                    </svg>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
+
+          {/* Form */}
+          <div className="p-8 sm:p-10">
+            <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold text-stone-900">
+              How can we help?
+            </h2>
+            <p className="mt-2 mb-6 text-base text-stone-600">
+              Reserve a table or send us a message — we&apos;ll get back to you
+              quickly.
+            </p>
+            <ContactForm />
+          </div>
         </div>
 
-        <form className="space-y-5">
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-xs font-medium uppercase tracking-wide text-stone-600"
-            >
-              Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              className="mt-2 w-full rounded-md border border-[var(--primary)] bg-white px-3 py-2 text-sm text-stone-900 shadow-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
-              placeholder="Your name"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-xs font-medium uppercase tracking-wide text-stone-600"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              className="mt-2 w-full rounded-md border border-[var(--primary)] bg-white px-3 py-2 text-sm text-stone-900 shadow-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="subject"
-              className="block text-xs font-medium uppercase tracking-wide text-stone-600"
-            >
-              Subject
-            </label>
-            <input
-              id="subject"
-              type="text"
-              className="mt-2 w-full rounded-md border border-[var(--primary)] bg-white px-3 py-2 text-sm text-stone-900 shadow-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
-              placeholder="What is your message about?"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-xs font-medium uppercase tracking-wide text-stone-600"
-            >
-              Message
-            </label>
-            <textarea
-              id="message"
-              rows={5}
-              className="mt-2 w-full rounded-md border border-[var(--primary)] bg-white px-3 py-2 text-sm text-stone-900 shadow-sm focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
-              placeholder="Write your message here..."
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center rounded-full bg-stone-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-stone-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-
-      <div className="mt-14">
-        <div className="h-64 sm:h-80 lg:h-96 overflow-hidden rounded-xl border border-stone-200 bg-stone-100">
+        {/* Map */}
+        <div className="relative mx-auto mt-8 max-w-6xl overflow-hidden rounded-3xl bg-stone-200 shadow-sm">
           <iframe
             title="ERP17 Restaurant location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.593353927257!2d90.399452!3d23.762195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7b8c8f2c4e7%3A0x0000000000000000!2sUttara%20Sector%203!5e0!3m2!1sen!2sbd!4v1700000000000"
-            width="100%"
-            height="100%"
+            src="https://www.google.com/maps?q=Uttara%20Sector%203%2C%20Dhaka%201230&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="w-full h-full"
+            className="h-80 w-full sm:h-96"
           />
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Uttara%20Sector%203%2C%20Dhaka%201230"
+            target="_blank"
+            rel="noreferrer"
+            className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-white shadow-lg"
+          >
+            <LuMapPin className="h-4 w-4" aria-hidden />
+            Get directions
+          </a>
         </div>
-      </div>
-
       </Container>
-    </section>
+    </div>
   );
 }
-
-
-

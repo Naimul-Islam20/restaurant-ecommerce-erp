@@ -17,10 +17,11 @@
   --surface-elevated: #ffffff;
 }
 
-/* Fluid site width: fills viewport on large PCs; only side padding constrains */
+/* Site width: side padding grows up to desktop, then the width is capped at
+   1440px so large monitors look exactly like a regular desktop (centred). */
 .erp17-container {
   width: 100%;
-  max-width: none;
+  max-width: 1440px;
   margin-inline: auto;
   box-sizing: border-box;
   padding-inline: 0.75rem;
@@ -38,16 +39,10 @@
   }
 }
 
-@media (min-width: 1536px) {
-  .erp17-container {
-    padding-inline: 8rem;
-  }
-}
-
-/* Header and footer: wider than page sections. */
+/* Header and footer: wider than page sections, capped the same way. */
 .erp17-chrome-container {
   width: 100%;
-  max-width: none;
+  max-width: 1440px;
   margin-inline: auto;
   box-sizing: border-box;
   padding-inline: 0.75rem;
@@ -62,12 +57,6 @@
 @media (min-width: 1024px) {
   .erp17-chrome-container {
     padding-inline: 4rem;
-  }
-}
-
-@media (min-width: 1536px) {
-  .erp17-chrome-container {
-    padding-inline: 2.5rem;
   }
 }
 

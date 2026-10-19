@@ -11,30 +11,55 @@ const AUTO_MS = 6000;
 
 const SLIDES = [
   {
-    id: "welcome",
-    welcome: "Welcome to ERP17",
-    title: "Delicious Food, Unforgettable Taste",
-    text: "Authentic Bangladeshi and international dishes, cooked fresh every day in the heart of Uttara.",
+    id: "story",
+    title: ["Where every plate", "tells a *story*"],
+    text: "Slow-cooked kacchi, charcoal kebabs and warm desserts — made fresh every day in Uttara.",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=85",
   },
   {
-    id: "kitchen",
-    welcome: "Fresh from our kitchen",
-    title: "Cooked with Love, Served with Care",
-    text: "From slow-cooked kacchi to sizzling grills — every plate is made to order.",
+    id: "fresh",
+    title: ["Cooked fresh,", "served *warm*"],
+    text: "Every dish is made to order in our kitchen — never reheated, never rushed.",
     image:
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=85",
   },
   {
-    id: "family",
-    welcome: "Dine in or take away",
-    title: "A Perfect Place for Family & Friends",
-    text: "Cozy seating, warm service and food everyone at the table will enjoy.",
+    id: "together",
+    title: ["Gather, share", "& *enjoy*"],
+    text: "A cozy dining room for family and friends, or hot food delivered to your door.",
     image:
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=85",
   },
 ];
+
+// Text animation: each title line rises out of a mask, then copy and buttons fade in.
+const textBlock = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
+  exit: { opacity: 0, y: -12, transition: { duration: 0.35, ease: "easeIn" } },
+};
+const riseFromMask = {
+  hidden: { y: "110%" },
+  show: { y: "0%", transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+/** Renders "*word*" as an italic saffron accent. */
+function TitleLine({ text }) {
+  return text.split(/(\*[^*]+\*)/).map((part, i) =>
+    part.startsWith("*") ? (
+      <em key={i} className="italic text-[var(--secondary)]">
+        {part.slice(1, -1)}
+      </em>
+    ) : (
+      part
+    ),
+  );
+}
 
 const arrowClass =
   "h-9 w-9 items-center justify-center rounded-full border border-white/50 text-white transition-colors hover:bg-white hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-12 sm:w-12 bg-black/20 sm:bg-transparent";
@@ -62,7 +87,7 @@ export function HeroSlider() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {`Slide ${index + 1} of ${SLIDES.length}: ${slide.title}`}
+        {`Slide ${index + 1} of ${SLIDES.length}: ${slide.title.join(" ").replaceAll("*", "")}`}
       </div>
 
       {SLIDES.map((s, i) => (
@@ -96,35 +121,47 @@ export function HeroSlider() {
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id}
-            className="max-w-2xl sm:pl-14 lg:pl-0"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="w-full max-w-5xl sm:pl-14 lg:pl-0"
+            variants={textBlock}
+            initial="hidden"
+            animate="show"
+            exit="exit"
           >
-            <p className="hidden font-[family-name:var(--font-display)] text-3xl italic text-[var(--secondary)] sm:block">
-              {slide.welcome}
-            </p>
-            <h1 className="sr-only sm:not-sr-only sm:mt-3 sm:block sm:text-5xl sm:font-extrabold sm:uppercase sm:leading-[1.1] sm:text-white lg:text-6xl">
-              {slide.title}
+            <h1 className="sr-only sm:not-sr-only sm:block sm:font-[family-name:var(--font-display)] sm:text-6xl sm:font-semibold sm:leading-[1.05] sm:text-white lg:text-7xl">
+              {slide.title.map((line) => (
+                <span
+                  key={line}
+                  className="mr-[0.25em] inline-block overflow-hidden pb-1 align-bottom"
+                >
+                  <motion.span className="inline-block" variants={riseFromMask}>
+                    <TitleLine text={line} />
+                  </motion.span>
+                </span>
+              ))}
             </h1>
-            <p className="mt-5 hidden max-w-lg text-lg leading-relaxed text-white/80 sm:block">
+            <motion.p
+              variants={fadeUp}
+              className="mt-5 hidden max-w-2xl text-lg leading-relaxed text-white/85 sm:block lg:text-xl"
+            >
               {slide.text}
-            </p>
-            <div className="flex flex-wrap justify-center gap-3 sm:mt-8 sm:justify-start sm:gap-4">
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap justify-center gap-3 sm:mt-9 sm:justify-start sm:gap-4"
+            >
               <Link
                 href="/shop"
-                className="inline-flex items-center rounded-md bg-[var(--primary)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white sm:px-8 sm:py-4 sm:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex items-center rounded-full bg-[var(--primary)] px-6 py-2.5 text-sm font-semibold text-white sm:px-8 sm:py-3.5 sm:text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Explore Menu
+                Explore menu
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center rounded-md bg-[var(--secondary)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-stone-900 sm:px-8 sm:py-4 sm:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex items-center rounded-full border border-white/80 bg-black/10 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-sm sm:px-8 sm:py-3.5 sm:text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Book a Table
+                Book a table
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       </Container>
