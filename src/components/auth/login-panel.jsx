@@ -6,9 +6,9 @@ import { Suspense, useEffect, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 
 const inputClassName =
-  "mt-2 w-full rounded-lg border border-[var(--primary)] bg-[var(--surface)] px-3.5 py-3 text-sm text-[var(--primary)] outline-none transition-colors placeholder:text-[var(--primary)]/45 focus:border-[var(--primary)]";
+  "mt-2 w-full rounded-lg border border-white/15 bg-white/8 px-3.5 py-3 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-[var(--secondary)] focus:bg-white/12";
 
-const labelClassName = "text-sm font-semibold text-stone-900";
+const labelClassName = "text-sm font-semibold text-white/80";
 
 const primaryBtnClassName =
   "inline-flex w-full items-center justify-center rounded-lg bg-[var(--primary)] px-4 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90";
@@ -116,54 +116,43 @@ function LoginPanelContent() {
   };
 
   return (
-    <div className="w-full rounded-lg bg-[#efe4da] p-2.5 sm:p-5">
-      <div className="rounded-lg bg-[var(--surface)] px-5 py-6 sm:px-6">
-      <h1 className="font-[family-name:var(--font-display)] text-4xl text-stone-900 sm:text-5xl">
+    <div className="w-full">
+      <h1 className="font-[family-name:var(--font-display)] text-4xl text-white sm:text-5xl">
         Welcome Back
       </h1>
-      <p className="mt-2 text-sm text-stone-500 sm:text-base">
+      <p className="mt-2 text-sm text-white/50 sm:text-base">
         Sign in to continue to your account
       </p>
 
-      <div
-        className={
-          mode
-            ? "mt-8 grid grid-cols-2 gap-2 sm:gap-3"
-            : "mt-8 flex flex-col gap-3"
-        }
-      >
+      <div className="mt-8 grid grid-cols-2 gap-2 sm:gap-3">
         <button
           type="button"
           onClick={() => switchMode("phone")}
-          className={`flex items-center justify-center gap-2.5 rounded-lg border border-[var(--primary)] px-4 py-3.5 text-sm font-semibold transition-colors ${
+          className={`flex items-center justify-center gap-2 rounded-lg border px-4 py-3.5 text-xs font-semibold transition-colors ${
             mode === "phone"
-              ? "bg-[var(--primary)] text-white"
-              : "bg-[var(--surface)] text-stone-800"
-          } ${mode ? "gap-2 px-3 sm:gap-2.5 sm:px-4" : "w-full"}`}
+              ? "border-[var(--primary)] bg-[var(--primary)] text-white"
+              : "border-white/20 bg-white/8 text-white/70 hover:border-white/40"
+          }`}
         >
           <PhoneIcon className="h-4 w-4 shrink-0" />
-          <span className="whitespace-nowrap text-center text-xs leading-none">
-            Login with Phone
-          </span>
+          <span className="whitespace-nowrap">Login with Phone</span>
         </button>
         <button
           type="button"
           onClick={() => switchMode("email")}
-          className={`flex items-center justify-center gap-2.5 rounded-lg border border-[var(--primary)] px-4 py-3.5 text-sm font-semibold transition-colors ${
+          className={`flex items-center justify-center gap-2 rounded-lg border px-4 py-3.5 text-xs font-semibold transition-colors ${
             mode === "email"
-              ? "bg-[var(--primary)] text-white"
-              : "bg-[var(--surface)] text-stone-800"
-          } ${mode ? "gap-2 px-3 sm:gap-2.5 sm:px-4" : "w-full"}`}
+              ? "border-[var(--primary)] bg-[var(--primary)] text-white"
+              : "border-white/20 bg-white/8 text-white/70 hover:border-white/40"
+          }`}
         >
           <MailIcon className="h-4 w-4 shrink-0" />
-          <span className="whitespace-nowrap text-center text-xs leading-none">
-            Login with Email
-          </span>
+          <span className="whitespace-nowrap">Login with Email</span>
         </button>
       </div>
 
       {error ? (
-        <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
           {error}
         </p>
       ) : null}
@@ -175,8 +164,8 @@ function LoginPanelContent() {
               <label htmlFor="phone" className={labelClassName}>
                 Phone Number
               </label>
-              <div className="mt-2 flex overflow-hidden rounded-lg border border-[var(--primary)] bg-[var(--surface)] focus-within:border-[var(--primary)]">
-                <span className="inline-flex items-center border-r border-[var(--primary)] px-3 text-sm font-medium text-[var(--primary)]">
+              <div className="mt-2 flex overflow-hidden rounded-lg border border-white/15 bg-white/8 focus-within:border-[var(--secondary)]">
+                <span className="inline-flex items-center border-r border-white/15 px-3 text-sm font-medium text-white/60">
                   +880
                 </span>
                 <input
@@ -188,10 +177,10 @@ function LoginPanelContent() {
                     setPhone(event.target.value.replace(/\D/g, "").slice(0, 10))
                   }
                   placeholder="1712345678"
-                  className="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-sm text-[var(--primary)] outline-none placeholder:text-[var(--primary)]/45"
+                  className="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-sm text-white outline-none placeholder:text-white/30"
                 />
               </div>
-              <p className="mt-2 text-xs text-stone-500">
+              <p className="mt-2 text-xs text-white/40">
                 Enter 10-digit number without country code
               </p>
             </div>
@@ -202,8 +191,8 @@ function LoginPanelContent() {
         ) : (
           <form className="mt-8 space-y-4" onSubmit={handleVerifyOtp}>
             <div>
-              <h2 className="text-lg font-semibold text-stone-900">Verify OTP</h2>
-              <p className="mt-1 text-sm text-stone-500">
+              <h2 className="text-lg font-semibold text-white">Verify OTP</h2>
+              <p className="mt-1 text-sm text-white/50">
                 We&apos;ve sent a verification code to +880{phone}
               </p>
             </div>
@@ -234,17 +223,17 @@ function LoginPanelContent() {
                   setOtp("");
                   resetError();
                 }}
-                className="font-medium text-[var(--accent)] hover:underline"
+                className="font-medium text-[var(--secondary)] hover:underline"
               >
                 Change number
               </button>
               {otpTimer > 0 ? (
-                <span className="text-stone-500">Resend OTP in {otpTimer}s</span>
+                <span className="text-white/40">Resend OTP in {otpTimer}s</span>
               ) : (
                 <button
                   type="button"
                   onClick={() => setOtpTimer(60)}
-                  className="font-medium text-[var(--accent)] hover:underline"
+                  className="font-medium text-[var(--secondary)] hover:underline"
                 >
                   Resend OTP
                 </button>
@@ -282,12 +271,12 @@ function LoginPanelContent() {
               className={inputClassName}
             />
           </div>
-          <label className="flex items-center gap-2 text-sm text-stone-600">
+          <label className="flex items-center gap-2 text-sm text-white/60">
             <input
               type="checkbox"
               checked={remember}
               onChange={(event) => setRemember(event.target.checked)}
-              className="h-4 w-4 rounded border-stone-300 text-[var(--primary)]"
+              className="h-4 w-4 rounded border-white/30 text-[var(--primary)]"
             />
             Keep me signed in
           </label>
@@ -298,24 +287,23 @@ function LoginPanelContent() {
       ) : null}
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm">
-        <span className="text-stone-500">Need help?</span>
+        <span className="text-white/40">Need help?</span>
         <Link
           href="/forgot-password"
-          className="font-medium text-[var(--accent)] hover:underline"
+          className="font-medium text-[var(--secondary)] hover:underline"
         >
           Forgot your password?
         </Link>
       </div>
 
-      <div className="mt-8 border-t border-stone-200 pt-6 text-center text-sm text-stone-600">
+      <div className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-white/40">
         Don&apos;t have an account?{" "}
         <Link
           href="/signup"
-          className="font-semibold text-[var(--accent)] hover:underline"
+          className="font-semibold text-[var(--secondary)] hover:underline"
         >
           Create one now
         </Link>
-      </div>
       </div>
     </div>
   );
