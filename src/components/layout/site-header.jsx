@@ -209,10 +209,6 @@ function dockIconInset(width) {
   return Math.max(minInset, Math.min(inset, maxInset));
 }
 
-const bottomBarIdleBtn =
-  "mx-auto flex h-11 w-11 items-center justify-center rounded-full text-[var(--primary)]/80 transition-opacity duration-200";
-const bottomBarActiveChip =
-  "flex h-12 w-12 items-center justify-center rounded-full bg-[var(--secondary)] text-[var(--primary)] shadow-[0_10px_28px_rgba(0,0,0,0.38),0_2px_6px_rgba(0,0,0,0.2)]";
 
 function getBottomBarActiveIndex({
   pathname,
@@ -501,6 +497,7 @@ export function SiteHeader() {
   const { countryCode, setCountryCode } = useCountry();
   const [countryOpen, setCountryOpen] = useState(false);
   const wishlistPopoverRef = useRef(null);
+  const mobileWishlistRef = useRef(null);
   const searchAreaRef = useRef(null);
   const mobileSearchRef = useRef(null);
   const mobileSearchTriggerRef = useRef(null);
@@ -509,8 +506,11 @@ export function SiteHeader() {
   useEffect(() => {
     if (!wishlistOpen) return;
     function onClick(event) {
-      if (!wishlistPopoverRef.current) return;
-      if (wishlistPopoverRef.current.contains(event.target)) return;
+      // Clicks inside the desktop popover or the mobile panel keep it open.
+      if (wishlistPopoverRef.current?.contains(event.target)) return;
+      if (mobileWishlistRef.current?.contains(event.target)) return;
+      // The bottom bar's own button toggles it; don't close here first.
+      if (bottomBarRef.current?.contains(event.target)) return;
       setWishlistOpen(false);
     }
     function onKey(event) {
@@ -623,7 +623,14 @@ export function SiteHeader() {
     searchOpen,
   });
 
-  const notchX = bottomDockSize.notchX;
+  // Active item stays in place, so the dock never gets a notch.
+  const notchX = null;
+  const bottomBtnClass = (i) =>
+    `mx-auto flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-200 ${
+      bottomActiveIndex === i
+        ? "bg-[var(--primary)] text-white"
+        : "text-[var(--primary)]/80"
+    }`;
   const dockWidth = bottomDockSize.width || 360;
   const iconInset = dockIconInset(dockWidth);
 
@@ -965,7 +972,7 @@ export function SiteHeader() {
                       className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                       onClick={closeWishlist}
                     >
-                      View my wishlist
+                      View all
                     </Link>
                   </div>
                 ) : null}
@@ -1077,11 +1084,12 @@ export function SiteHeader() {
               transition={{ duration: 0.18 }}
             />
             <motion.aside
-              initial={{ y: "100%", x: 0 }}
+              ref={mobileWishlistRef}
+              initial={{ y: "-100%", x: 0 }}
               animate={{ x: 0, y: 0 }}
-              exit={{ y: "100%", x: 0 }}
-              transition={{ duration: 0.26, ease: "easeInOut" }}
-              className="fixed bottom-[calc(4rem+env(safe-area-inset-bottom))] left-0 right-0 z-50 flex h-[58vh] max-h-[calc(100dvh-9rem)] min-h-[24rem] flex-col rounded-t-2xl bg-[var(--surface-elevated)] shadow-[0_-12px_40px_rgba(0,0,0,0.15)] ring-1 ring-black/10"
+              exit={{ y: "-100%", x: 0, transition: { duration: 0.45, ease: [0.7, 0, 0.84, 0] } }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed left-0 right-0 top-0 z-50 flex h-[58vh] max-h-[calc(100dvh-6rem)] min-h-[24rem] flex-col rounded-b-2xl bg-[var(--surface-elevated)] pt-[env(safe-area-inset-top)] shadow-[0_12px_40px_rgba(0,0,0,0.15)] ring-1 ring-black/10"
             >
               <div className="flex shrink-0 items-baseline justify-between gap-2 border-b border-stone-200 px-5 py-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">
@@ -1164,7 +1172,7 @@ export function SiteHeader() {
                 className="mx-5 mb-3 mt-0.5 inline-flex w-auto shrink-0 items-center justify-center rounded-full bg-stone-900 px-4 py-2 text-sm font-semibold text-white hover:bg-stone-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                 onClick={closeWishlist}
               >
-                View my wishlist
+                View all
               </Link>
             </motion.aside>
           </div>
@@ -1188,7 +1196,7 @@ export function SiteHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute top-0 right-0 z-[80] flex h-full w-full max-w-[24rem] flex-col bg-[var(--surface)] shadow-2xl"
+              className="absolute top-0 right-0 z-[80] flex h-full w-[calc(100%-2.5rem)] max-w-[24rem] flex-col overflow-hidden bg-[var(--surface)] pb-[calc(4.75rem+env(safe-area-inset-bottom))] shadow-2xl sm:w-full sm:pb-0"
               aria-label="Your order"
             >
               <div className="flex shrink-0 items-center justify-between gap-3 bg-[var(--primary)] px-5 py-4 text-white">
@@ -1546,8 +1554,8 @@ export function SiteHeader() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Bottom Bar — soft rounded dock + floating active chip */}
-      <div className="fixed bottom-0 left-0 right-0 z-[60] px-3 pb-[max(0.85rem,env(safe-area-inset-bottom))] pt-10 sm:hidden">
+      {/* Mobile Bottom Bar — soft rounded dock; active item highlighted in place */}
+      <div className="fixed bottom-0 left-0 right-0 z-[85] px-3 pb-[max(0.85rem,env(safe-area-inset-bottom))] pt-10 sm:hidden">
         <div ref={bottomBarRef} className="relative h-[3.75rem]">
           <svg
             aria-hidden
@@ -1589,34 +1597,34 @@ export function SiteHeader() {
 
           <div
             className="relative z-10 grid h-full grid-cols-5 items-center"
-            style={{ ...iconLayerMask, paddingInline: iconInset }}
+            style={{ ...iconLayerMask, paddingInline: 6 }}
           >
             <div
               data-bottom-idx="0"
               className="relative flex h-full items-center justify-center"
             >
-              {bottomActiveIndex !== 0 ? (
+              {(
                 <Link
                   href="/"
                   onClick={closeBottomBarPanels}
-                  className={bottomBarIdleBtn}
+                  className={bottomBtnClass(0)}
                   aria-label="Home"
                   aria-current={pathname === "/" ? "page" : undefined}
                 >
                   <HomeIcon className="h-6 w-6" />
                 </Link>
-              ) : null}
+              )}
             </div>
 
             <div
               data-bottom-idx="1"
               className="relative flex h-full items-center justify-center"
             >
-              {bottomActiveIndex !== 1 ? (
+              {(
                 <button
                   type="button"
                   onClick={openWishlistFromBar}
-                  className={bottomBarIdleBtn}
+                  className={bottomBtnClass(1)}
                   aria-label="Wishlist"
                   aria-pressed={wishlistOpen}
                 >
@@ -1629,18 +1637,18 @@ export function SiteHeader() {
                     )}
                   </div>
                 </button>
-              ) : null}
+              )}
             </div>
 
             <div
               data-bottom-idx="2"
               className="relative flex h-full items-center justify-center"
             >
-              {bottomActiveIndex !== 2 ? (
+              {(
                 <button
                   type="button"
                   onClick={openCartFromBar}
-                  className={bottomBarIdleBtn}
+                  className={bottomBtnClass(2)}
                   aria-label="Cart"
                   aria-pressed={cartMounted}
                 >
@@ -1653,124 +1661,44 @@ export function SiteHeader() {
                     )}
                   </div>
                 </button>
-              ) : null}
+              )}
             </div>
 
             <div
               data-bottom-idx="3"
               className="relative flex h-full items-center justify-center"
             >
-              {bottomActiveIndex !== 3 ? (
+              {(
                 <Link
                   href={accountHref}
                   onClick={closeBottomBarPanels}
-                  className={bottomBarIdleBtn}
+                  className={bottomBtnClass(3)}
                   aria-label={isAuthenticated ? "My account" : "Login"}
                 >
                   <UserIcon className="h-6 w-6" />
                 </Link>
-              ) : null}
+              )}
             </div>
 
             <div
               data-bottom-idx="4"
               className="relative flex h-full items-center justify-center"
             >
-              {bottomActiveIndex !== 4 ? (
+              {(
                 <button
                   type="button"
                   ref={mobileSearchTriggerRef}
                   onClick={toggleSearch}
-                  className={bottomBarIdleBtn}
+                  className={bottomBtnClass(4)}
                   aria-label={searchOpen ? "Close search" : "Search"}
                   aria-expanded={searchOpen}
                 >
                   <SearchIcon className="h-6 w-6" />
                 </button>
-              ) : null}
+              )}
             </div>
           </div>
 
-          {notchX != null && bottomActiveIndex >= 0 ? (
-            <motion.div
-              className="absolute top-0 z-30"
-              initial={false}
-              animate={{ left: notchX }}
-              transition={dockSpring}
-            >
-              <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2">
-                {bottomActiveIndex === 0 ? (
-                  <Link
-                    href="/"
-                    onClick={closeBottomBarPanels}
-                    className={bottomBarActiveChip}
-                    aria-label="Home"
-                    aria-current="page"
-                  >
-                    <HomeIcon className="h-6 w-6" />
-                  </Link>
-                ) : null}
-                {bottomActiveIndex === 1 ? (
-                  <button
-                    type="button"
-                    onClick={openWishlistFromBar}
-                    className={bottomBarActiveChip}
-                    aria-label="Wishlist"
-                    aria-pressed={wishlistOpen}
-                  >
-                    <div className="relative">
-                      <HeartIcon className="h-6 w-6" />
-                      {wishReady && wishCount > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[var(--primary)] px-0.5 text-[8px] font-bold leading-none text-[var(--secondary)]">
-                          {wishCount > 99 ? "99+" : wishCount}
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                ) : null}
-                {bottomActiveIndex === 2 ? (
-                  <button
-                    type="button"
-                    onClick={openCartFromBar}
-                    className={bottomBarActiveChip}
-                    aria-label="Cart"
-                    aria-pressed={cartMounted}
-                  >
-                    <div className="relative">
-                      <BagIcon className="h-6 w-6" />
-                      {ready && totalItems > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[var(--primary)] px-0.5 text-[8px] font-bold leading-none text-[var(--secondary)]">
-                          {totalItems > 99 ? "99+" : totalItems}
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                ) : null}
-                {bottomActiveIndex === 3 ? (
-                  <Link
-                    href={accountHref}
-                    onClick={closeBottomBarPanels}
-                    className={bottomBarActiveChip}
-                    aria-label={isAuthenticated ? "My account" : "Login"}
-                  >
-                    <UserIcon className="h-6 w-6" />
-                  </Link>
-                ) : null}
-                {bottomActiveIndex === 4 ? (
-                  <button
-                    type="button"
-                    ref={mobileSearchTriggerRef}
-                    onClick={toggleSearch}
-                    className={bottomBarActiveChip}
-                    aria-label={searchOpen ? "Close search" : "Search"}
-                    aria-expanded={searchOpen}
-                  >
-                    <SearchIcon className="h-6 w-6" />
-                  </button>
-                ) : null}
-              </div>
-            </motion.div>
-          ) : null}
         </div>
       </div>
     </>

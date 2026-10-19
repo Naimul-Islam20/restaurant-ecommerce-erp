@@ -13,7 +13,7 @@ export function CollectionsSection() {
       id="collections"
       className="border-b border-stone-200 bg-[var(--surface)]"
     >
-      <Container className="py-14 sm:py-20">
+      <Container className="pb-14 pt-6 sm:pb-20 sm:pt-8">
         <div className="mx-auto max-w-xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[var(--secondary-dark)]">
             From our kitchen
