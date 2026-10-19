@@ -15,7 +15,7 @@ import { formatPrice } from "@/lib/format";
 import { getProductBySlug } from "@/lib/products";
 import { sizeOptionLabel } from "@/lib/size-chart";
 import { QuickAddModal } from "@/components/product/quick-add-modal";
-import { BrandLogo } from "@/components/layout/brand-logo";
+import { BrandLogo, BrandMark } from "@/components/layout/brand-logo";
 import {
   LuBike,
   LuBookOpen,
@@ -1137,134 +1137,152 @@ export function SiteHeader() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.26, ease: "easeInOut" }}
-              className="absolute top-0 right-0 z-[80] flex h-full w-full max-w-[22rem] flex-col bg-white shadow-xl"
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-0 right-0 z-[80] flex h-full w-full max-w-[24rem] flex-col bg-[var(--surface)] shadow-2xl"
+              aria-label="Your order"
             >
-              <div className="relative flex h-11 shrink-0 items-center bg-[#2a2a2a] text-white">
+              <div className="flex shrink-0 items-center justify-between gap-3 bg-[var(--primary)] px-5 py-4 text-white">
+                <div className="flex items-center gap-3">
+                  <BrandMark className="h-6 w-auto text-[var(--secondary)]" />
+                  <div>
+                    <h2 className="text-base font-bold leading-tight">
+                      Your Order
+                    </h2>
+                    <p className="text-xs text-white/70">
+                      {ready ? totalItems : 0}{" "}
+                      {totalItems === 1 ? "item" : "items"}
+                    </p>
+                  </div>
+                </div>
                 <button
                   type="button"
                   onClick={closeCart}
                   aria-label="Close cart"
-                  className="relative z-10 ml-2 inline-flex h-8 w-8 items-center justify-center rounded-none text-xl leading-none text-red-500"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
                 >
-                  ×
+                  <CloseIcon className="h-5 w-5" />
                 </button>
-                <h2 className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm font-semibold tracking-[0.18em]">
-                  CART
-                </h2>
               </div>
+
               <div className="min-h-0 flex-1 overflow-y-auto">
                 {!ready ? (
-                  <p className="px-3 py-6 text-sm text-stone-500">Loading…</p>
+                  <p className="px-5 py-6 text-sm text-stone-500">Loading…</p>
                 ) : cartItems.length === 0 ? (
-                  <p className="px-3 py-6 text-sm text-stone-600">
-                    Your cart is empty.
-                  </p>
+                  <div className="flex h-full flex-col items-center justify-center px-8 text-center">
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--background)]">
+                      <BrandMark className="h-9 w-auto text-[var(--primary)]" />
+                    </span>
+                    <p className="mt-5 text-lg font-bold text-stone-900">
+                      Your order is empty
+                    </p>
+                    <p className="mt-1 text-sm text-stone-500">
+                      Add a few dishes from the menu to get started.
+                    </p>
+                    <Link
+                      href="/shop"
+                      onClick={closeCart}
+                      className="mt-6 inline-flex rounded-full bg-[var(--primary)] px-6 py-3 text-sm font-semibold text-white"
+                    >
+                      Browse menu
+                    </Link>
+                  </div>
                 ) : (
-                  <ul>
+                  <ul className="space-y-3 p-4">
                     {cartItems.map((line) => {
                       const product = getProductBySlug(line.slug);
                       const sizes = product?.sizes?.length
                         ? product.sizes
                         : [line.size];
-                      const qtyOptions = Array.from(
-                        { length: Math.max(10, line.quantity) },
-                        (_, index) => index + 1,
-                      );
-                      const onSale =
-                        line.compareAtPrice != null &&
-                        line.compareAtPrice > line.price;
                       return (
                         <li
                           key={line.lineId}
-                          className="border-b border-stone-200 px-3 py-3"
+                          className="flex gap-3 rounded-2xl border border-stone-200 bg-white p-3"
                         >
-                          <div className="flex items-start gap-3">
-                            <p className="min-w-0 flex-1 text-sm leading-snug font-medium text-stone-900">
-                              {line.name}
-                            </p>
-                            <div className="relative h-16 w-14 shrink-0 overflow-hidden bg-stone-100"
-                            >
-                              <ImageWithFallback
-                                src={line.image}
-                                alt=""
-                                useNative
-                                imageClassName="object-cover"
-                                fallbackClassName="flex h-full w-full items-center justify-center bg-stone-200 text-stone-500"
-                                fallbackLabelClassName="text-[8px] font-semibold uppercase tracking-[0.12em]"
-                              />
+                          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-stone-100">
+                            <ImageWithFallback
+                              src={line.image}
+                              alt=""
+                              useNative
+                              imageClassName="object-cover"
+                              fallbackClassName="flex h-full w-full items-center justify-center bg-stone-200 text-stone-500"
+                              fallbackLabelClassName="text-[8px] font-semibold uppercase tracking-[0.12em]"
+                            />
+                          </div>
+                          <div className="flex min-w-0 flex-1 flex-col">
+                            <div className="flex items-start justify-between gap-2">
+                              <p className="text-sm font-semibold leading-snug text-stone-900">
+                                {line.name}
+                              </p>
+                              <button
+                                type="button"
+                                onClick={() => removeCartItem(line.lineId)}
+                                aria-label={`Remove ${line.name}`}
+                                className="-mr-1 -mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-stone-400 hover:bg-red-50 hover:text-[var(--primary)]"
+                              >
+                                <TrashIcon className="h-4 w-4" />
+                              </button>
                             </div>
-                          </div>
-                          <div className="mt-2 grid grid-cols-[5.5rem_1fr] items-center gap-y-2 text-xs text-stone-700">
-                            <span>Price</span>
-                            <span className="text-right font-medium text-stone-900">
-                              {onSale ? (
-                                <span className="mr-1.5 font-normal text-stone-400 line-through">
-                                  {formatPrice(line.compareAtPrice, line.currency)}
-                                </span>
-                              ) : null}
-                              {formatPrice(line.price, line.currency)}
-                            </span>
-                            <span>Portion</span>
-                            <select
-                              aria-label={`Portion for ${line.name}`}
-                              value={line.size}
-                              onChange={(event) =>
-                                changeSize(line.lineId, event.target.value)
-                              }
-                              className="w-full rounded border border-stone-300 bg-white px-2 py-1 text-xs text-stone-800"
-                            >
-                              {sizes.map((size) => (
-                                <option key={size} value={size}>
-                                  {sizeOptionLabel(size)}
-                                </option>
-                              ))}
-                            </select>
-                            <span>Quantity</span>
-                            <select
-                              aria-label={`Quantity for ${line.name}`}
-                              value={line.quantity}
-                              onChange={(event) =>
-                                updateQuantity(
-                                  line.lineId,
-                                  Number(event.target.value),
-                                )
-                              }
-                              className="w-full rounded border border-stone-300 bg-white px-2 py-1 text-xs text-stone-800"
-                            >
-                              {qtyOptions.map((qty) => (
-                                <option key={qty} value={qty}>
-                                  {qty}
-                                </option>
-                              ))}
-                            </select>
-                            <span>Subtotal</span>
-                            <span className="text-right font-medium text-stone-900">
-                              {formatPrice(
-                                line.price * line.quantity,
-                                line.currency,
+                            <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-stone-500">
+                              {sizes.length > 1 ? (
+                                <select
+                                  aria-label={`Portion for ${line.name}`}
+                                  value={line.size}
+                                  onChange={(event) =>
+                                    changeSize(line.lineId, event.target.value)
+                                  }
+                                  className="rounded-full border border-stone-200 bg-stone-50 px-2 py-0.5 text-xs text-stone-700"
+                                >
+                                  {sizes.map((size) => (
+                                    <option key={size} value={size}>
+                                      {sizeOptionLabel(size)}
+                                    </option>
+                                  ))}
+                                </select>
+                              ) : (
+                                <span>{sizeOptionLabel(line.size)}</span>
                               )}
-                            </span>
-                          </div>
-                          <div className="mt-3 flex items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                if (product) setQuickAddProduct(product);
-                              }}
-                              disabled={!product}
-                              className="flex-1 rounded-sm bg-[var(--primary)] py-2 text-sm font-medium text-white disabled:opacity-40"
-                            >
-                              + Add another Size
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => removeCartItem(line.lineId)}
-                              aria-label={`Remove ${line.name}`}
-                              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-red-600 text-white"
-                            >
-                              <TrashIcon className="h-4 w-4" />
-                            </button>
+                              {line.color ? <span>· {line.color}</span> : null}
+                            </div>
+                            <div className="mt-auto flex items-center justify-between pt-2">
+                              <div className="flex items-center rounded-full border border-stone-200">
+                                <button
+                                  type="button"
+                                  aria-label={`Decrease ${line.name}`}
+                                  disabled={line.quantity <= 1}
+                                  onClick={() =>
+                                    updateQuantity(
+                                      line.lineId,
+                                      line.quantity - 1,
+                                    )
+                                  }
+                                  className="inline-flex h-7 w-7 items-center justify-center rounded-full text-stone-700 disabled:opacity-30"
+                                >
+                                  −
+                                </button>
+                                <span className="min-w-6 text-center text-sm font-semibold text-stone-900">
+                                  {line.quantity}
+                                </span>
+                                <button
+                                  type="button"
+                                  aria-label={`Increase ${line.name}`}
+                                  onClick={() =>
+                                    updateQuantity(
+                                      line.lineId,
+                                      line.quantity + 1,
+                                    )
+                                  }
+                                  className="inline-flex h-7 w-7 items-center justify-center rounded-full text-stone-700"
+                                >
+                                  +
+                                </button>
+                              </div>
+                              <span className="text-sm font-bold text-[var(--primary)]">
+                                {formatPrice(
+                                  line.price * line.quantity,
+                                  line.currency,
+                                )}
+                              </span>
+                            </div>
                           </div>
                         </li>
                       );
@@ -1272,20 +1290,32 @@ export function SiteHeader() {
                   </ul>
                 )}
               </div>
+
               {ready && cartItems.length > 0 ? (
-                <div className="flex shrink-0 items-stretch border-t border-stone-200">
-                  <div className="flex w-[7.5rem] flex-col justify-center px-3 py-2">
-                    <span className="text-[11px] text-stone-500">Cart Total</span>
-                    <span className="text-sm font-semibold text-stone-900">
+                <div className="shrink-0 border-t border-stone-200 bg-white px-5 pb-5 pt-4">
+                  <div className="flex items-center justify-between text-sm text-stone-600">
+                    <span>Subtotal</span>
+                    <span className="font-semibold text-stone-900">
                       {formatPrice(subtotal, cartItems[0].currency)}
                     </span>
                   </div>
+                  <p className="mt-1 text-xs text-stone-400">
+                    Delivery charge is added at checkout.
+                  </p>
                   <Link
                     href="/checkout"
                     onClick={closeCart}
-                    className="flex flex-1 items-center justify-center bg-[var(--primary)] text-sm font-semibold text-white"
+                    className="mt-4 flex h-12 items-center justify-between rounded-full bg-[var(--primary)] px-6 text-sm font-semibold text-white"
                   >
-                    Checkout &gt;
+                    <span>Checkout</span>
+                    <span>{formatPrice(subtotal, cartItems[0].currency)}</span>
+                  </Link>
+                  <Link
+                    href="/shop"
+                    onClick={closeCart}
+                    className="mt-3 block text-center text-sm font-medium text-[var(--primary)]"
+                  >
+                    + Add more items
                   </Link>
                 </div>
               ) : null}

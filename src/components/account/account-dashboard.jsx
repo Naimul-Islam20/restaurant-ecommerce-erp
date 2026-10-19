@@ -30,7 +30,7 @@ const QUICK_SHOPPING_ACTIONS = [
   { id: "store-credit", label: "Store Credit", idNav: "account-detail", icon: IconCreditCard },
   { id: "gift-cards", label: "Gift Cards", href: "/shop", icon: IconGift },
   { id: "size-guide", label: "Size Guide", href: "/size-guide", icon: IconTag },
-  { id: "exchange", label: "Exchange & Refund", href: "/return-policy", icon: IconRefresh },
+  { id: "exchange", label: "Refund & Replacement", href: "/exchange-refund", icon: IconRefresh },
   { id: "support", label: "Customer Care", href: "/contact", icon: IconPhone },
 ];
 

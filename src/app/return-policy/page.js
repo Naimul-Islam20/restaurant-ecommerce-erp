@@ -1,138 +1,67 @@
-import { InfoPage } from "@/components/layout/info-page";
+import { InfoPage, InfoSection } from "@/components/layout/info-page";
 
-export default function ReturnPolicyPage() {
+export const metadata = {
+  title: "Cancellation Policy",
+  description:
+    "How to cancel or change an ERP17 Restaurant order or table booking.",
+};
+
+export default function CancellationPolicyPage() {
   return (
-    <InfoPage title="Return Policy">
-          <p className="text-justify">
-            At MAALEEN, customer satisfaction is a priority. We carefully inspect every
-            product before dispatch to ensure quality standards are met. However, if you
-            encounter any issues with your purchase, we are here to assist you through our
-            exchange process. Please review the guidelines below to understand our return
-            and exchange policy.
-          </p>
+    <InfoPage
+      title="Cancellation Policy"
+      intro="Plans change. Here is how to cancel or change an order or a table booking."
+    >
+      <InfoSection title="Cancelling a delivery or pickup order">
+        <ul className="list-disc space-y-1.5 pl-5">
+          <li>
+            <strong>Within 5 minutes of ordering:</strong> free cancellation,
+            full refund.
+          </li>
+          <li>
+            <strong>After the kitchen starts cooking:</strong> we can&apos;t cancel,
+            because the food is already being made for you.
+          </li>
+          <li>
+            <strong>Pre-orders for a later time:</strong> free to cancel up to
+            1 hour before the scheduled time.
+          </li>
+        </ul>
+      </InfoSection>
 
-          <section className="mt-8 space-y-3 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Exchange Eligibility
-            </h2>
+      <InfoSection title="Changing an order">
+        <p>
+          Need to add a dish, change a portion or fix the address? Call us as
+          soon as possible. We will update the order if the kitchen has not
+          started on it yet.
+        </p>
+      </InfoSection>
 
-            <h3 className="mt-3 text-sm font-semibold text-stone-900">
-              Standard menu items
-            </h3>
-            <p>
-              <span className="font-medium">Replacement window:</span> Report a wrong,
-              missing, or damaged dish within 2 hours of delivery.
-            </p>
-            <p>
-              <span className="font-medium">What we replace:</span> We replace food that
-              arrives incorrect or unsafe to eat. We do not take opened meals back for a
-              refund after they have been accepted.
-            </p>
-            <p className="mt-2">Please check that the order:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Matches the dishes and portions on your receipt</li>
-              <li>Arrived sealed in the delivery pack</li>
-              <li>Was not left out of refrigeration for hours before you opened it</li>
-            </ul>
-            <p>
-              Items that do not meet these conditions will not be eligible for exchange.
-            </p>
+      <InfoSection title="Table bookings">
+        <ul className="list-disc space-y-1.5 pl-5">
+          <li>Cancel or move a booking free of charge up to 2 hours before.</li>
+          <li>We hold your table for 15 minutes after the booking time.</li>
+          <li>
+            Group bookings of 10+ guests need 24 hours&apos; notice to cancel.
+          </li>
+        </ul>
+      </InfoSection>
 
-            <h3 className="mt-5 text-sm font-semibold text-stone-900">
-              Custom spice and portion requests
-            </h3>
-            <p>
-              Dishes cooked to a spice level or portion you selected are prepared
-              for that order and are not remade for a change of mind.
-            </p>
-            <p className="mt-1">
-              If the kitchen sent a different dish from the one on your receipt,
-              contact us with a photo of the pack. We will replace it or confirm
-              the next step.
-            </p>
-          </section>
+      <InfoSection title="Party & catering orders">
+        <p>
+          Orders for events and parties are cooked to plan, so they need at
+          least <strong>24 hours&apos; notice</strong> to cancel. The advance
+          payment is refunded in full within that window.
+        </p>
+      </InfoSection>
 
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              How to Request an Exchange
-            </h2>
-            <p>To initiate an exchange, please follow the steps below:</p>
-
-            <h3 className="mt-3 text-sm font-semibold text-stone-900">
-              1. Contact Customer Support
-            </h3>
-            <p>Reach out to us before sending any product:</p>
-            <p>
-              <span className="font-medium">Phone:</span> 123456789
-            </p>
-            <p>
-              <span className="font-medium">Email:</span>{" "}
-              <a
-                href="mailto:info@maaleen.com"
-                className="text-[var(--accent)] hover:underline"
-              >
-                info@maaleen.com
-              </a>{" "}
-              (replace if needed)
-            </p>
-            <p className="mt-1">Please include:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Order number</li>
-              <li>Item(s) you wish to exchange</li>
-              <li>Reason for the exchange</li>
-            </ul>
-
-            <h3 className="mt-4 text-sm font-semibold text-stone-900">
-              2. Exchange Authorization
-            </h3>
-            <p>
-              Once your request is reviewed and approved, we will provide you with an
-              Exchange Authorization and further instructions.
-            </p>
-
-            <h3 className="mt-4 text-sm font-semibold text-stone-900">
-              3. Prepare the Package
-            </h3>
-            <p>When preparing your exchange shipment, please:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Pack the item securely, preferably in its original packaging</li>
-              <li>Include all tags, accessories, and invoices</li>
-              <li>Clearly mention the Exchange Authorization details</li>
-            </ul>
-            <p>
-              When contacting us, please specify the item you would like in exchange.
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Exchange Return Address
-            </h2>
-            <p>
-              Please send the approved exchange package to the following address:
-            </p>
-            <p className="mt-1">
-              Dhanmondi Old 10/A
-              <br />
-              Address, Bangladesh
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Important Notes
-            </h2>
-            <p>
-              Customers are responsible for delivery charges associated with sending
-              items back for exchange unless the issue is due to a verified defect.
-            </p>
-            <p>
-              MAALEEN reserves the right to reject any exchange request that does not
-              comply with the policy stated above.
-            </p>
-            <p>Products sent without prior authorization will not be accepted.</p>
-          </section>
+      <InfoSection title="If we have to cancel">
+        <p>
+          Very rarely a dish sells out or a delivery area is closed due to
+          weather. If ERP17 Restaurant cancels your order, you get a full
+          refund — no questions asked.
+        </p>
+      </InfoSection>
     </InfoPage>
   );
 }
-

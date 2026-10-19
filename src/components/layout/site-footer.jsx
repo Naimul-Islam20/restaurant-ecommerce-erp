@@ -32,7 +32,7 @@ const LEGAL_LINKS = [
   { href: "/privacy-policy", label: "Privacy" },
   { href: "/exchange-refund", label: "Refunds" },
   { href: "/shipping-policy", label: "Delivery" },
-  { href: "/return-policy", label: "Returns" },
+  { href: "/return-policy", label: "Cancellation" },
 ];
 
 const SOCIAL_LINKS = [

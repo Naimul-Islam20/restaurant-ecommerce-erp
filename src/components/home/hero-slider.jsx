@@ -37,7 +37,7 @@ const SLIDES = [
 ];
 
 const arrowClass =
-  "h-11 w-11 items-center justify-center rounded-full border border-white/50 text-white transition-colors hover:bg-white hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-12 sm:w-12";
+  "h-9 w-9 items-center justify-center rounded-full border border-white/50 text-white transition-colors hover:bg-white hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-12 sm:w-12 bg-black/20 sm:bg-transparent";
 
 export function HeroSlider() {
   const [index, setIndex] = useState(0);
@@ -57,7 +57,7 @@ export function HeroSlider() {
 
   return (
     <div
-      className="relative h-[32rem] w-full overflow-hidden bg-stone-900 sm:h-[36rem] lg:h-[42rem]"
+      className="relative aspect-[16/9] w-full overflow-hidden bg-stone-900 sm:aspect-auto sm:h-[36rem] lg:h-[42rem]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -78,7 +78,7 @@ export function HeroSlider() {
             alt=""
             fill
             className={`object-cover transition-transform duration-[6000ms] ease-linear motion-reduce:transition-none ${
-              i === index ? "scale-110" : "scale-100"
+              i === index ? "sm:scale-110" : "scale-100"
             }`}
             sizes="100vw"
             priority={i === 0}
@@ -88,11 +88,11 @@ export function HeroSlider() {
       ))}
 
       <div
-        className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20"
+        className="absolute inset-0 bg-black/35 sm:bg-transparent sm:bg-gradient-to-r sm:from-black/80 sm:via-black/50 sm:to-black/20"
         aria-hidden
       />
 
-      <Container className="relative z-10 flex h-full items-center">
+      <Container className="relative z-10 flex h-full items-end justify-center pb-5 sm:items-center sm:justify-start sm:pb-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id}
@@ -102,25 +102,25 @@ export function HeroSlider() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <p className="font-[family-name:var(--font-display)] text-2xl italic text-[var(--secondary)] sm:text-3xl">
+            <p className="hidden font-[family-name:var(--font-display)] text-3xl italic text-[var(--secondary)] sm:block">
               {slide.welcome}
             </p>
-            <h1 className="mt-3 text-4xl font-extrabold uppercase leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+            <h1 className="sr-only sm:not-sr-only sm:mt-3 sm:block sm:text-5xl sm:font-extrabold sm:uppercase sm:leading-[1.1] sm:text-white lg:text-6xl">
               {slide.title}
             </h1>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
+            <p className="mt-5 hidden max-w-lg text-lg leading-relaxed text-white/80 sm:block">
               {slide.text}
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-3 sm:mt-8 sm:justify-start sm:gap-4">
               <Link
                 href="/shop"
-                className="inline-flex items-center rounded-md bg-[var(--primary)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex items-center rounded-md bg-[var(--primary)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white sm:px-8 sm:py-4 sm:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Explore Menu
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center rounded-md bg-[var(--secondary)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex items-center rounded-md bg-[var(--secondary)] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-stone-900 sm:px-8 sm:py-4 sm:text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Book a Table
               </Link>
@@ -129,43 +129,24 @@ export function HeroSlider() {
         </AnimatePresence>
       </Container>
 
-      {/* Side arrows on tablet/desktop */}
+      {/* Side arrows */}
       <button
         type="button"
         onClick={prev}
         aria-label="Previous slide"
-        className={`absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 sm:inline-flex lg:left-8 ${arrowClass}`}
+        className={`absolute left-2 top-1/2 z-10 inline-flex -translate-y-1/2 sm:left-4 lg:left-8 ${arrowClass}`}
       >
-        <LuChevronLeft className="h-6 w-6" aria-hidden />
+        <LuChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
       </button>
       <button
         type="button"
         onClick={next}
         aria-label="Next slide"
-        className={`absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 sm:inline-flex lg:right-8 ${arrowClass}`}
+        className={`absolute right-2 top-1/2 z-10 inline-flex -translate-y-1/2 sm:right-4 lg:right-8 ${arrowClass}`}
       >
-        <LuChevronRight className="h-6 w-6" aria-hidden />
+        <LuChevronRight className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
       </button>
 
-      {/* Arrows at the bottom on mobile */}
-      <div className="absolute bottom-5 right-4 z-10 flex gap-2 sm:hidden">
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous slide"
-          className={`inline-flex ${arrowClass}`}
-        >
-          <LuChevronLeft className="h-5 w-5" aria-hidden />
-        </button>
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next slide"
-          className={`inline-flex ${arrowClass}`}
-        >
-          <LuChevronRight className="h-5 w-5" aria-hidden />
-        </button>
-      </div>
     </div>
   );
 }

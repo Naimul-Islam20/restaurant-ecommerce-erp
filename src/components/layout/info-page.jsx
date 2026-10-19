@@ -2,52 +2,80 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { Container } from "@/components/layout/container";
 
 const LINKS = [
-  { href: "/exchange-refund", label: "Exchange & Refund" },
-  { href: "/return-policy", label: "Return Policy" },
-  { href: "/shipping-policy", label: "Shipping Policy" },
+  { href: "/exchange-refund", label: "Refund & Replacement" },
+  { href: "/return-policy", label: "Cancellation Policy" },
+  { href: "/shipping-policy", label: "Delivery Policy" },
   { href: "/faqs", label: "FAQs" },
   { href: "/privacy-policy", label: "Privacy Policy" },
 ];
 
-export function InfoPage({ title, children }) {
+/** One titled block inside an information page. */
+export function InfoSection({ title, children }) {
+  return (
+    <section className="mt-10 first:mt-0">
+      <h2 className="text-lg font-bold text-stone-900 sm:text-xl">{title}</h2>
+      <div className="mt-3 space-y-3">{children}</div>
+    </section>
+  );
+}
+
+export function InfoPage({ title, intro, updated = "1 October 2026", children }) {
   const pathname = usePathname();
+  const activeTabRef = useRef(null);
+
+  // On phones the tab row scrolls sideways; bring the current tab into view.
+  useEffect(() => {
+    activeTabRef.current?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [pathname]);
 
   return (
-    <section className="w-full py-10 sm:py-14 lg:py-16">
-      <Container>
-        <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-stone-400">
-          <Link href="/" className="transition hover:text-stone-700">
-            Home
-          </Link>
-          <span className="mx-1.5">›</span>
-          <span>Information</span>
-          <span className="mx-1.5">›</span>
-          <span className="text-stone-500">{title}</span>
-        </p>
+    <div className="bg-[var(--surface)]">
+      <section className="bg-[var(--primary)]">
+        <Container className="py-12 text-center sm:py-16">
+          <p className="text-xs font-medium text-white/70">
+            <Link href="/" className="hover:text-white">
+              Home
+            </Link>
+            <span className="mx-1.5">/</span>
+            <span>Information</span>
+          </p>
+          <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-semibold text-white sm:text-5xl">
+            {title}
+          </h1>
+          {intro ? (
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+              {intro}
+            </p>
+          ) : null}
+        </Container>
+      </section>
 
-        <h1 className="mt-5 font-[family-name:var(--font-display)] text-4xl font-semibold tracking-tight text-stone-950 sm:text-5xl">
-          {title}
-        </h1>
-
-        <nav
-          aria-label="Information"
-          className="-mx-3 mt-6 border-b border-stone-200 lg:hidden"
-        >
-          <ul className="flex gap-1 overflow-x-auto px-3 scrollbar-none">
+      {/* Tabs */}
+      <nav
+        aria-label="Information pages"
+        className="border-b border-stone-200 bg-white"
+      >
+        <Container>
+          <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 py-3 scrollbar-none sm:justify-center">
             {LINKS.map((item) => {
               const active = pathname === item.href;
               return (
-                <li key={item.href} className="shrink-0">
+                <li
+                  key={item.href}
+                  ref={active ? activeTabRef : undefined}
+                  className="shrink-0"
+                >
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`block border-b-2 px-3 py-3 text-sm whitespace-nowrap transition ${
+                    className={`block whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                       active
-                        ? "border-[#a51e22] font-semibold text-stone-950"
-                        : "border-transparent text-stone-500"
+                        ? "bg-[var(--primary)] text-white"
+                        : "bg-stone-100 text-stone-600 hover:bg-stone-200"
                     }`}
                   >
                     {item.label}
@@ -56,45 +84,28 @@ export function InfoPage({ title, children }) {
               );
             })}
           </ul>
-        </nav>
+        </Container>
+      </nav>
 
-        <div className="mt-8 grid items-start gap-8 lg:mt-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-14">
-          <aside className="hidden lg:sticky lg:top-24 lg:block">
-            <nav
-              aria-label="Information"
-              className="rounded-2xl border border-stone-200/80 bg-white py-3 shadow-[0_10px_30px_rgba(165,30,34,0.04)]"
+      <Container className="py-10 sm:py-14">
+        <article className="mx-auto max-w-3xl rounded-3xl border border-stone-200 bg-white p-6 text-sm leading-relaxed text-stone-700 sm:p-10 sm:text-base [&_li]:marker:text-[var(--primary)] [&_strong]:font-semibold [&_strong]:text-stone-900">
+          {children}
+          <p className="mt-10 border-t border-stone-100 pt-5 text-xs text-stone-400">
+            Last updated: {updated}. Questions? Call{" "}
+            <a href="tel:+8801786493740" className="text-[var(--primary)]">
+              +88017 86 493 740
+            </a>{" "}
+            or email{" "}
+            <a
+              href="mailto:support@maaleen.store"
+              className="text-[var(--primary)]"
             >
-              <p className="px-4 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-400">
-                Information
-              </p>
-              <ul>
-                {LINKS.map((item) => {
-                  const active = pathname === item.href;
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        aria-current={active ? "page" : undefined}
-                        className={`block border-l-2 px-4 py-2.5 text-sm transition ${
-                          active
-                            ? "border-[#a51e22] font-semibold text-stone-950"
-                            : "border-transparent text-stone-500 hover:text-stone-800"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-          </aside>
-
-          <div className="min-w-0 text-sm leading-relaxed text-stone-700 sm:text-base [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-stone-950 [&_li]:marker:text-[#a51e22]">
-            {children}
-          </div>
-        </div>
+              support@maaleen.store
+            </a>
+            .
+          </p>
+        </article>
       </Container>
-    </section>
+    </div>
   );
 }

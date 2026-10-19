@@ -24,7 +24,7 @@ export function CollectionsSection() {
           <MenuDivider className="mt-4" />
         </div>
 
-        <MenuCategoryGrid className="mt-10 sm:mt-14" />
+        <MenuCategoryGrid withCollections className="mt-10 sm:mt-14" />
 
         <MenuHighlightGrid className="mt-12 sm:mt-16" />
 

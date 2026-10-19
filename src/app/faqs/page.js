@@ -1,26 +1,103 @@
- "use client";
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { InfoPage } from "@/components/layout/info-page";
+import { LuChevronDown } from "react-icons/lu";
+import { InfoPage, InfoSection } from "@/components/layout/info-page";
+
+const FAQ_GROUPS = [
+  {
+    title: "About ERP17 Restaurant",
+    items: [
+      {
+        q: "Where is ERP17 Restaurant?",
+        a: "House #1/A, Road #6, Sector #3, Uttara Model Town, Dhaka-1230. We are open every day — Saturday to Thursday 12 PM – 11 PM, Friday 2:30 PM – 11:30 PM.",
+      },
+      {
+        q: "Is the food halal?",
+        a: "Yes. All meat and poultry come from trusted halal suppliers, and we do not serve pork or alcohol.",
+      },
+      {
+        q: "Do you have a family area?",
+        a: "Yes, our dining room has a separate family section and high chairs for kids.",
+      },
+    ],
+  },
+  {
+    title: "Ordering & Delivery",
+    items: [
+      {
+        q: "How do I order online?",
+        a: "Open the Menu, tap a dish, choose your portion and preference, then add it to your order. When you are ready, go to Checkout and confirm your address and payment.",
+      },
+      {
+        q: "Which areas do you deliver to?",
+        a: "All of Uttara, plus Airport, Khilkhet, Abdullahpur and the rest of Dhaka. Charges start from ৳40 — see the Delivery Policy for the full list.",
+      },
+      {
+        q: "How long does delivery take?",
+        a: "Usually 30–45 minutes inside Uttara and up to 90 minutes for the rest of Dhaka. Peak hours and rain can add a little time.",
+      },
+      {
+        q: "Can I track my order?",
+        a: "Yes. Use Track Order with your order number and phone number to see where your food is.",
+      },
+    ],
+  },
+  {
+    title: "Food & Menu",
+    items: [
+      {
+        q: "Can I choose spice level and portion?",
+        a: "Most dishes let you pick a portion (Small, Regular, Large or Family) and a preference such as mild or spicy.",
+      },
+      {
+        q: "Can you leave out an ingredient?",
+        a: "Add a note at checkout (for example no nuts, no onion or less sugar). If the kitchen can't make the change, we will call you before cooking.",
+      },
+      {
+        q: "Do you take party or catering orders?",
+        a: "Yes — birthdays, office lunches and family events. Call us at least 24 hours ahead for a custom menu and price.",
+      },
+    ],
+  },
+  {
+    title: "Payment & Bookings",
+    items: [
+      {
+        q: "Which payment methods do you accept?",
+        a: "Cash on delivery, bKash, Nagad and all major debit/credit cards.",
+      },
+      {
+        q: "How do I book a table?",
+        a: "Use the Book a Table button or call us. We hold your table for 15 minutes after the booking time.",
+      },
+      {
+        q: "Can I cancel my order?",
+        a: "Yes, free within 5 minutes of ordering. After the kitchen starts cooking we can't cancel — see the Cancellation Policy for details.",
+      },
+    ],
+  },
+];
 
 function FaqItem({ question, children }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-md border border-stone-200 bg-white px-4 py-3">
+    <div className="rounded-xl border border-stone-200 bg-white">
       <button
         type="button"
-        className="flex w-full items-center justify-between text-left text-sm sm:text-base font-semibold text-stone-900"
+        className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left text-sm font-semibold text-stone-900 sm:text-base"
         onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
       >
         <span>{question}</span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="ml-3 text-stone-400"
+          className="shrink-0 text-[var(--primary)]"
         >
-          ▾
+          <LuChevronDown className="h-5 w-5" aria-hidden />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -33,7 +110,7 @@ function FaqItem({ question, children }) {
             transition={{ duration: 0.24, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="pt-2 text-sm text-stone-700 text-justify">{children}</div>
+            <p className="px-4 pb-4 text-sm text-stone-600">{children}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -43,115 +120,21 @@ function FaqItem({ question, children }) {
 
 export default function FaqsPage() {
   return (
-    <InfoPage title="FAQs">
-          <p className="text-justify">
-            Welcome to the MAALEEN FAQs page. Here you will find answers to the
-            most frequently asked questions about our brand, products, ordering
-            process, and customer support. If you need additional information or
-            have a question not covered below, please feel free to contact us
-            directly. We are always happy to assist.
-          </p>
-
-          <div className="mt-8 space-y-8 text-sm sm:text-base leading-relaxed text-stone-800 text-justify">
-            <section>
-              <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-                General Questions
-              </h2>
-              <div className="mt-4 space-y-3">
-                <FaqItem question="What kind of restaurant is MAALEEN?">
-                  MAALEEN is a Dhaka kitchen with a full menu: starters, mains,
-                  desserts, and drinks. The food is cooked to order for dine-in and
-                  delivery, with house spice levels you choose on each dish.
-                </FaqItem>
-                <FaqItem question="Where is the food prepared?">
-                  Every plate is cooked in our Uttara kitchen. We do not use a
-                  separate cloud kitchen. The same pass sends food to the dining
-                  room and into delivery boxes.
-                </FaqItem>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-                Product Information
-              </h2>
-              <div className="mt-4 space-y-3">
-                <FaqItem question="Can I choose spice level or portion?">
-                  Most dishes let you pick a style — mild, spicy, classic, or a
-                  listed variation — and a portion. The kitchen follows that choice
-                  when the order is fired.
-                </FaqItem>
-                <FaqItem question="Do you cook for dietary requests?">
-                  Tell us at checkout if you need a dish without nuts, less sugar,
-                  or no onion. We will confirm if the kitchen can plate it that way
-                  before the order goes out.
-                </FaqItem>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-                Ordering and Shipping
-              </h2>
-              <div className="mt-4 space-y-3">
-                <FaqItem question="How can I place an order?">
-                  You can place an order directly through our website by selecting your
-                  preferred portion and adding items to the cart. Once you proceed to
-                  checkout, simply provide your shipping details, choose a payment method,
-                  and confirm the order.
-                </FaqItem>
-                <FaqItem question="What shipping options are available?">
-                  We offer standard and, in some cases, express shipping options depending
-                  on your location. Full details about delivery timelines and costs are
-                  available on our Shipping Policy page and at checkout.
-                </FaqItem>
-                <FaqItem question="Do you ship internationally?">
-                  Yes, we ship to selected international destinations. Availability,
-                  delivery timeframes, and charges vary by country and are shown during
-                  checkout.
-                </FaqItem>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-                Exchanges &amp; Returns
-              </h2>
-              <div className="mt-4 space-y-3">
-                <FaqItem question="What is your exchange policy?">
-                  We currently offer exchanges for eligible items within a limited time
-                  window, primarily in cases of manufacturing defects or specific approved
-                  reasons. Full details, conditions, and timelines are available on our
-                  Exchange &amp; Return Policy page.
-                </FaqItem>
-                <FaqItem question="How do I request an exchange or return?">
-                  To request an exchange, please contact our customer support with your
-                  order number, the item you wish to exchange, and the reason for the
-                  request. Our team will review your case and share the next steps if the
-                  item is eligible under our policy.
-                </FaqItem>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-                Customer Service
-              </h2>
-              <div className="mt-4 space-y-3">
-                <FaqItem question="How can I contact MAALEEN customer support?">
-                  You can reach us via email or phone using the contact details provided on
-                  our Contact page. Our support team will do their best to respond as
-                  quickly as possible during business hours.
-                </FaqItem>
-              </div>
-            </section>
+    <InfoPage
+      title="FAQs"
+      intro="Quick answers about our food, delivery, payments and bookings."
+    >
+      {FAQ_GROUPS.map((group) => (
+        <InfoSection key={group.title} title={group.title}>
+          <div className="space-y-2.5">
+            {group.items.map((item) => (
+              <FaqItem key={item.q} question={item.q}>
+                {item.a}
+              </FaqItem>
+            ))}
           </div>
-
-          <p className="mt-8 text-sm sm:text-base leading-relaxed text-stone-700 text-justify">
-            We hope this FAQs page has been helpful. If you have any additional
-            questions or need further clarification, please do not hesitate to
-            reach out. Your satisfaction is important to us.
-          </p>
+        </InfoSection>
+      ))}
     </InfoPage>
   );
 }

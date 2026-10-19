@@ -1,165 +1,85 @@
-import { InfoPage } from "@/components/layout/info-page";
+import { InfoPage, InfoSection } from "@/components/layout/info-page";
 
-export default function ShippingPolicyPage() {
+export const metadata = {
+  title: "Delivery Policy",
+  description:
+    "ERP17 Restaurant delivery areas, charges, times and how your food reaches you hot.",
+};
+
+const ZONES = [
+  { area: "Uttara (all sectors)", charge: "৳40", time: "30–45 min" },
+  { area: "Airport, Khilkhet, Abdullahpur", charge: "৳60", time: "40–60 min" },
+  { area: "Rest of Dhaka", charge: "৳80", time: "60–90 min" },
+];
+
+export default function DeliveryPolicyPage() {
   return (
-    <InfoPage title="Shipping Policy">
-          <p className="text-justify">
-            At MAALEEN, we value your time and trust. Our goal is to ensure that your
-            orders are processed efficiently and delivered safely. This Shipping Policy
-            outlines our shipping methods, delivery timelines, and related terms so you
-            know exactly what to expect when shopping with us.
-          </p>
+    <InfoPage
+      title="Delivery Policy"
+      intro="Hot food from our Uttara kitchen to your door, every day from 12 PM to 11 PM."
+    >
+      <InfoSection title="Delivery areas & charges">
+        <div className="overflow-hidden rounded-xl border border-stone-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-stone-50 text-stone-900">
+              <tr>
+                <th className="px-4 py-3 font-semibold">Area</th>
+                <th className="px-4 py-3 font-semibold">Charge</th>
+                <th className="px-4 py-3 font-semibold">Usual time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ZONES.map((zone) => (
+                <tr key={zone.area} className="border-t border-stone-100">
+                  <td className="px-4 py-3">{zone.area}</td>
+                  <td className="px-4 py-3 font-semibold text-[var(--primary)]">
+                    {zone.charge}
+                  </td>
+                  <td className="px-4 py-3">{zone.time}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Times are estimates and can be longer at peak hours (Friday lunch,
+          weekend dinner) or in heavy rain.
+        </p>
+      </InfoSection>
 
-          <section className="mt-8 space-y-4 text-justify text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Shipping Options and Delivery Times
-            </h2>
-            <div>
-              <h3 className="mt-2 text-sm font-semibold text-stone-900">
-                Domestic Shipping (Bangladesh)
-              </h3>
-              <p className="mt-1">
-                <span className="font-medium">Standard Shipping:</span> Delivery within
-                3–5 business days.
-              </p>
-              <p className="mt-1">
-                <span className="font-medium">Express Shipping:</span> Delivery within
-                1–2 business days. Additional charges apply.
-              </p>
-            </div>
+      <InfoSection title="Delivery hours">
+        <ul className="list-disc space-y-1.5 pl-5">
+          <li>Saturday – Thursday: 12:00 PM – 10:30 PM</li>
+          <li>Friday: 2:30 PM – 11:00 PM</li>
+          <li>Last delivery order is taken 30 minutes before closing.</li>
+        </ul>
+      </InfoSection>
 
-            <div className="mt-3">
-              <h3 className="text-sm font-semibold text-stone-900">
-                International Shipping
-              </h3>
-              <p className="mt-1">
-                <span className="font-medium">Standard International Shipping:</span>{" "}
-                Delivery within 7–14 business days, depending on the destination.
-              </p>
-              <p className="mt-1">
-                <span className="font-medium">Expedited International Shipping:</span>{" "}
-                Delivery within 3–5 business days. Additional charges apply.
-              </p>
-            </div>
+      <InfoSection title="Keeping your food hot & fresh">
+        <p>
+          Every order is packed in sealed, food-safe boxes. Gravies, rice and
+          crisp items are packed separately so nothing goes soggy, and our
+          riders carry insulated bags.
+        </p>
+      </InfoSection>
 
-            <p className="mt-3 text-sm sm:text-base text-stone-700">
-              Please note that delivery times are estimates and may vary due to factors
-              beyond our control, including weather conditions, customs clearance, or
-              courier delays.
-            </p>
-          </section>
+      <InfoSection title="Payment">
+        <p>
+          Pay by cash on delivery, bKash, Nagad or card. Please keep change
+          ready for cash orders above ৳1,000.
+        </p>
+      </InfoSection>
 
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Shipping Costs
-            </h2>
-            <p>
-              Shipping costs are calculated based on the following factors:
-            </p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Order weight and size</li>
-              <li>Selected shipping method</li>
-              <li>Delivery destination</li>
-            </ul>
-            <p>
-              The exact shipping cost will be displayed at checkout before payment
-              confirmation.
-            </p>
-            <p className="mt-1">
-              <span className="font-medium">Domestic Orders:</span> Free standard
-              shipping may apply to orders above a specified value (if applicable).
-            </p>
-            <p className="mt-1">
-              <span className="font-medium">International Orders:</span> Shipping
-              charges vary by destination. Any applicable customs duties, taxes, or
-              import fees are the responsibility of the customer.
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Order Processing
-            </h2>
-            <p>
-              Orders are typically processed within 1–2 business days after confirmation.
-            </p>
-            <p>
-              Orders placed on weekends or public holidays will be processed on the next
-              business day.
-            </p>
-            <p>
-              Once your order has shipped, you will receive a confirmation message or
-              email with tracking details (where applicable).
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Delivery Guidelines
-            </h2>
-            <p>
-              <span className="font-medium">Receiving Your Order:</span> Please ensure
-              that someone is available at the delivery address to receive the package.
-              MAALEEN is not responsible for lost or stolen packages once the courier
-              confirms delivery.
-            </p>
-            <p>
-              <span className="font-medium">Delivery Issues:</span> If your order
-              arrives damaged or is significantly delayed, please contact us promptly so
-              we can coordinate with the shipping carrier to resolve the issue.
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Special or Remote Locations
-            </h2>
-            <p>
-              Delivery to certain remote or hard-to-reach areas may take additional time
-              or incur extra charges. If you are unsure whether your location is
-              serviceable, please contact our customer support team before placing your
-              order.
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Order Changes and Cancellations
-            </h2>
-            <p>
-              If you need to modify or cancel your order, please contact us as soon as
-              possible after placing it. While we will make every effort to accommodate
-              your request, changes cannot be guaranteed once an order has been
-              processed or shipped.
-            </p>
-          </section>
-
-          <section className="mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-stone-700">
-            <h2 className="text-lg sm:text-xl font-semibold text-stone-900">
-              Contact Us
-            </h2>
-            <p>
-              If you have any questions regarding shipping, delivery, or your order
-              status, please reach out to us:
-            </p>
-            <p>
-              <span className="font-medium">Phone:</span> 123456789
-            </p>
-            <p>
-              <span className="font-medium">Email:</span>{" "}
-              <a
-                href="mailto:info@maaleen.com"
-                className="text-[var(--accent)] hover:underline"
-              >
-                info@maaleen.com
-              </a>
-            </p>
-            <p className="mt-2">
-              Thank you for choosing MAALEEN. We appreciate your support and look
-              forward to delivering a seamless shopping experience.
-            </p>
-          </section>
+      <InfoSection title="Receiving your order">
+        <ul className="list-disc space-y-1.5 pl-5">
+          <li>Keep your phone on — the rider will call when nearby.</li>
+          <li>Check that all items are there before the rider leaves.</li>
+          <li>
+            If something is missing or wrong, see our Refund &amp; Replacement
+            policy.
+          </li>
+        </ul>
+      </InfoSection>
     </InfoPage>
   );
 }
-

@@ -95,6 +95,8 @@ body {
   background: var(--surface);
   color: var(--foreground);
   font-family: var(--font-sans);
+  /* Cormorant defaults to old-style figures ("ERP₁₇"); keep numbers upright. */
+  font-variant-numeric: lining-nums;
 }
 
 /* Slight radius. Classes that already set rounded-* keep their own shape. */
